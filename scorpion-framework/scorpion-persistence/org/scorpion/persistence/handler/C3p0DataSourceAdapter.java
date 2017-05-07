@@ -1,0 +1,79 @@
+package org.scorpion.persistence.handler;
+
+import java.beans.PropertyVetoException;
+import java.sql.SQLException;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import org.scorpion.api.configuration.DataSourceLis.DataSourceInfo;
+import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.kernel.TscpDataSource;
+import org.scorpion.api.log.PlatformLogger;
+import org.scorpion.api.persistence.AbsTscpDataSourceAdapter;
+import org.scorpion.api.persistence.ITscpDataSource;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+/**
+ *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.tscp.common
+ * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ * <p>Title: abstract factory class </p>
+ * <p>Description: the annotation is used to signal the method of component </p>
+ * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
+ * <p>Company: taiji.com.cn</p>
+ * <p>module: common abstract class</p>
+ * @author  郑承磊
+ * @version 1.0
+ * @history 修订历史（历次修订内容、修订人、修订时间等）
+ */
+public class C3p0DataSourceAdapter extends AbsTscpDataSourceAdapter{
+	
+	
+	@Override
+	public ITscpDataSource getDataSource(DataSourceInfo dataSourceInfo)throws TscpBaseException {
+		
+		ComboPooledDataSource dataSource = new ComboPooledDataSource();      
+		
+		try{
+			dataSource.setUser(dataSourceInfo.getUser());       
+			dataSource.setPassword(dataSourceInfo.getPasswd());       
+			dataSource.setJdbcUrl(dataSourceInfo.getUrl());
+			dataSource.setDriverClass(dataSourceInfo.getDriverClassName()); 
+			dataSource.setInitialPoolSize(dataSourceInfo.getInitSize()); 
+			dataSource.setMinPoolSize(dataSourceInfo.getInitSize()); 
+			dataSource.setMaxPoolSize(dataSourceInfo.getMaxActive()); 
+			dataSource.setMaxStatements(50); 
+			dataSource.setMaxIdleTime(dataSourceInfo.getMaxIdle());
+			dataSource.setDebugUnreturnedConnectionStackTraces(dataSourceInfo.isDumpStack());
+			dataSource.setUnreturnedConnectionTimeout(dataSourceInfo.getConnTimeout()==0?360:dataSourceInfo.getConnTimeout());
+			dataSource.setCheckoutTimeout(30000);
+			databaseConnProbe(dataSource);
+			if(dataSourceInfo.isDumpStack())
+				startMonitor(dataSource);
+		}catch(PropertyVetoException e){
+			throw new TscpBaseException("TSCP9084:Initialize C3P0 connection pool exception ! ",e);
+		}
+		
+		return new TscpDataSource(dataSourceInfo.getName(),dataSource,this.getDBType(dataSourceInfo.getDriverClassName()),dataSourceInfo.isDefaultDataSource());
+	}
+	
+	
+	
+
+	private void startMonitor(final ComboPooledDataSource dataSource){
+		
+		new Timer().schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				try {
+					PlatformLogger.info("====Current busy connections num is ["+dataSource.getNumBusyConnections()+"]==========");
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}, 0,5000);
+	}
+
+}

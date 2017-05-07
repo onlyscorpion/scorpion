@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ciphers>
+	<cipher name="DES" type="symmetry" algorithm="DES" keyLength="56"></cipher>
+	<cipher name="a" type="asymmetry" algorithm="RSA" keyLength="512" signAlgorithm="Md5withRSA"></cipher>
+	<cipher name="c" type="certificate" cerPath="zlex.cer" cerType="X.509" keyStoreType="jks" keyStorePath="zlex.keyStore" alias="www.zlex.org" password="123456"></cipher>
+</ciphers>

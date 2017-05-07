@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mq-configuration>
+   
+    <!-- @description configure system internal mq configuration information
+         @param name setting the broker name. this attribute is required
+         @param isLocal configure the broker is local broker or remote broker
+         @param url configure the broker url address
+         @param persistent setting data in the broker store disk or not
+         @author zhengchenglei -->
+         
+	<broker name="SYSTEM_BROKER" isLocal="false" url="127.0.0.1:41616" marshal="false" persistent="false" useJmx="false" enable="true">
+		<queue name="LOCAL_TSCP_MESSAGE" workthread ="3" deadmgpath="d:/" enablelistener="true" callTime="1200"></queue>
+		<queue name="LOCAL_TSCP_PACAKGE" workthread ="3" deadmgpath="d:/" enablelistener="true" callTime="1200"></queue>
+		<queue name="REPLY_TSCP_MESSAGE" workthread ="3" deadmgpath="d:/" enablelistener="true" callTime="1200"></queue>
+	</broker>
+
+</mq-configuration>

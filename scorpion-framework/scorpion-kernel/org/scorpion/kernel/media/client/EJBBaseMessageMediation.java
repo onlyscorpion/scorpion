@@ -1,0 +1,141 @@
+package org.scorpion.kernel.media.client;
+
+import javax.naming.NamingException;
+
+import org.scorpion.api.common.AbsMediationFactor;
+import org.scorpion.api.common.ITscpProtocal.ProtocolType;
+import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.kernel.IMessageReceiver;
+import org.scorpion.api.kernel.ITscpReqMedia;
+import org.scorpion.api.kernel.ITscpRespMedia;
+import org.scorpion.common.annotation.Sender;
+import org.scorpion.common.enums.SenderType;
+import org.scorpion.kernel.media.MediationPoolFactory;
+import org.scorpion.kernel.media.TscpEJBSenderMediationPool;
+import org.scorpion.kernel.route.EJBAdapter;
+
+/**
+ * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * <p>
+ * com.taiji.tscp.common
+ * <p>
+ * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * </p>
+ * <p>
+ * Title: abstract factory class
+ * </p>
+ * <p>
+ * Description: the annotation is used to signal the method of component
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2015 taiji.com.cn
+ * </p>
+ * <p>
+ * Company: taiji.com.cn
+ * </p>
+ * <p>
+ * module: common abstract class
+ * </p>
+ * 
+ * @author 郑承磊
+ * @version 1.0
+ * @history 修订历史（历次修订内容、修订人、修订时间等）
+ */
+@Sender(sendertype = SenderType.STANDARD_SENDER, protocolType = ProtocolType.EJB)
+public class EJBBaseMessageMediation extends AbsMediationFactor {
+
+	private static final long serialVersionUID = 2689610828067476887L;
+
+	private int containerType;
+
+	private String username;
+
+	private String password;
+
+	private String contextFactory;
+
+	private String ejbName;
+
+	/**
+	 * 
+	 */
+	public EJBBaseMessageMediation() {
+
+	}
+
+	@Override
+	public ITscpRespMedia messageSenderHandler(ITscpReqMedia req)throws TscpBaseException {
+
+		try {
+			IMessageReceiver receiver = (IMessageReceiver) EJBAdapter.getProxyObject(provideURL, username, password);
+			return receiver.receiver(req);
+		} catch (NamingException e) {
+			throw new TscpBaseException("TSCP-9067:CAN'T LOOK UP REMOTE OBJECT !", e);
+		}
+
+	}
+
+	@Override
+	public void close() throws TscpBaseException {
+
+		try {
+			MediationPoolFactory.getMessageMediation().produceInstance(TscpEJBSenderMediationPool.class).getFreeQueue().get(this.getProtocolId()).put(this);
+		} catch (InterruptedException e) {
+			throw new TscpBaseException("TSCP-9056:CLOSE RESOURCE EXCEPTION !",e);
+		}
+
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getContainerType() {
+		return containerType;
+	}
+
+	public void setContainerType(int containerType) {
+		this.containerType = containerType;
+	}
+
+	public String getContextFactory() {
+		return contextFactory;
+	}
+
+	public void setContextFactory(String contextFactory) {
+		this.contextFactory = contextFactory;
+	}
+
+	public String getEjbName() {
+		return ejbName;
+	}
+
+	public void setEjbName(String ejbName) {
+		this.ejbName = ejbName;
+	}
+
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected ITscpRespMedia tryAgain(ITscpReqMedia req)throws TscpBaseException, InterruptedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

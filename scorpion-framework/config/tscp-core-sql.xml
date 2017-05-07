@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--DOCTYPE sql-configuration SYSTEM "resource/zsfg.dtd"--> 
+<sql-configuration>
+<sql name="query_userInfo" value="select * from user_info t where t.user_id = ? and user_name = ?" tables="user"/>
+<sql name="query_userInfobyname" value="select * from #dynamicParam#" tables="user"/>
+<sql name="save_useInfo" value="insert into user_info(user_id,username,password)values(?,?,?)"></sql>
+<sql name="query_column" value="select * from user_info where user_name =?"></sql>
+<sql name="dynamicParamquery" value="select a.id , a.ryxm, c.jgmc from
+		        DM_GY_RY a,  DM_GY_JG c where a.jg_id= c.id
+			    and a.yxbz='Y' and c.yxbz='Y'   and c.ccm like
+		        (select '%'||ccm from DM_GY_JG where id = ? ) #dynamicParam#
+		        order by a.pxxh asc,c.pxxh asc"></sql>
+<sql name="queryUserInfo" value="select * from user" tables="user"></sql>	        
+<sql name="queryDataByPaging" value="select user_name,user_pwd from user_info" tables="user_info"></sql>
+<sql name="queryDataByPagingabc" value="select * from account where acc_id='6'" tables="user_info"></sql>
+<sql name="insertUser" value="insert into user values(?,?,?,?,?,?)"	tables=""></sql>	
+<sql name="queryCount" value="SELECT count(*) total FROM USER "	tables=""></sql>
+</sql-configuration>
