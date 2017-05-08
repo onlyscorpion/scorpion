@@ -1,10 +1,9 @@
 package org.scorpion.persistence.meta;
 
-
-import com.taiji.tscp.api.persistence.TscpDataBaseType;
-import com.taiji.tscp.api.persistence.TscpDataBaseType.KingbaseDataType;
-import com.taiji.tscp.api.persistence.TscpDataBaseType.MysqlDataType;
-import com.taiji.tscp.api.persistence.TscpDataBaseType.OracleDataType;
+import org.scorpion.api.persistence.TscpDataBaseType;
+import org.scorpion.api.persistence.TscpDataBaseType.KingbaseDataType;
+import org.scorpion.api.persistence.TscpDataBaseType.MysqlDataType;
+import org.scorpion.api.persistence.TscpDataBaseType.OracleDataType;
 
 /**
  *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)

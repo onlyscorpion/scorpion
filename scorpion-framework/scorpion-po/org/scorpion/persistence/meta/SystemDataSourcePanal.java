@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.taiji.tscp.api.configuration.DataSourceLis;
+import org.scorpion.api.configuration.DataSourceLis;
 
 /**
  *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)

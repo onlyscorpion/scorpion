@@ -8,11 +8,12 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import oracle.jdbc.OracleDriver;
+import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.persistence.TscpDataBaseType;
 
 import com.kingbase.Driver;
-import com.taiji.tscp.api.exception.TscpBaseException;
-import com.taiji.tscp.api.persistence.TscpDataBaseType;
+
+import oracle.jdbc.OracleDriver;
 
 /**
  *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)

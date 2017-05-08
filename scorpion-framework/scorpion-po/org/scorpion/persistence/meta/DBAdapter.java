@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.taiji.tscp.api.configuration.DataSourceLis.DataSourceInfo;
-import com.taiji.tscp.api.persistence.TscpDataBaseType;
+import org.scorpion.api.configuration.DataSourceLis.DataSourceInfo;
+import org.scorpion.api.persistence.TscpDataBaseType;
 
 public class DBAdapter {
 	

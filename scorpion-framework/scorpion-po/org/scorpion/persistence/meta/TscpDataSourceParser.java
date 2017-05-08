@@ -4,11 +4,12 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
-import com.taiji.tscp.api.common.AbsTscpConfigFileHandler;
-import com.taiji.tscp.api.common.AbsTscpXmlParser;
-import com.taiji.tscp.api.configuration.DataSourceLis;
-import com.taiji.tscp.api.exception.TscpBaseException;
-import com.taiji.tscp.common.context.SystemContext;
+import org.scorpion.api.common.AbsTscpConfigFileHandler;
+import org.scorpion.api.common.AbsTscpXmlParser;
+import org.scorpion.api.configuration.DataSourceLis;
+import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.common.context.SystemContext;
+
 
 /**
  *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)

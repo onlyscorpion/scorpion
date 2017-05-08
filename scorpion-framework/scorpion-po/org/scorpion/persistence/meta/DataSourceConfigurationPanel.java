@@ -15,9 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
-import com.taiji.tscp.api.configuration.DataSourceLis;
-import com.taiji.tscp.api.configuration.DataSourceLis.DataSourceInfo;
-import com.taiji.tscp.api.exception.TscpBaseException;
+import org.scorpion.api.configuration.DataSourceLis;
+import org.scorpion.api.configuration.DataSourceLis.DataSourceInfo;
+import org.scorpion.api.exception.TscpBaseException;
 
 /**
  *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)

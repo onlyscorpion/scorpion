@@ -92,7 +92,7 @@ public class BinaryClient extends Connection {
     }
 
     public void exists(final byte[] key) {
-	sendCommand(EXISTS, key);
+	sendCommand(Command.EXISTS, key);
     }
 
     public void del(final byte[]... keys) {
@@ -514,7 +514,7 @@ public class BinaryClient extends Connection {
     }
 
     public void subscribe(final byte[]... channels) {
-	sendCommand(SUBSCRIBE, channels);
+	sendCommand(Command.SUBSCRIBE, channels);
     }
 
     public void publish(final byte[] channel, final byte[] message) {
@@ -522,23 +522,23 @@ public class BinaryClient extends Connection {
     }
 
     public void unsubscribe() {
-	sendCommand(UNSUBSCRIBE);
+	sendCommand(Command.UNSUBSCRIBE);
     }
 
     public void unsubscribe(final byte[]... channels) {
-	sendCommand(UNSUBSCRIBE, channels);
+	sendCommand(Command.UNSUBSCRIBE, channels);
     }
 
     public void psubscribe(final byte[]... patterns) {
-	sendCommand(PSUBSCRIBE, patterns);
+	sendCommand(Command.PSUBSCRIBE, patterns);
     }
 
     public void punsubscribe() {
-	sendCommand(PUNSUBSCRIBE);
+	sendCommand(Command.PUNSUBSCRIBE);
     }
 
     public void punsubscribe(final byte[]... patterns) {
-        sendCommand(PUNSUBSCRIBE, patterns);
+        sendCommand(Command.PUNSUBSCRIBE, patterns);
     }
 
     public void zcount(final byte[] key, final double min, final double max) {

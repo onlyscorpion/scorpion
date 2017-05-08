@@ -5,19 +5,18 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
+import org.scorpion.api.common.AbsTscpConfigFileHandler;
+import org.scorpion.api.common.ItscpXmlParser;
+import org.scorpion.api.configuration.DataSourceLis;
+import org.scorpion.api.configuration.DataSourceLis.DataSourceInfo;
+import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.log.PlatformLogger;
+import org.scorpion.api.persistence.ITscpPersistenceConfiguration;
+import org.scorpion.api.util.Constant;
+import org.scorpion.common.command.LoadSQLCommand;
+import org.scorpion.common.context.SystemContext;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-
-import com.taiji.tscp.api.common.AbsTscpConfigFileHandler;
-import com.taiji.tscp.api.common.ItscpXmlParser;
-import com.taiji.tscp.api.configuration.DataSourceLis;
-import com.taiji.tscp.api.configuration.DataSourceLis.DataSourceInfo;
-import com.taiji.tscp.api.exception.TscpBaseException;
-import com.taiji.tscp.api.log.PlatformLogger;
-import com.taiji.tscp.api.persistence.ITscpPersistenceConfiguration;
-import com.taiji.tscp.api.util.Constant;
-import com.taiji.tscp.common.command.LoadSQLCommand;
-import com.taiji.tscp.common.context.SystemContext;
 
 /**
  *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)

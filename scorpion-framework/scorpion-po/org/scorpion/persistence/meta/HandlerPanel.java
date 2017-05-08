@@ -21,8 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 
-import com.taiji.tscp.api.configuration.DataSourceLis;
-import com.taiji.tscp.api.exception.TscpBaseException;
+import org.scorpion.api.configuration.DataSourceLis;
+import org.scorpion.api.exception.TscpBaseException;
 
 import freemarker.template.TemplateException;
 

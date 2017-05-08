@@ -12,14 +12,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.scorpion.persistence.meta.DataDecoration;
-import org.scorpion.persistence.meta.DbDataTypeConvert;
-import org.scorpion.persistence.meta.POHandler;
-
-import com.taiji.tscp.api.exception.TscpBaseException;
-import com.taiji.tscp.api.persistence.TscpDataBaseType;
-import com.taiji.tscp.api.persistence.TscpDataBaseType.KingbaseDataType;
-import com.taiji.tscp.common.util.DynamicGeneratorCodeUtil;
+import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.persistence.TscpDataBaseType;
+import org.scorpion.api.persistence.TscpDataBaseType.KingbaseDataType;
+import org.scorpion.common.util.DynamicGeneratorCodeUtil;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
