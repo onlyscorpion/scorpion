@@ -22,18 +22,18 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 
 import org.scorpion.api.configuration.DataSourceLis;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
 import freemarker.template.TemplateException;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -99,7 +99,7 @@ public class HandlerPanel extends JPanel{
 							DataSourceLis.getAllDataSource().get(DBAdapter.currentDS).getPasswd(),
 							DBAdapter.getDbType(DataSourceLis.getAllDataSource().get(DBAdapter.currentDS)),
 							getJarPath(), getFilePath());
-				} catch (TscpBaseException e1) {
+				} catch (ScorpionBaseException e1) {
 					e1.printStackTrace();
 				} catch (IOException e1) {
 					e1.printStackTrace();

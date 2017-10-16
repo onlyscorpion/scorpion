@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.scorpion.api.configuration.DataSourceLis.DataSourceInfo;
-import org.scorpion.api.persistence.TscpDataBaseType;
+import org.scorpion.api.persistence.ScorpionDataBaseType;
 
 public class DBAdapter {
 	
@@ -31,11 +31,11 @@ public class DBAdapter {
 	public static int getDbType(DataSourceInfo datasourceInfo) throws Throwable{
 		
 		if(datasourceInfo.getDriverClassName() != null&& ORACLE_TYPE.equals(datasourceInfo.getDriverClassName().trim()))
-			return TscpDataBaseType.oracle_db_type;
+			return ScorpionDataBaseType.oracle_db_type;
 		if(datasourceInfo.getDriverClassName() != null&& MYSQL_TYPE.equals(datasourceInfo.getDriverClassName().trim()))
-			return TscpDataBaseType.mysql_db_type;
+			return ScorpionDataBaseType.mysql_db_type;
 		if(datasourceInfo.getDriverClassName() != null&& KINGBASE_TYPE.equals(datasourceInfo.getDriverClassName().trim()))
-			return TscpDataBaseType.kbe_db_type;
+			return ScorpionDataBaseType.kbe_db_type;
 		return -1;
 		
 	}

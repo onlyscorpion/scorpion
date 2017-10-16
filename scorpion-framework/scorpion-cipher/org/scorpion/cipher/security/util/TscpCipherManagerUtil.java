@@ -6,35 +6,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.cipher.security.AbsTscpDigitalEnvelope;
-import org.scorpion.cipher.security.ITscpAsymmetry;
-import org.scorpion.cipher.security.ITscpSymmetry;
-import org.scorpion.cipher.security.asymmetry.TscpAsymmetryFactory;
-import org.scorpion.cipher.security.symmetry.TscpSymmetryFactory;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.cipher.security.AbsScorpionDigitalEnvelope;
+import org.scorpion.cipher.security.IScorpionAsymmetry;
+import org.scorpion.cipher.security.IScorpionSymmetry;
+import org.scorpion.cipher.security.asymmetry.ScorpionAsymmetryFactory;
+import org.scorpion.cipher.security.symmetry.ScorpionSymmetryFactory;
 
 /**
  * 安全工具类
  * @author Administrator
  *
  */
-public class TscpCipherManagerUtil {
+public class ScorpionCipherManagerUtil {
 	
-	private static Map<String, ITscpAsymmetry> asymmetryMap = new HashMap<String, ITscpAsymmetry>();
+	private static Map<String, IScorpionAsymmetry> asymmetryMap = new HashMap<String, IScorpionAsymmetry>();
 	
-	private static Map<String, ITscpSymmetry> symmetryMap = new HashMap<String, ITscpSymmetry>();
+	private static Map<String, IScorpionSymmetry> symmetryMap = new HashMap<String, IScorpionSymmetry>();
 	
 	/**
 	 * 根据应用标识获取非对称加密类
 	 * @param name
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static ITscpAsymmetry getInstanceAsymmetry(String name) throws TscpBaseException{
+	public static IScorpionAsymmetry getInstanceAsymmetry(String name) throws ScorpionBaseException{
 		if(!asymmetryMap.containsKey(name)){
-			synchronized (TscpCipherManagerUtil.class) {
+			synchronized (ScorpionCipherManagerUtil.class) {
 				if(!asymmetryMap.containsKey(name)){
-					asymmetryMap.put(name, TscpAsymmetryFactory.getCigher(name));
+					asymmetryMap.put(name, ScorpionAsymmetryFactory.getCigher(name));
 				}
 			}
 		}
@@ -46,13 +46,13 @@ public class TscpCipherManagerUtil {
 	 * 根据对称算法名称获取对称加密类
 	 * @param name
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static ITscpSymmetry getInstanceSymmetry(String name) throws TscpBaseException{
+	public static IScorpionSymmetry getInstanceSymmetry(String name) throws ScorpionBaseException{
 		if(!symmetryMap.containsKey(name)){
-			synchronized (TscpCipherManagerUtil.class) {
+			synchronized (ScorpionCipherManagerUtil.class) {
 				if(!symmetryMap.containsKey(name)){
-					symmetryMap.put(name, TscpSymmetryFactory.getCigher(name));
+					symmetryMap.put(name, ScorpionSymmetryFactory.getCigher(name));
 				}
 			}
 		}
@@ -60,8 +60,8 @@ public class TscpCipherManagerUtil {
 		return symmetryMap.get(name);
 	}
 	
-	public static AbsTscpDigitalEnvelope getInstanceDigitalEnvelope() throws TscpBaseException{
-		return AbsTscpDigitalEnvelope.getInstance();
+	public static AbsScorpionDigitalEnvelope getInstanceDigitalEnvelope() throws ScorpionBaseException{
+		return AbsScorpionDigitalEnvelope.getInstance();
 	}
 	
 	/**********************************************非对称加密*************************************************/
@@ -72,9 +72,9 @@ public class TscpCipherManagerUtil {
 	 * @param data
 	 * @return
 	 * @throws UnsupportedEncodingException
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static String encryptAsymmetry(ITscpAsymmetry asymmetry, String data) throws UnsupportedEncodingException, TscpBaseException{
+	public static String encryptAsymmetry(IScorpionAsymmetry asymmetry, String data) throws UnsupportedEncodingException, ScorpionBaseException{
 		byte[] byteData = asymmetry.encrypt(asymmetry.getPublicKey(), data.getBytes("UTF-8"));
 		return Base64.encodeBase64String(byteData);
 	}
@@ -85,9 +85,9 @@ public class TscpCipherManagerUtil {
 	 * @param data
 	 * @return
 	 * @throws UnsupportedEncodingException
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static String decryptAsymmetry(ITscpAsymmetry asymmetry, String data) throws UnsupportedEncodingException, TscpBaseException{
+	public static String decryptAsymmetry(IScorpionAsymmetry asymmetry, String data) throws UnsupportedEncodingException, ScorpionBaseException{
 		byte[] byteData = asymmetry.decrypt(asymmetry.getPrivateKey(), Base64.decodeBase64(data));
 		return new String(byteData, "UTF-8");
 	}
@@ -98,9 +98,9 @@ public class TscpCipherManagerUtil {
 	 * @param data
 	 * @return
 	 * @throws UnsupportedEncodingException
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static String signAsymmetry(ITscpAsymmetry asymmetry, String data) throws UnsupportedEncodingException, TscpBaseException{
+	public static String signAsymmetry(IScorpionAsymmetry asymmetry, String data) throws UnsupportedEncodingException, ScorpionBaseException{
 		byte[] sign = asymmetry.sign(data.getBytes("UTF-8"));
 		return Base64.encodeBase64String(sign);
 	}
@@ -112,9 +112,9 @@ public class TscpCipherManagerUtil {
 	 * @param data
 	 * @return
 	 * @throws UnsupportedEncodingException
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static boolean verifyAsymmetry(ITscpAsymmetry asymmetry, String sign, String data) throws UnsupportedEncodingException, TscpBaseException{
+	public static boolean verifyAsymmetry(IScorpionAsymmetry asymmetry, String sign, String data) throws UnsupportedEncodingException, ScorpionBaseException{
 		byte[] byteData = data.getBytes("UTF-8");
 		byte[] byteSign = Base64.decodeBase64(sign);
 		return asymmetry.verifySign(byteData, byteSign);
@@ -137,9 +137,9 @@ public class TscpCipherManagerUtil {
 	 * @param data
 	 * @return
 	 * @throws UnsupportedEncodingException
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static String encryptSymmetry(ITscpSymmetry symmetry, Key key, String data) throws UnsupportedEncodingException, TscpBaseException{
+	public static String encryptSymmetry(IScorpionSymmetry symmetry, Key key, String data) throws UnsupportedEncodingException, ScorpionBaseException{
 		byte[] byteData = symmetry.encrypt(key, data.getBytes("UTF-8"));
 		return Base64.encodeBase64String(byteData);
 	}
@@ -150,9 +150,9 @@ public class TscpCipherManagerUtil {
 	 * @param data
 	 * @return
 	 * @throws UnsupportedEncodingException
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static String decryptSymmetry(ITscpSymmetry symmetry, Key key, String data) throws UnsupportedEncodingException, TscpBaseException{
+	public static String decryptSymmetry(IScorpionSymmetry symmetry, Key key, String data) throws UnsupportedEncodingException, ScorpionBaseException{
 		byte[] byteData = symmetry.decrypt(key, Base64.decodeBase64(data));
 		return new String(byteData, "UTF-8");
 	}
@@ -165,9 +165,9 @@ public class TscpCipherManagerUtil {
 	 * @param data
 	 * @return
 	 * @throws UnsupportedEncodingException
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static String encryptDigitalEnvelope(AbsTscpDigitalEnvelope de, String data) throws UnsupportedEncodingException, TscpBaseException{
+	public static String encryptDigitalEnvelope(AbsScorpionDigitalEnvelope de, String data) throws UnsupportedEncodingException, ScorpionBaseException{
 		byte[] byteData = de.encrypt(data.getBytes("UTF-8"));
 		return Base64.encodeBase64String(byteData);
 	}
@@ -178,9 +178,9 @@ public class TscpCipherManagerUtil {
 	 * @param data
 	 * @return
 	 * @throws UnsupportedEncodingException
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static String decryptDigitalEnvelope(AbsTscpDigitalEnvelope de, String data) throws UnsupportedEncodingException, TscpBaseException{
+	public static String decryptDigitalEnvelope(AbsScorpionDigitalEnvelope de, String data) throws UnsupportedEncodingException, ScorpionBaseException{
 		byte[] byteData = de.decrypt(Base64.decodeBase64(data));
 		return new String(byteData, "UTF-8");
 	}
@@ -191,9 +191,9 @@ public class TscpCipherManagerUtil {
 	 * @param data
 	 * @return
 	 * @throws UnsupportedEncodingException
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static String signDigitalEnvelope(AbsTscpDigitalEnvelope de, String data) throws UnsupportedEncodingException, TscpBaseException{
+	public static String signDigitalEnvelope(AbsScorpionDigitalEnvelope de, String data) throws UnsupportedEncodingException, ScorpionBaseException{
 		byte[] sign = de.sign(data.getBytes("UTF-8"));
 		return Base64.encodeBase64String(sign);
 	}
@@ -205,9 +205,9 @@ public class TscpCipherManagerUtil {
 	 * @param data
 	 * @return
 	 * @throws UnsupportedEncodingException
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static boolean verifySignDigitalEnvelope(AbsTscpDigitalEnvelope de, String sign, String data) throws UnsupportedEncodingException, TscpBaseException{
+	public static boolean verifySignDigitalEnvelope(AbsScorpionDigitalEnvelope de, String sign, String data) throws UnsupportedEncodingException, ScorpionBaseException{
 		byte[] byteData = data.getBytes("UTF-8");
 		byte[] byteSign = Base64.decodeBase64(sign);
 		return de.verifySign(byteData, byteSign);
@@ -219,9 +219,9 @@ public class TscpCipherManagerUtil {
 	 * @param data
 	 * @return
 	 * @throws UnsupportedEncodingException
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static String timestampDigitalEnvelope(AbsTscpDigitalEnvelope de, String data) throws UnsupportedEncodingException, TscpBaseException{
+	public static String timestampDigitalEnvelope(AbsScorpionDigitalEnvelope de, String data) throws UnsupportedEncodingException, ScorpionBaseException{
 		byte[] timestamp = de.timestamp(data.getBytes("UTF-8"));
 		return Base64.encodeBase64String(timestamp);
 	}
@@ -233,9 +233,9 @@ public class TscpCipherManagerUtil {
 	 * @param data
 	 * @return
 	 * @throws UnsupportedEncodingException
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static boolean verifyTimestampDigitalEnvelope(AbsTscpDigitalEnvelope de, String timestamp, String data) throws UnsupportedEncodingException, TscpBaseException{
+	public static boolean verifyTimestampDigitalEnvelope(AbsScorpionDigitalEnvelope de, String timestamp, String data) throws UnsupportedEncodingException, ScorpionBaseException{
 		byte[] byteData = data.getBytes("UTF-8");
 		byte[] byteTimestamp = Base64.decodeBase64(timestamp);
 		return de.verifyTimestamp(byteData, byteTimestamp);

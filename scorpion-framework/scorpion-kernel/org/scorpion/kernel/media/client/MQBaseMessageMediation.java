@@ -1,19 +1,19 @@
 package org.scorpion.kernel.media.client;
 
 import org.scorpion.api.common.AbsMediationFactor;
-import org.scorpion.api.common.ITscpProtocal.ProtocolType;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.ITscpReqMedia;
-import org.scorpion.api.kernel.ITscpRespMedia;
+import org.scorpion.api.common.IScorpionProtocal.ProtocolType;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.IScorpionReqMedia;
+import org.scorpion.api.kernel.IScorpionRespMedia;
 import org.scorpion.common.annotation.Sender;
 import org.scorpion.common.enums.SenderType;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.SCORPION.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -22,10 +22,10 @@ import org.scorpion.common.enums.SenderType;
  * Description: the annotation is used to signal the method of component
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -41,13 +41,13 @@ public class MQBaseMessageMediation extends AbsMediationFactor {
 	private static final long serialVersionUID = -3836593973297990175L;
 
 	@Override
-	public ITscpRespMedia messageSenderHandler(ITscpReqMedia req)throws TscpBaseException {
+	public IScorpionRespMedia messageSenderHandler(IScorpionReqMedia req)throws ScorpionBaseException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void close() throws TscpBaseException {
+	public void close() throws ScorpionBaseException {
 		// TODO Auto-generated method stub
 
 	}
@@ -59,7 +59,7 @@ public class MQBaseMessageMediation extends AbsMediationFactor {
 	}
 
 	@Override
-	protected ITscpRespMedia tryAgain(ITscpReqMedia req)throws TscpBaseException, InterruptedException {
+	protected IScorpionRespMedia tryAgain(IScorpionReqMedia req)throws ScorpionBaseException, InterruptedException {
 		// TODO Auto-generated method stub
 		return null;
 	}

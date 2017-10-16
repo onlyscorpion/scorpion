@@ -45,10 +45,10 @@ import java.util.regex.Pattern;
 import org.scorpion.api.configuration.DBParam;
 import org.scorpion.api.configuration.SystemEnumType;
 import org.scorpion.api.configuration.SystemResourcePool;
-import org.scorpion.api.configuration.TscpCoreConfig;
+import org.scorpion.api.configuration.ScorpionCoreConfig;
 import org.scorpion.api.configuration.PojoEntityInfo.PoProperty;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.AbsTscpBasePo;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.AbsScorpionBasePo;
 import org.scorpion.api.log.PlatformLogger;
 
 import sun.misc.BASE64Encoder;
@@ -57,13 +57,13 @@ import sun.misc.VM;
 import com.sun.management.OperatingSystemMXBean;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: all the class have life cycle characteristic will implement the interface. it concludes three methods</p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -71,7 +71,7 @@ import com.sun.management.OperatingSystemMXBean;
  */
 public class SystemUtils {
 	
-    public final static String systemsignal	 = TscpSequenceUtil.generateSequeueString();
+    public final static String systemsignal	 = ScorpionSequenceUtil.generateSequeueString();
     
     private static final int PERCENT = 100;   
   
@@ -121,7 +121,7 @@ public class SystemUtils {
 	 * 
 	 * @param arguments
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
 	public static void argumentSerializableValidate(Object... arguments) throws NotSerializableException{
 	
@@ -130,13 +130,13 @@ public class SystemUtils {
 		
 		for(Object obj:arguments){
 			if(!(obj instanceof Serializable))
-				throw new NotSerializableException("TSCP-9853:The parameter must be implemented serializable !");
+				throw new NotSerializableException("scorpion-9853:The parameter must be implemented serializable !");
 		
-			if(Constant.DEVELOP_MODEL.equals(SystemResourcePool.getDefaultInstance().getResourceByKey(SystemEnumType.systemcoreconfigresource.getValue(), TscpCoreConfig.class).getRunModel()))
+			if(Constant.DEVELOP_MODEL.equals(SystemResourcePool.getDefaultInstance().getResourceByKey(SystemEnumType.systemcoreconfigresource.getValue(), ScorpionCoreConfig.class).getRunModel()))
 				try {
 					objectConvertString(obj);
 				} catch (Exception e) {
-					throw new NotSerializableException("TSCP-9854:The parameter must be implemented serializable !");
+					throw new NotSerializableException("scorpion-9854:The parameter must be implemented serializable !");
 				}
 		}
 	}
@@ -149,9 +149,9 @@ public class SystemUtils {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static DBParam getSQLParamByPo(AbsTscpBasePo po,PoProperty poProperty)throws TscpBaseException{
+	public static DBParam getSQLParamByPo(AbsScorpionBasePo po,PoProperty poProperty)throws ScorpionBaseException{
 		
 		if(po == null)
 			return null;
@@ -162,7 +162,7 @@ public class SystemUtils {
 			for(String field:poProperty.getFieldSequence())
 				params.addParam(poProperty.getGetAttributeByName(field).invoke(po));
 		}catch(Exception e){
-			throw new TscpBaseException("TSCP-8065:设置PO参数异常",e);
+			throw new ScorpionBaseException("scorpion-8065:设置PO参数异常",e);
 		}
 		
 		return params;
@@ -212,13 +212,13 @@ public class SystemUtils {
 	 * @param relation 表达式之间的关系
 	 * @param isRecursionDir 是否需要递归查找
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public final static List<String> systemFileFilter(String path,final String[] pattern,boolean relation,boolean isRecursionDir) throws TscpBaseException{
+	public final static List<String> systemFileFilter(String path,final String[] pattern,boolean relation,boolean isRecursionDir) throws ScorpionBaseException{
 		File file = new File(path);
 		
 		if(!file.exists())
-			throw new TscpBaseException("TSC-9609:Directory or file not exist !["+file.getPath()+"]");
+			throw new ScorpionBaseException("TSC-9609:Directory or file not exist !["+file.getPath()+"]");
 	
 		List<File> lisFiles = new ArrayList<File>();
 		systemFileFilter(file,pattern,relation,isRecursionDir,lisFiles);
@@ -244,11 +244,11 @@ public class SystemUtils {
 	 * @param relation
 	 * @param isRecursionDir
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public final static File[] systemFileFilter(File file,final String[] pattern,boolean relation,boolean isRecursionDir) throws TscpBaseException{
+	public final static File[] systemFileFilter(File file,final String[] pattern,boolean relation,boolean isRecursionDir) throws ScorpionBaseException{
 		if(!file.exists())
-			throw new TscpBaseException("TSC-9609:The directory or file not exist ["+file.getPath()+"] !");
+			throw new ScorpionBaseException("TSC-9609:The directory or file not exist ["+file.getPath()+"] !");
 		
 		List<File> lisFiles = new ArrayList<File>();
 		systemFileFilter(file,pattern,relation,isRecursionDir,lisFiles);
@@ -269,9 +269,9 @@ public class SystemUtils {
 	 * @param relation @description 表达式之间的关系
 	 * @param isRecursionDir 是否递归扫描多层目录
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public final static void systemFileFilter(File file,final String[] pattern,boolean relation,final boolean isRecursionDir,List<File> lisFile) throws TscpBaseException{
+	public final static void systemFileFilter(File file,final String[] pattern,boolean relation,final boolean isRecursionDir,List<File> lisFile) throws ScorpionBaseException{
 		if(file.isFile()){
 			if(filterChain(file, pattern,relation)){
 				lisFile.add(file);
@@ -307,14 +307,14 @@ public class SystemUtils {
 	 * @return
 	 * @throws CheckedException
 	 */
-	public static String getTscpRootPath() throws TscpBaseException {
-		String tscpCoreFileName = "/tscp.xml";
-		URL url = SystemUtils.class.getResource(tscpCoreFileName);
+	public static String getScorpionRootPath() throws ScorpionBaseException {
+		String ScorpionCoreFileName = "/Scorpion.xml";
+		URL url = SystemUtils.class.getResource(ScorpionCoreFileName);
 		try {
 			String rootPath = URLDecoder.decode(url.getPath(), "UTF-8");// 解决路径中含空格、中文问题
-			return rootPath.substring(0, rootPath.lastIndexOf(tscpCoreFileName));
+			return rootPath.substring(0, rootPath.lastIndexOf(ScorpionCoreFileName));
 		} catch (UnsupportedEncodingException ex) {
-			throw new TscpBaseException("字符类型UTF-8不支持", ex);
+			throw new ScorpionBaseException("字符类型UTF-8不支持", ex);
 		}
 
 	}
@@ -344,9 +344,9 @@ public class SystemUtils {
 	 * @param paths
 	 * @param type
 	 * @return
-	 * @throws TscpBaseException 
+	 * @throws ScorpionBaseException 
 	 */
-	public final static String[] pathTransformer(String paths[],int type) throws TscpBaseException{
+	public final static String[] pathTransformer(String paths[],int type) throws ScorpionBaseException{
 	      
 		String[] temp = new String[paths.length];
 	       
@@ -362,7 +362,7 @@ public class SystemUtils {
 	 * @param type
 	 * @return
 	 */
-	public final static String pathTransformer(String path,int type) throws TscpBaseException{
+	public final static String pathTransformer(String path,int type) throws ScorpionBaseException{
 		if(path == null||"".equals(path))
 			return null;
 		
@@ -385,16 +385,16 @@ public class SystemUtils {
 				return Constant.JAR_PATH_HEAD+path+Constant.JAR_PATH_END;
 			}
 		}else{
-	    	  throw new TscpBaseException("TCU:2001未找到对应的路径转换类型！");
+	    	  throw new ScorpionBaseException("TCU:2001未找到对应的路径转换类型！");
 		}
 	}
 	
 	/**
 	 * @param file
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static URL createURLFromLocalFile(File file) throws TscpBaseException {
+	public static URL createURLFromLocalFile(File file) throws ScorpionBaseException {
 	
 		URL url = null;
 		
@@ -410,7 +410,7 @@ public class SystemUtils {
 				}
 			}
 		} catch (Exception ex) {
-			throw new TscpBaseException("TSC-6008:生成" + file + "的URL对象时发生错误", ex);
+			throw new ScorpionBaseException("TSC-6008:生成" + file + "的URL对象时发生错误", ex);
 		}
 		return url;
 	}
@@ -418,14 +418,14 @@ public class SystemUtils {
 	/**
 	 * @param jarURL
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static JarFile getJarFile(URL jarURL) throws TscpBaseException {
+	public static JarFile getJarFile(URL jarURL) throws ScorpionBaseException {
 		URLConnection con = null;
 		try {
 			con = jarURL.openConnection();
 		} catch (IOException ex) {
-			throw new TscpBaseException("TSC-9976:读取Jar文件" + jarURL + "失败，请检查文件或网络是否正常", ex);
+			throw new ScorpionBaseException("TSC-9976:读取Jar文件" + jarURL + "失败，请检查文件或网络是否正常", ex);
 		}
 
 		JarFile jarFile = null;
@@ -436,7 +436,7 @@ public class SystemUtils {
 			try {
 				jarFile = jarCon.getJarFile();
 			} catch (IOException ex) {
-				throw new TscpBaseException("TSC-4469:获取Jar文件" + jarURL + "的文件对象失败，请检查文件是否损坏", ex);
+				throw new ScorpionBaseException("TSC-4469:获取Jar文件" + jarURL + "的文件对象失败，请检查文件是否损坏", ex);
 			}
 		}
 		return jarFile;
@@ -1705,9 +1705,9 @@ public class SystemUtils {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static String transformerAbsolutePath(String path,String[] buildPaths) throws TscpBaseException{
+	public static String transformerAbsolutePath(String path,String[] buildPaths) throws ScorpionBaseException{
 		boolean flag = false ;
 		if(path == null||"".equals(path))
 			return null;

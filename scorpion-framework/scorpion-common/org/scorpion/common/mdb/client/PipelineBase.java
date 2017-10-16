@@ -1164,7 +1164,7 @@ abstract class PipelineBase extends Queable implements
     }
     
     public Response<String> eval(String script, List<String> keys, List<String> args) {
-    	String[] argv = TscpRDClient.getParams(keys, args);
+    	String[] argv = ScorpionRDClient.getParams(keys, args);
     	return this.eval(script, keys.size(), argv);
     }
     
@@ -1178,7 +1178,7 @@ abstract class PipelineBase extends Queable implements
     }
     
     public Response<String> evalsha(String sha1, List<String> keys, List<String> args) {
-    	String[] argv = TscpRDClient.getParams(keys, args);
+    	String[] argv = ScorpionRDClient.getParams(keys, args);
     	return this.evalsha(sha1, keys.size(), argv);
     }
     

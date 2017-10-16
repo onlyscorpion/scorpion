@@ -2,18 +2,18 @@ package org.scorpion.kernel.transactionaspect;
 
 import java.util.Map.Entry;
 
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.ITscpAopAfterAdvice;
-import org.scorpion.api.persistence.ITscpPersistenceSession;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.IScorpionAopAfterAdvice;
+import org.scorpion.api.persistence.IScorpionPersistenceSession;
 import org.scorpion.common.session.ApplicationSession;
-import org.scorpion.common.util.TscpSystemSessionUtils;
+import org.scorpion.common.util.ScorpionSystemSessionUtils;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.SCORPION.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -23,7 +23,7 @@ import org.scorpion.common.util.TscpSystemSessionUtils;
  * extends the abstract
  * </p>
  * <p>
- * class ATscpComponet. the ATscpComponent exist life cycle. developer can
+ * class AScorpionComponet. the AScorpionComponent exist life cycle. developer can
  * override
  * </p>
  * <p>
@@ -34,10 +34,10 @@ import org.scorpion.common.util.TscpSystemSessionUtils;
  * but we don't suggest the developer do that
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -48,19 +48,19 @@ import org.scorpion.common.util.TscpSystemSessionUtils;
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
 // @Interceptor( name =
-// "TransactionAfterInterceptor",serviceName=".+",classRegex="com.taiji.tscp.api.persistence",methodRegex=".+",aopMode=AopMode.DO_AFTER)
-public class TransactionAfterInterceptor implements ITscpAopAfterAdvice {
+// "TransactionAfterInterceptor",serviceName=".+",classRegex="com.SCORPION.Scorpion.api.persistence",methodRegex=".+",aopMode=AopMode.DO_AFTER)
+public class TransactionAfterInterceptor implements IScorpionAopAfterAdvice {
 
 	@Override
-	public void doAfterAdvice() throws TscpBaseException {
+	public void doAfterAdvice() throws ScorpionBaseException {
 
-		if (((ApplicationSession) TscpSystemSessionUtils.getSession()).getServiceCalledLevel().decrementAndGet() == 0) {
-			ITscpPersistenceSession defualtPersistence = ((ApplicationSession) TscpSystemSessionUtils.getSession()).getDefaultPersistenceSession();
+		if (((ApplicationSession) ScorpionSystemSessionUtils.getSession()).getServiceCalledLevel().decrementAndGet() == 0) {
+			IScorpionPersistenceSession defualtPersistence = ((ApplicationSession) ScorpionSystemSessionUtils.getSession()).getDefaultPersistenceSession();
 
 			if (!defualtPersistence.isCommitTransaction()|| defualtPersistence.getConnection() != null)
 				defualtPersistence.getPersistenceServcie().commit();
 
-			for (Entry<String, ITscpPersistenceSession> entry : ((ApplicationSession) TscpSystemSessionUtils.getSession()).getOtherPersistenceSession().entrySet()) {
+			for (Entry<String, IScorpionPersistenceSession> entry : ((ApplicationSession) ScorpionSystemSessionUtils.getSession()).getOtherPersistenceSession().entrySet()) {
 				if (!entry.getValue().isCommitTransaction()|| entry.getValue().getConnection() != null)
 					entry.getValue().commit();
 			}

@@ -4,24 +4,24 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 
 import org.scorpion.api.common.AbsMediationFactor;
-import org.scorpion.api.common.ITscpProtocal.ProtocolType;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.ITscpBaseInternalReceiver;
-import org.scorpion.api.kernel.ITscpReqMedia;
-import org.scorpion.api.kernel.ITscpRespMedia;
+import org.scorpion.api.common.IScorpionProtocal.ProtocolType;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.IScorpionBaseInternalReceiver;
+import org.scorpion.api.kernel.IScorpionReqMedia;
+import org.scorpion.api.kernel.IScorpionRespMedia;
 import org.scorpion.api.log.PlatformLogger;
 import org.scorpion.common.annotation.Sender;
 import org.scorpion.common.enums.SenderType;
-import org.scorpion.common.util.TscpSystemSessionUtils;
+import org.scorpion.common.util.ScorpionSystemSessionUtils;
 import org.scorpion.kernel.media.MediationPoolFactory;
-import org.scorpion.kernel.media.TscpRMSenderMediationPool;
+import org.scorpion.kernel.media.ScorpionRMSenderMediationPool;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.SCORPION.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -30,10 +30,10 @@ import org.scorpion.kernel.media.TscpRMSenderMediationPool;
  * Description: the annotation is used to signal the method of component
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -48,38 +48,38 @@ public class TMIBaseMessagMediation extends AbsMediationFactor {
 
 	private static final long serialVersionUID = -8495689765153933048L;
 
-	private ITscpBaseInternalReceiver sender;
+	private IScorpionBaseInternalReceiver sender;
 
 	@Override
-	public ITscpRespMedia messageSenderHandler(ITscpReqMedia req)throws TscpBaseException {
+	public IScorpionRespMedia messageSenderHandler(IScorpionReqMedia req)throws ScorpionBaseException {
 
-		this.session = TscpSystemSessionUtils.getSession();
+		this.session = ScorpionSystemSessionUtils.getSession();
 		
 		try {
 			if(sender == null)
-				throw new TscpBaseException("TSCP-4398:消息发送器未初始化");
-			ITscpRespMedia resp = sender.internalInvoke(req);
-			TscpSystemSessionUtils.getSession().tempMapDataConvertSession(resp.getTempData());
+				throw new ScorpionBaseException("scorpion-4398:消息发送器未初始化");
+			IScorpionRespMedia resp = sender.internalInvoke(req);
+			ScorpionSystemSessionUtils.getSession().tempMapDataConvertSession(resp.getTempData());
 			return resp;
 		} catch (RemoteException e) {
 			return sendResMediaAgain(req,e);
 		}catch(Exception e){
 			if(e.getMessage() != null&&e.getMessage().indexOf("java.lang.ClassNotFoundException") >= 0)
-				PlatformLogger.error("TSCP-9458：Remote object can't find . ");
-			throw new TscpBaseException(e);
+				PlatformLogger.error("scorpion-9458：Remote object can't find . ");
+			throw new ScorpionBaseException(e);
 		} finally {
 			this.close();
 		}
 	}
 
 	@Override
-	public void close() throws TscpBaseException {
+	public void close() throws ScorpionBaseException {
 
 		try {
-			MediationPoolFactory.getMessageMediation().produceInstance(TscpRMSenderMediationPool.class).getBusyQueue().get(this.getProtocolId()).remove(this);
-			MediationPoolFactory.getMessageMediation().produceInstance(TscpRMSenderMediationPool.class).getFreeQueue().get(this.getProtocolId()).put(this);
+			MediationPoolFactory.getMessageMediation().produceInstance(ScorpionRMSenderMediationPool.class).getBusyQueue().get(this.getProtocolId()).remove(this);
+			MediationPoolFactory.getMessageMediation().produceInstance(ScorpionRMSenderMediationPool.class).getFreeQueue().get(this.getProtocolId()).put(this);
 		} catch (InterruptedException e) {
-			throw new TscpBaseException("TSCP-9056:CLOSE RESOURCE EXCEPTION !",e);
+			throw new ScorpionBaseException("scorpion-9056:CLOSE RESOURCE EXCEPTION !",e);
 		}
 
 	}
@@ -89,14 +89,14 @@ public class TMIBaseMessagMediation extends AbsMediationFactor {
 	 * @description Send message try again...
 	 * @param req
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @throws InterruptedException
 	 */
-	protected ITscpRespMedia tryAgain(ITscpReqMedia req) throws TscpBaseException, InterruptedException{
+	protected IScorpionRespMedia tryAgain(IScorpionReqMedia req) throws ScorpionBaseException, InterruptedException{
 		
-		MediationPoolFactory.getMessageMediation().produceInstance(TscpRMSenderMediationPool.class).clear(this.getProtocolId());
+		MediationPoolFactory.getMessageMediation().produceInstance(ScorpionRMSenderMediationPool.class).clear(this.getProtocolId());
 		
-		return MediationPoolFactory.getMessageMediation().produceInstance(TscpRMSenderMediationPool.class).getMediation(this.getProtocolId()).messageSenderHandler(req);
+		return MediationPoolFactory.getMessageMediation().produceInstance(ScorpionRMSenderMediationPool.class).getMediation(this.getProtocolId()).messageSenderHandler(req);
 		
 	}
 
@@ -104,12 +104,12 @@ public class TMIBaseMessagMediation extends AbsMediationFactor {
 	
 
 	@Override
-	public void initialize() throws TscpBaseException {
+	public void initialize() throws ScorpionBaseException {
 
 		try {
-			this.sender = (ITscpBaseInternalReceiver) Naming.lookup("//"+ this.provideURL + "/TscpDefaultProtocolAdapter");
+			this.sender = (IScorpionBaseInternalReceiver) Naming.lookup("//"+ this.provideURL + "/ScorpionDefaultProtocolAdapter");
 		} catch (Exception e) {
-			PlatformLogger.error("TSCP-6945:Connection refused["+ this.provideURL + "]", e);
+			PlatformLogger.error("scorpion-6945:Connection refused["+ this.provideURL + "]", e);
 		}
 	}
 

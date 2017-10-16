@@ -9,17 +9,17 @@ import java.util.TimerTask;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -43,11 +43,11 @@ public abstract class AbsMedaitionPool<T extends AbsMediationFactor> implements 
 	 * 
 	 * @param protocol
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @throws InterruptedException
 	 */
-	public abstract void dynamicAddProtocol(AbsProtocol protocol) throws TscpBaseException, InterruptedException;
+	public abstract void dynamicAddProtocol(AbsProtocol protocol) throws ScorpionBaseException, InterruptedException;
 	
 	public long getTimeout() {
 		return timeout;
@@ -77,9 +77,9 @@ public abstract class AbsMedaitionPool<T extends AbsMediationFactor> implements 
 
 	/**
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public void statusCheck() throws TscpBaseException{
+	public void statusCheck() throws ScorpionBaseException{
 		
 		if(!enableCheck)
 			return;
@@ -112,9 +112,9 @@ public abstract class AbsMedaitionPool<T extends AbsMediationFactor> implements 
 	 * @param ejbProtocolConf
 	 * 
 	 * @throws InterruptedException
-	 * @throws TscpBaseException 
+	 * @throws ScorpionBaseException 
 	 */
-	protected void createQueue(String key,AbsProtocol protocolConf) throws InterruptedException, TscpBaseException{
+	protected void createQueue(String key,AbsProtocol protocolConf) throws InterruptedException, ScorpionBaseException{
 		
 		LinkedBlockingQueue<T> fqueue = new LinkedBlockingQueue<T>(protocolConf.getMaxConnNum());
 		LinkedBlockingQueue<T> bqueue = new LinkedBlockingQueue<T>(protocolConf.getMaxConnNum());
@@ -141,10 +141,10 @@ public abstract class AbsMedaitionPool<T extends AbsMediationFactor> implements 
 
 
 	@Override
-	public synchronized T getMediation(String protocolId,AbsProtocol absProtocol) throws InterruptedException, TscpBaseException {
+	public synchronized T getMediation(String protocolId,AbsProtocol absProtocol) throws InterruptedException, ScorpionBaseException {
 		
 		if(this.freeQueue.get(protocolId) == null&&absProtocol == null)
-			throw new TscpBaseException("TSCP-4067:The protocol id ["+protocolId+"] mapped protocol configuration not exist, please check route.xml !");
+			throw new ScorpionBaseException("scorpion-4067:The protocol id ["+protocolId+"] mapped protocol configuration not exist, please check route.xml !");
 		
 		if((this.freeQueue.get(protocolId) == null||this.freeQueue.get(protocolId).size()==0)&&(absProtocol != null)){
 			this.freeQueue.put(protocolId, new LinkedBlockingQueue<T>());
@@ -159,10 +159,10 @@ public abstract class AbsMedaitionPool<T extends AbsMediationFactor> implements 
 		if(factor == null){
 			
 			if(this.freeQueue.get(protocolId).size()+ this.freeQueue.get(protocolId).size()==0)
-				throw new TscpBaseException("TSCP-6043:Connection don't initialize,current connection num["+(this.freeQueue.get(protocolId).size()+ this.freeQueue.get(protocolId).size())+"]"
+				throw new ScorpionBaseException("scorpion-6043:Connection don't initialize,current connection num["+(this.freeQueue.get(protocolId).size()+ this.freeQueue.get(protocolId).size())+"]"
 						+ "maxsize ["+absProtocol.getMaxConnNum()+"] initsize ["+absProtocol.getInitConnNum()+"] nextSize ["+absProtocol.getNextConnNum()+"]");
 		
-			throw new TscpBaseException("TSCP-8097：CAN'T GET CONNECTION ，PROTOCOL ID["+protocolId+"] !");
+			throw new ScorpionBaseException("scorpion-8097：CAN'T GET CONNECTION ，PROTOCOL ID["+protocolId+"] !");
 		}
 
 		if(this.busyQueue.get(protocolId) == null)
@@ -193,7 +193,7 @@ public abstract class AbsMedaitionPool<T extends AbsMediationFactor> implements 
 	 * 
 	 * @return
 	 */
-	public abstract T getMediation(AbsProtocol protocol)throws TscpBaseException;
+	public abstract T getMediation(AbsProtocol protocol)throws ScorpionBaseException;
 	
 	
 	@Override

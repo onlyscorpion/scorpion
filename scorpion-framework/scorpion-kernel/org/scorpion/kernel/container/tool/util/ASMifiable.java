@@ -34,7 +34,7 @@ import java.util.Map;
 import org.scorpion.kernel.container.tool.Label;
 
 /**
- * An {@link com.taiji.tscp.common.bytecode.Attribute Attribute} that can print the ASM code
+ * An {@link com.SCORPION.Scorpion.common.bytecode.Attribute Attribute} that can print the ASM code
  * to create an equivalent attribute.
  * 
  * @author Eugene Kuleshov

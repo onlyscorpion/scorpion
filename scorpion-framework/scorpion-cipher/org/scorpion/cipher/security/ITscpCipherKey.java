@@ -2,12 +2,12 @@ package org.scorpion.cipher.security;
 
 import java.security.Key;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
-public interface ITscpCipherKey {
+public interface IScorpionCipherKey {
 	
-	public byte[] encrypt(Key key, byte[] data) throws TscpBaseException;
+	public byte[] encrypt(Key key, byte[] data) throws ScorpionBaseException;
 	
-	public byte[] decrypt(Key key, byte[] data) throws TscpBaseException;
+	public byte[] decrypt(Key key, byte[] data) throws ScorpionBaseException;
 
 }

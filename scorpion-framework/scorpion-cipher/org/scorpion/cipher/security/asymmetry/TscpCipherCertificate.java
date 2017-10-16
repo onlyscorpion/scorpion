@@ -7,20 +7,20 @@ import java.security.Signature;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.cipher.security.AbsTscpAsymmetry;
-import org.scorpion.cipher.security.ITscpAsymmetry;
-import org.scorpion.cipher.security.configuration.TscpCipherInfo;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.cipher.security.AbsScorpionAsymmetry;
+import org.scorpion.cipher.security.IScorpionAsymmetry;
+import org.scorpion.cipher.security.configuration.ScorpionCipherInfo;
 
-public class TscpCipherCertificate extends AbsTscpAsymmetry implements ITscpAsymmetry{
+public class ScorpionCipherCertificate extends AbsScorpionAsymmetry implements IScorpionAsymmetry{
 	
 	private Certificate cert;
 
-	public TscpCipherCertificate(TscpCipherInfo info) throws TscpBaseException {
+	public ScorpionCipherCertificate(ScorpionCipherInfo info) throws ScorpionBaseException {
 		initParam(info);
 	}
 	
-	private void initParam(TscpCipherInfo info) throws TscpBaseException {
+	private void initParam(ScorpionCipherInfo info) throws ScorpionBaseException {
 		FileInputStream certIn = null;
 		FileInputStream KeyStoreIn = null;
 		try{
@@ -38,14 +38,14 @@ public class TscpCipherCertificate extends AbsTscpAsymmetry implements ITscpAsym
 			
 			this.signAlgorithm = CertificateInfo.getSigAlgName(this.cert);
 		}catch(Exception e){
-			throw new TscpBaseException("TSCP-6053:证书获取密钥对失败!", e);
+			throw new ScorpionBaseException("scorpion-6053:证书获取密钥对失败!", e);
 		}finally{
 			try{
 				if(certIn != null){
 					certIn.close();
 				}
 			}catch(Exception e){
-				throw new TscpBaseException("TSCP-6053:证书获取密钥对失败!", e);
+				throw new ScorpionBaseException("scorpion-6053:证书获取密钥对失败!", e);
 			}
 			
 			try{
@@ -53,13 +53,13 @@ public class TscpCipherCertificate extends AbsTscpAsymmetry implements ITscpAsym
 					KeyStoreIn.close();
 				}
 			}catch(Exception e){
-				throw new TscpBaseException("TSCP-6053:证书获取密钥对失败!", e);
+				throw new ScorpionBaseException("scorpion-6053:证书获取密钥对失败!", e);
 			}
 		}
 	}
 	
 	@Override
-	public boolean verifySign(byte[] data, byte[] sign) throws TscpBaseException {
+	public boolean verifySign(byte[] data, byte[] sign) throws ScorpionBaseException {
 		try{
 			Signature signature = Signature.getInstance(this.signAlgorithm);
 			signature.initVerify(cert);
@@ -67,7 +67,7 @@ public class TscpCipherCertificate extends AbsTscpAsymmetry implements ITscpAsym
 			return signature.verify(sign);
 //			return true;
 		}catch(Exception e){
-			throw new TscpBaseException("TSCP-6031:sign verify exception!", e);
+			throw new ScorpionBaseException("scorpion-6031:sign verify exception!", e);
 		}
 	}
 }

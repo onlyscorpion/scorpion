@@ -3,23 +3,23 @@ package org.scorpion.kernel.media.client;
 import javax.naming.NamingException;
 
 import org.scorpion.api.common.AbsMediationFactor;
-import org.scorpion.api.common.ITscpProtocal.ProtocolType;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.common.IScorpionProtocal.ProtocolType;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.kernel.IMessageReceiver;
-import org.scorpion.api.kernel.ITscpReqMedia;
-import org.scorpion.api.kernel.ITscpRespMedia;
+import org.scorpion.api.kernel.IScorpionReqMedia;
+import org.scorpion.api.kernel.IScorpionRespMedia;
 import org.scorpion.common.annotation.Sender;
 import org.scorpion.common.enums.SenderType;
 import org.scorpion.kernel.media.MediationPoolFactory;
-import org.scorpion.kernel.media.TscpEJBSenderMediationPool;
+import org.scorpion.kernel.media.ScorpionEJBSenderMediationPool;
 import org.scorpion.kernel.route.EJBAdapter;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.SCORPION.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -28,10 +28,10 @@ import org.scorpion.kernel.route.EJBAdapter;
  * Description: the annotation is used to signal the method of component
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -64,24 +64,24 @@ public class EJBBaseMessageMediation extends AbsMediationFactor {
 	}
 
 	@Override
-	public ITscpRespMedia messageSenderHandler(ITscpReqMedia req)throws TscpBaseException {
+	public IScorpionRespMedia messageSenderHandler(IScorpionReqMedia req)throws ScorpionBaseException {
 
 		try {
 			IMessageReceiver receiver = (IMessageReceiver) EJBAdapter.getProxyObject(provideURL, username, password);
 			return receiver.receiver(req);
 		} catch (NamingException e) {
-			throw new TscpBaseException("TSCP-9067:CAN'T LOOK UP REMOTE OBJECT !", e);
+			throw new ScorpionBaseException("scorpion-9067:CAN'T LOOK UP REMOTE OBJECT !", e);
 		}
 
 	}
 
 	@Override
-	public void close() throws TscpBaseException {
+	public void close() throws ScorpionBaseException {
 
 		try {
-			MediationPoolFactory.getMessageMediation().produceInstance(TscpEJBSenderMediationPool.class).getFreeQueue().get(this.getProtocolId()).put(this);
+			MediationPoolFactory.getMessageMediation().produceInstance(ScorpionEJBSenderMediationPool.class).getFreeQueue().get(this.getProtocolId()).put(this);
 		} catch (InterruptedException e) {
-			throw new TscpBaseException("TSCP-9056:CLOSE RESOURCE EXCEPTION !",e);
+			throw new ScorpionBaseException("scorpion-9056:CLOSE RESOURCE EXCEPTION !",e);
 		}
 
 	}
@@ -133,7 +133,7 @@ public class EJBBaseMessageMediation extends AbsMediationFactor {
 	}
 
 	@Override
-	protected ITscpRespMedia tryAgain(ITscpReqMedia req)throws TscpBaseException, InterruptedException {
+	protected IScorpionRespMedia tryAgain(IScorpionReqMedia req)throws ScorpionBaseException, InterruptedException {
 		// TODO Auto-generated method stub
 		return null;
 	}

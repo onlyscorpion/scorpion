@@ -1,19 +1,19 @@
 package org.scorpion.api.log;
 
 
-import org.scorpion.api.common.AbsTscpBaseException;
-import org.scorpion.api.common.TscpLogger;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.common.AbsScorpionBaseException;
+import org.scorpion.api.common.ScorpionLogger;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.kernel.ApplicationContext;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -21,7 +21,7 @@ import org.scorpion.api.kernel.ApplicationContext;
  */
 public class PlatformLogger{
 	
-	private static TscpLogger logger = TscpLogFactory.getLogger(PlatformLogger.class);
+	private static ScorpionLogger logger = ScorpionLogFactory.getLogger(PlatformLogger.class);
 	
 	public static boolean isShowServiceCall = true;
 	
@@ -147,13 +147,13 @@ public class PlatformLogger{
 	public static Throwable detailStack(Throwable throwable,ApplicationContext context,String sessionId){
 		
 		Throwable th ;
-		if(throwable instanceof AbsTscpBaseException){
-			((AbsTscpBaseException) throwable).addNode(context.getSystemCoreConfig().getNodeName());
-			((AbsTscpBaseException) throwable).setSessionId(sessionId);
-			((AbsTscpBaseException) throwable).setCurrentNode(context.getSystemCoreConfig().getNodeName());
+		if(throwable instanceof AbsScorpionBaseException){
+			((AbsScorpionBaseException) throwable).addNode(context.getSystemCoreConfig().getNodeName());
+			((AbsScorpionBaseException) throwable).setSessionId(sessionId);
+			((AbsScorpionBaseException) throwable).setCurrentNode(context.getSystemCoreConfig().getNodeName());
 			th = throwable;
 		}else{
-			AbsTscpBaseException exception = new TscpBaseException(throwable);
+			AbsScorpionBaseException exception = new ScorpionBaseException(throwable);
 			exception.setExceptionPointNode(context.getSystemCoreConfig().getNodeName());
 			exception.setCurrentNode(context.getSystemCoreConfig().getNodeName());
 			exception.addNode(context.getSystemCoreConfig().getNodeName());
@@ -166,7 +166,7 @@ public class PlatformLogger{
 	}
 	
 	public static void dumpStack(String message,Thread thread){
-		logger.error("tscp.xml the name of component can't be null !");
+		logger.error("Scorpion.xml the name of component can't be null !");
 		for(int i=thread.getStackTrace().length-1;i>=0;i--){
 			logger.error(thread.getStackTrace()[i]);
 		}

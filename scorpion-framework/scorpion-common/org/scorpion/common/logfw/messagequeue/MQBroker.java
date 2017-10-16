@@ -3,17 +3,17 @@ package org.scorpion.common.logfw.messagequeue;
 import java.net.URI;
 import org.apache.activemq.broker.BrokerFactory;
 import org.apache.activemq.broker.BrokerService;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.common.context.SystemContext;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -24,9 +24,9 @@ public class MQBroker {
 	
 	/**
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static void startBroker()throws TscpBaseException{
+	public static void startBroker()throws ScorpionBaseException{
 		
 	    String BROKER_NAME = SystemContext.getApplicationContext().getSystemCoreConfig().getLogframeworkInfo().getBrokerName();
 	
@@ -39,7 +39,7 @@ public class MQBroker {
 			broker.setPersistent(false);
 			broker.start();
 		} catch (Throwable e) {
-			throw new TscpBaseException("TSCP-3458：start broker exception !",e);
+			throw new ScorpionBaseException("scorpion-3458：start broker exception !",e);
 		}
 	}
 	

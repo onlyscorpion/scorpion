@@ -10,9 +10,9 @@ import org.apache.commons.fileupload.FileItem;
 
 /**
  * @author GuoMing
- * @Package com.tj.tscp.platform.web.event
+ * @Package com.tj.Scorpion.platform.web.event
  * @Title: IReqData.java
- * @Description: RequestEvent用户接口DTO此接口根据{@link TscpDataSet}数据模型的实现获得用户接口。
+ * @Description: RequestEvent用户接口DTO此接口根据{@link ScorpionDataSet}数据模型的实现获得用户接口。
  * @date 2015年5月14日 上午11:55:04
  * @version V1.0
  */

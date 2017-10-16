@@ -1,13 +1,13 @@
 package org.scorpion.api.util;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: system constant information </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -19,12 +19,12 @@ public class Constant {
 	
 	/**系统参数配置 **/
 	public final static String SYSTEM_ENV_PATH = "system_env_path";
-	public final static String MICRO_KERNEL_CONFIG = "/META-INF/resources/tscp-kennel-regedit.properties";
-	public final static String CORE_CONFIG_PATTERN = "tscp.xml";
-	public final static String LOG_CONFIG_PATTERN = "tscp-log.xml";
-	public final static String DATASOURCE_CONFIG_PATTERN = "tscp-datasource.xml";
-	public final static String SQL_CONFIG_PATTERN = "(tscp)-*(\\w)*-*(sql.xml)";
-	public final static String EXCEPTION_CONFIG_PATTERN = "(tscp)-*(\\w)*-*(exception.properties)";
+	public final static String MICRO_KERNEL_CONFIG = "/META-INF/resources/scorpion-kennel-regedit.properties";
+	public final static String CORE_CONFIG_PATTERN = "Scorpion.xml";
+	public final static String LOG_CONFIG_PATTERN = "scorpion-log.xml";
+	public final static String DATASOURCE_CONFIG_PATTERN = "scorpion-datasource.xml";
+	public final static String SQL_CONFIG_PATTERN = "(Scorpion)-*(\\w)*-*(sql.xml)";
+	public final static String EXCEPTION_CONFIG_PATTERN = "(Scorpion)-*(\\w)*-*(exception.properties)";
 	
 	public final static String IP_PATTERN = "((?:(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d))))";
 	
@@ -90,7 +90,7 @@ public class Constant {
 	public final static String SQL = "sql";
 	public final static String TABLES = "tables";
 	public final static String DYNAMICPARAM = "#dynamicParam#";
-    public final static String PAGING_SQL_TITLE = "SELECT * FROM(SELECT ROWNUM as NUM, TSCPNUM.* from (";
+    public final static String PAGING_SQL_TITLE = "SELECT * FROM(SELECT ROWNUM as NUM, ScorpionNUM.* from (";
     public final static String MYSQL_SQL_TITLE = "SELECT * FROM(";
 	
 	/** 数据源配置区 ***/
@@ -109,7 +109,7 @@ public class Constant {
 	/** 连接池类型  **/
 	public final static String DSCPT = "DSCPT";
 	/** 太极连接池 **/
-	public final static String TSCPDBCP = "TSCPDBCP";
+	public final static String ScorpionDBCP = "ScorpionDBCP";
 	/** C3P0连接池 **/
 	public final static String C3P0 = "C3P0";
 	
@@ -128,7 +128,7 @@ public class Constant {
 	/**容器引擎**/
 	public final static String GUICE = "guice";
 	public final static String SPRING = "spring";
-	public final static String TSCP = "tscp";
+	public final static String Scorpion = "Scorpion";
 	
 	/** 数据源类型  **/
     public final static byte DEFAULT_DATASOURCE = 1;
@@ -136,9 +136,9 @@ public class Constant {
     
     
     /** session signal **/
-    public final static String TSCP_SESSION ="tscp_session";
+    public final static String Scorpion_SESSION ="Scorpion_session";
     
-    public final static String PERSISTENCE = "com.taiji.tscp.persistence.handler.TscpPersistenceDAO";
+    public final static String PERSISTENCE = "com.SCORPION.Scorpion.persistence.handler.ScorpionPersistenceDAO";
     
     /** 上下文信息设置 **/
     public final static String WEBLOGIC_CONTEXT_FACTORY = "weblogic.jndi.WLInitialContextFactory";
@@ -207,12 +207,12 @@ public class Constant {
 	
 	
 	/** 服务调用  **/
-    public final static String TSCP_TEMP_DATA_STACK = "tscpTempDataStack";
+    public final static String Scorpion_TEMP_DATA_STACK = "ScorpionTempDataStack";
     public final static String DESCRIPTION ="description";
     public final static String REQ_TMP_DATA = "reqTmpData";
     
     
-    public final static String TSCP_PERSISTENCE_FILE = "tscp-scheduler.properties";
+    public final static String Scorpion_PERSISTENCE_FILE = "scorpion-scheduler.properties";
 
     public final static String CUSTOM_JOB_DATA = "custom_job_data";
     public final static String JOB_NAME = "jobName";

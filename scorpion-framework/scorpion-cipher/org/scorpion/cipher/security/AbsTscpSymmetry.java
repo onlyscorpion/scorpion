@@ -3,27 +3,27 @@ package org.scorpion.cipher.security;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
-public abstract class AbsTscpSymmetry extends TscpCipherKeyImpl implements ITscpSymmetry {
+public abstract class AbsScorpionSymmetry extends ScorpionCipherKeyImpl implements IScorpionSymmetry {
 	
 	protected String algorithm;
 	
 	protected int keyLength;
 	
 	@Override
-	public SecretKey generateSecretKey() throws TscpBaseException {
+	public SecretKey generateSecretKey() throws ScorpionBaseException {
 		try {
 			KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
 			keyGenerator.init(keyLength);
 			return keyGenerator.generateKey();
 		} catch (Exception e) {
-			throw new TscpBaseException("TSCP-6050:生成密钥错误", e);
+			throw new ScorpionBaseException("scorpion-6050:生成密钥错误", e);
 		}
 	}
 
 	@Override
-	public byte[] generateSecretKeyEncoded() throws TscpBaseException {
+	public byte[] generateSecretKeyEncoded() throws ScorpionBaseException {
 		return this.generateSecretKey().getEncoded();
 	}
 

@@ -11,7 +11,7 @@ import org.apache.commons.pool.impl.GenericObjectPool.Config;
 import org.scorpion.common.mdb.client.exception.JedisConnectionException;
 import org.scorpion.common.mdb.client.util.Pool;
 
-public class JedisSentinelPool extends Pool<TscpRDClient> {
+public class JedisSentinelPool extends Pool<ScorpionRDClient> {
 
     protected Config poolConfig;        
     
@@ -121,7 +121,7 @@ public class JedisSentinelPool extends Pool<TscpRDClient> {
     			  log.fine("Connecting to Sentinel " + hap);
     			  
     			  try {
-    				  TscpRDClient jedis = new TscpRDClient(hap.host, hap.port);
+    				  ScorpionRDClient jedis = new ScorpionRDClient(hap.host, hap.port);
     				  
     				  if (master == null) {
     					  master = toHostAndPort(jedis.sentinelGetMasterAddrByName(masterName));
@@ -182,7 +182,7 @@ public class JedisSentinelPool extends Pool<TscpRDClient> {
     	  protected String host;
     	  protected int port;
     	  protected long subscribeRetryWaitTimeMillis = 5000;
-    	  protected TscpRDClient j;
+    	  protected ScorpionRDClient j;
     	  protected AtomicBoolean running = new AtomicBoolean(false);
     	  
     	  protected MasterListener() {}
@@ -204,7 +204,7 @@ public class JedisSentinelPool extends Pool<TscpRDClient> {
     		  
     		  while (running.get()) {
     			  
-    			  j = new TscpRDClient(host, port);
+    			  j = new ScorpionRDClient(host, port);
     			  
     			  try {    				  
     				  j.subscribe(new JedisPubSubAdapter() {

@@ -6,11 +6,11 @@ import java.util.Map;
 import org.scorpion.api.kernel.IAnalyzerResourceRegister;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.SCORPION.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -19,10 +19,10 @@ import org.scorpion.api.kernel.IAnalyzerResourceRegister;
  * Description: the annotation is used to signal the method of component
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -41,11 +41,11 @@ public class AnalyzerResourceRegister implements IAnalyzerResourceRegister {
 	public Map<String, String> getApplicationDefaultAnalyzer() {
 
 		Map<String, String> analyzers = new HashMap<String, String>();
-		analyzers.put("action","com.taiji.tscp.kernel.classanalyzer.ActionAnalyzer");
-		analyzers.put("service","com.taiji.tscp.kernel.classanalyzer.BeanAnalyzer");
-		analyzers.put("component","com.taiji.tscp.kernel.classanalyzer.ComponentAnalyzer");
-		analyzers.put("interceptor","com.taiji.tscp.kernel.classanalyzer.InterceptorAnalyzer");
-		analyzers.put("pojo","com.taiji.tscp.kernel.classanalyzer.PojoAnalyzer");
+		analyzers.put("action","com.SCORPION.Scorpion.kernel.classanalyzer.ActionAnalyzer");
+		analyzers.put("service","com.SCORPION.Scorpion.kernel.classanalyzer.BeanAnalyzer");
+		analyzers.put("component","com.SCORPION.Scorpion.kernel.classanalyzer.ComponentAnalyzer");
+		analyzers.put("interceptor","com.SCORPION.Scorpion.kernel.classanalyzer.InterceptorAnalyzer");
+		analyzers.put("pojo","com.SCORPION.Scorpion.kernel.classanalyzer.PojoAnalyzer");
 		return analyzers;
 	}
 

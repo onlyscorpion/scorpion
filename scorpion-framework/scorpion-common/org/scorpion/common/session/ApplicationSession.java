@@ -16,31 +16,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import org.scorpion.api.common.ITscpProtocal.ProtocolType;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.common.IScorpionProtocal.ProtocolType;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.kernel.ConnectionFactory;
-import org.scorpion.api.kernel.ITscpAppliactionSession;
-import org.scorpion.api.kernel.ITscpGlobalSystemSession;
+import org.scorpion.api.kernel.IScorpionAppliactionSession;
+import org.scorpion.api.kernel.IScorpionGlobalSystemSession;
 import org.scorpion.api.log.PlatformLogger;
-import org.scorpion.api.persistence.ITscpPersistenceSession;
+import org.scorpion.api.persistence.IScorpionPersistenceSession;
 import org.scorpion.api.util.Constant;
-import org.scorpion.api.util.TscpSequenceUtil;
+import org.scorpion.api.util.ScorpionSequenceUtil;
 import org.scorpion.common.context.SystemContext;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-public class ApplicationSession implements ITscpGlobalSystemSession{
+public class ApplicationSession implements IScorpionGlobalSystemSession{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -77,7 +77,7 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	/**
 	 * DEFAULT PERSISTENT SESSION
 	 */
-	private ITscpPersistenceSession defaultPersistenceSession;
+	private IScorpionPersistenceSession defaultPersistenceSession;
 	
 	
 	private ConcurrentMap<String,Object> tempAttribute;
@@ -91,17 +91,17 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	/**
 	 * SESSION INFORMATION BINGDING CURRENT THREAD
 	 */
-	private static ThreadLocal<ITscpAppliactionSession> sessionvariable = new ThreadLocal<ITscpAppliactionSession>();
+	private static ThreadLocal<IScorpionAppliactionSession> sessionvariable = new ThreadLocal<IScorpionAppliactionSession>();
 	
 	/**
 	 * MULTI-DATASOURCE HANDLE
 	 */
-	private Map<String,ITscpPersistenceSession> otherPersistenceSession;
+	private Map<String,IScorpionPersistenceSession> otherPersistenceSession;
 	
 	/**
 	 * CURRENT PERSISTENT
 	 */
-	private ITscpPersistenceSession currentPersistence;
+	private IScorpionPersistenceSession currentPersistence;
 	
 	/**
 	 * 
@@ -130,9 +130,9 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public ITscpPersistenceSession getDefaultPersistenceSession()throws TscpBaseException {
+	public IScorpionPersistenceSession getDefaultPersistenceSession()throws ScorpionBaseException {
 	
 		return defaultPersistenceSession;
 	
@@ -145,7 +145,7 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	 * @Dscription Get attribute of the user setting
 	 */
 	@Override
-	public Object getAttributes(String name) throws TscpBaseException {
+	public Object getAttributes(String name) throws ScorpionBaseException {
 		
 		if(httpSession != null){
 			return httpSession.getAttribute(name);
@@ -180,14 +180,14 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	}
 	
 
-	public ITscpPersistenceSession getCurrentPersistence() {
+	public IScorpionPersistenceSession getCurrentPersistence() {
 		
 		return currentPersistence;
 
 	}
 
 
-	public void setCurrentPersistence(ITscpPersistenceSession currentPersistence) {
+	public void setCurrentPersistence(IScorpionPersistenceSession currentPersistence) {
 	
 		this.currentPersistence = currentPersistence;
 	
@@ -201,16 +201,16 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	 * 
 	 * @throws SQLException 
 	 * 
-	 * @throws TscpBaseException 
+	 * @throws ScorpionBaseException 
 	 * 
 	 */
-	public void setDefaultPersistenceSession(ITscpPersistenceSession defaultPersistenceSession) throws TscpBaseException, SQLException {
+	public void setDefaultPersistenceSession(IScorpionPersistenceSession defaultPersistenceSession) throws ScorpionBaseException, SQLException {
 	
 		this.defaultPersistenceSession = defaultPersistenceSession;
 		this.defaultPersistenceSession.getConnection().setAutoCommit(!this.isOpenTransactionManager);
 	
 		if(this.isOpenTransactionManager)
-			((org.scorpion.api.persistence.ITscpTransactionManager)this.defaultPersistenceSession.getPersistenceServcie()).startTransactionManager();
+			((org.scorpion.api.persistence.IScorpionTransactionManager)this.defaultPersistenceSession.getPersistenceServcie()).startTransactionManager();
 	
 	}
 	
@@ -222,7 +222,7 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	 * 
 	 * @throws SQLException
 	 */
-	public void resetConnection(String dataSourceName,ITscpPersistenceSession persistenceSession,int sessionType) throws TscpBaseException, SQLException{
+	public void resetConnection(String dataSourceName,IScorpionPersistenceSession persistenceSession,int sessionType) throws ScorpionBaseException, SQLException{
 	
 		if(Constant.DEFAULT_DATASOURCE == sessionType)
 			persistenceSession.setConnection(ConnectionFactory.getDefaultConn());
@@ -231,13 +231,13 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 			persistenceSession.setConnection(ConnectionFactory.getConnByDataSourceName(dataSourceName));
 
 		}else{
-			throw new TscpBaseException("TSCP-8649:Unknow datasource Type !");
+			throw new ScorpionBaseException("scorpion-8649:Unknow datasource Type !");
 		}
 		
 		persistenceSession.getConnection().setAutoCommit(!this.isOpenTransactionManager);
 		
 		if(this.isOpenTransactionManager)
-			((org.scorpion.api.persistence.ITscpTransactionManager)persistenceSession.getPersistenceServcie()).startTransactionManager();
+			((org.scorpion.api.persistence.IScorpionTransactionManager)persistenceSession.getPersistenceServcie()).startTransactionManager();
 	
 	}
 
@@ -268,10 +268,10 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	 * @return
 	 * 
 	 */
-	public ITscpPersistenceSession getOtherPersistenceSessionByName(String dataSourceName) {
+	public IScorpionPersistenceSession getOtherPersistenceSessionByName(String dataSourceName) {
 		
 		if(otherPersistenceSession == null)
-			otherPersistenceSession = new HashMap<String, ITscpPersistenceSession>();
+			otherPersistenceSession = new HashMap<String, IScorpionPersistenceSession>();
 		
 		return otherPersistenceSession.get(dataSourceName);
 	}
@@ -281,7 +281,7 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	 * 
 	 * @return
 	 */
-	public Map<String,ITscpPersistenceSession> getOtherPersistenceSession(){
+	public Map<String,IScorpionPersistenceSession> getOtherPersistenceSession(){
 		
 		return this.otherPersistenceSession;
 		
@@ -293,13 +293,13 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	 * 
 	 * @param otherPersistenceSession
 	 * @throws SQLException 
-	 * @throws TscpBaseException 
+	 * @throws ScorpionBaseException 
 	 * 
 	 */
-	public void setOtherPersistenceSession(String dataSourceName,ITscpPersistenceSession session) throws TscpBaseException, SQLException {
+	public void setOtherPersistenceSession(String dataSourceName,IScorpionPersistenceSession session) throws ScorpionBaseException, SQLException {
 	   
 		if(this.otherPersistenceSession == null)
-			this.otherPersistenceSession = new HashMap<String,ITscpPersistenceSession>();
+			this.otherPersistenceSession = new HashMap<String,IScorpionPersistenceSession>();
 	 
 		session.getConnection().setAutoCommit(this.isOpenTransactionManager);
 		this.otherPersistenceSession.put(dataSourceName, session);
@@ -312,11 +312,11 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	 * @Time 2015-08-24
 	 * @author zcl
 	 */
-	public static ITscpAppliactionSession  createSession(){
+	public static IScorpionAppliactionSession  createSession(){
 		
 		ApplicationSession session = new ApplicationSession();
 		
-		session.sessionId = TscpSequenceUtil.generateSequeueString();
+		session.sessionId = ScorpionSequenceUtil.generateSequeueString();
 		
 		session.startTime = new Date();
 		
@@ -331,11 +331,11 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	 * @Time 2015-08-24
 	 * @author zcl
 	 */
-	public static ITscpAppliactionSession  createSession(HttpSession httpSession){
+	public static IScorpionAppliactionSession  createSession(HttpSession httpSession){
 		
 		ApplicationSession session = new ApplicationSession();
 		
-		session.sessionId = TscpSequenceUtil.generateSequeueString();
+		session.sessionId = ScorpionSequenceUtil.generateSequeueString();
 		
 		session.httpSession = httpSession;
 		
@@ -352,7 +352,7 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	 * 
 	 * @param session
 	 */
-	public static ITscpAppliactionSession createOrInsteadOfSession(ITscpGlobalSystemSession session){
+	public static IScorpionAppliactionSession createOrInsteadOfSession(IScorpionGlobalSystemSession session){
 		
 		if(sessionvariable.get() != null)
 			
@@ -369,7 +369,7 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	 * @param session
 	 * @return
 	 *//*
-	public static ITscpAppliactionSession SetSession(ITscpAppliactionSession session){
+	public static IScorpionAppliactionSession SetSession(IScorpionAppliactionSession session){
 	
 		sessionvariable.set(session);
 		
@@ -384,26 +384,26 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	 * 
 	 * @param req
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public ITscpAppliactionSession createOrInsteadOfSession(String signal,HttpServletRequest req)throws TscpBaseException{
+	public IScorpionAppliactionSession createOrInsteadOfSession(String signal,HttpServletRequest req)throws ScorpionBaseException{
 	
 		if(sessionvariable.get() != null){
 			((ApplicationSession)sessionvariable.get()).setHttpSession(req.getSession());
 			return sessionvariable.get();
 		}
 		
-		if(req.getAttribute(signal) != null&&(req.getAttribute(signal) instanceof ITscpGlobalSystemSession)){
-			sessionvariable.set((ITscpGlobalSystemSession)req.getAttribute(signal));
-			sessionvariable.get().setSessionId(TscpSequenceUtil.generateSequeueString());
-			((ApplicationSession)sessionvariable.get()).setWebReqId(TscpSequenceUtil.generateSequeueString());
+		if(req.getAttribute(signal) != null&&(req.getAttribute(signal) instanceof IScorpionGlobalSystemSession)){
+			sessionvariable.set((IScorpionGlobalSystemSession)req.getAttribute(signal));
+			sessionvariable.get().setSessionId(ScorpionSequenceUtil.generateSequeueString());
+			((ApplicationSession)sessionvariable.get()).setWebReqId(ScorpionSequenceUtil.generateSequeueString());
 			return sessionvariable.get();
 		}else if(req.getAttribute(signal) == null){
-			sessionvariable.set((ITscpGlobalSystemSession)createSession(req.getSession()));
+			sessionvariable.set((IScorpionGlobalSystemSession)createSession(req.getSession()));
 			req.getSession().setAttribute(signal, sessionvariable.get());
 			return sessionvariable.get();
 		}else 
-			throw new TscpBaseException("TSC-6549:Request中存储的session对象类型不是为ITscpSystemSession!");
+			throw new ScorpionBaseException("TSC-6549:Request中存储的session对象类型不是为IScorpionSystemSession!");
 			
 	}
 	
@@ -411,29 +411,29 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	/**
 	 * @Description Clear session ...
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public ITscpAppliactionSession clear(){
+	public IScorpionAppliactionSession clear(){
 		
 		ApplicationSession session = (ApplicationSession) sessionvariable.get();
 		if(session == null)
 			session = (ApplicationSession) createSession();
 		sessionvariable.set(session);
 		session.tempData  = null;
-		session.sessionId = TscpSequenceUtil.generateSequeueString();
+		session.sessionId = ScorpionSequenceUtil.generateSequeueString();
 		session.currentPersistence = null;
 		session.dataSource = null;
 		try {
 			if(session.defaultPersistenceSession !=null&&session.defaultPersistenceSession.getConnection()!=null&&!session.defaultPersistenceSession.getConnection().isClosed())
 				session.defaultPersistenceSession.getConnection().close();
 			if(session.otherPersistenceSession != null&&session.otherPersistenceSession.size()>0){
-				for(Entry<String,ITscpPersistenceSession>entry:session.otherPersistenceSession.entrySet()){
+				for(Entry<String,IScorpionPersistenceSession>entry:session.otherPersistenceSession.entrySet()){
 					if(entry.getValue() !=null&&entry.getValue().getConnection()!=null&&!entry.getValue().getConnection().isClosed())
 						entry.getValue().getConnection().close();
 				}
 			}
 		} catch (Throwable e) {
-			PlatformLogger.error("TSCP-9756：Close connection failure !",e);
+			PlatformLogger.error("scorpion-9756：Close connection failure !",e);
 		}
 		session.defaultPersistenceSession = null;
 		session.otherPersistenceSession = null;
@@ -453,20 +453,20 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 			session = (ApplicationSession) createSession();
 		sessionvariable.set(session);
 		session.tempData  = null;
-		session.sessionId = TscpSequenceUtil.generateSequeueString();
+		session.sessionId = ScorpionSequenceUtil.generateSequeueString();
 		session.currentPersistence = null;
 		session.dataSource = null;
 		try {
 			if(session.defaultPersistenceSession !=null&&session.defaultPersistenceSession.getConnection()!=null&&!session.defaultPersistenceSession.getConnection().isClosed())
 				session.defaultPersistenceSession.getConnection().close();
 			if(session.otherPersistenceSession != null&&session.otherPersistenceSession.size()>0){
-				for(Entry<String,ITscpPersistenceSession>entry:session.otherPersistenceSession.entrySet()){
+				for(Entry<String,IScorpionPersistenceSession>entry:session.otherPersistenceSession.entrySet()){
 					if(entry.getValue() !=null&&entry.getValue().getConnection()!=null&&!entry.getValue().getConnection().isClosed())
 						entry.getValue().getConnection().close();
 				}
 			}
 		} catch (Throwable e) {
-			PlatformLogger.error("TSCP-9756：Close connection failure !",e);
+			PlatformLogger.error("scorpion-9756：Close connection failure !",e);
 		}
 		session.defaultPersistenceSession = null;
 		session.otherPersistenceSession = null;
@@ -483,10 +483,10 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 */
-	public static ITscpAppliactionSession getSession(){
+	public static IScorpionAppliactionSession getSession(){
 		
 		if(sessionvariable.get() == null)
 			createSession();
@@ -540,14 +540,14 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	
 
 	@Override
-	public String getUserId() throws TscpBaseException {
+	public String getUserId() throws ScorpionBaseException {
 		
 		return (String) getSession().getAttributes(USER_ID);
 	}
 
 
 	@Override
-	public void setUserId(String userId) throws TscpBaseException {
+	public void setUserId(String userId) throws ScorpionBaseException {
 		
 		getSession().setAttribute(USER_ID, userId);
 	}
@@ -557,7 +557,7 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 	public void setAttribute(String key, Object value) {
 		
 		if(httpSession == null)
-			PlatformLogger.warn("TSCP-9087:Session information don't initialize , system will launch default session !");
+			PlatformLogger.warn("scorpion-9087:Session information don't initialize , system will launch default session !");
 		
 		if(httpSession != null){
 			this.httpSession.setAttribute(key, value);
@@ -572,7 +572,7 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 
 
 	@Override
-	public void addServers(LinkedList<String> servers) throws TscpBaseException {
+	public void addServers(LinkedList<String> servers) throws ScorpionBaseException {
 	
 		if(this.servers == null)
 			this.servers = new Stack<String>();
@@ -582,7 +582,7 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 
 
 	@Override
-	public void addCurrentServer() throws TscpBaseException {
+	public void addCurrentServer() throws ScorpionBaseException {
 		this.servers.push(SystemContext.getApplicationContext().getServerName());
 	}
 	
@@ -719,7 +719,7 @@ public class ApplicationSession implements ITscpGlobalSystemSession{
 
 
 	@Override
-	public ITscpAppliactionSession setSession(ITscpAppliactionSession session) {
+	public IScorpionAppliactionSession setSession(IScorpionAppliactionSession session) {
 		 sessionvariable.set(session);
 		 return session;
 	}

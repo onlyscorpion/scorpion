@@ -1,52 +1,52 @@
 package org.scorpion.cipher.security.asymmetry;
 
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.cipher.security.ITscpAsymmetry;
-import org.scorpion.cipher.security.configuration.AbsTscpCipherConfiguration;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.cipher.security.IScorpionAsymmetry;
+import org.scorpion.cipher.security.configuration.AbsScorpionCipherConfiguration;
 import org.scorpion.cipher.security.configuration.Constant;
-import org.scorpion.cipher.security.configuration.TscpCipherInfo;
-import org.scorpion.cipher.security.util.TscpCipherManagerUtil;
+import org.scorpion.cipher.security.configuration.ScorpionCipherInfo;
+import org.scorpion.cipher.security.util.ScorpionCipherManagerUtil;
 
-public class TscpAsymmetryFactory {
+public class ScorpionAsymmetryFactory {
 	
-	public static ITscpAsymmetry getCigher(String name) throws TscpBaseException{
-		AbsTscpCipherConfiguration tscpCipherConfiguration = AbsTscpCipherConfiguration.getInstance();
-		TscpCipherInfo info = tscpCipherConfiguration.getType(name);
+	public static IScorpionAsymmetry getCigher(String name) throws ScorpionBaseException{
+		AbsScorpionCipherConfiguration ScorpionCipherConfiguration = AbsScorpionCipherConfiguration.getInstance();
+		ScorpionCipherInfo info = ScorpionCipherConfiguration.getType(name);
 		
 		if(info == null || Constant.CipherType.SYMMETRY.equals(info.getType())){
 //			return null;
-			info = tscpCipherConfiguration.getType("c");
+			info = ScorpionCipherConfiguration.getType("c");
 		}
 		
-		ITscpAsymmetry tscpAsymmetry = null;
+		IScorpionAsymmetry ScorpionAsymmetry = null;
 		if(Constant.CipherType.ASYMMETRY.equals(info.getType())){	//非对称
-			tscpAsymmetry = new TscpCipherAsymmetry(info);
+			ScorpionAsymmetry = new ScorpionCipherAsymmetry(info);
 		}else{	//证书方式
-			tscpAsymmetry = new TscpCipherCertificate(info);
+			ScorpionAsymmetry = new ScorpionCipherCertificate(info);
 		}
 		
-		return tscpAsymmetry;
+		return ScorpionAsymmetry;
 	}
 	
 	public static void main(String[] args) throws Exception{
-		AbsTscpCipherConfiguration tscpCipherConfiguration = AbsTscpCipherConfiguration.getInstance();
-		tscpCipherConfiguration.loadCipherConfiguration();
-		ITscpAsymmetry tscpAsymmetry = TscpAsymmetryFactory.getCigher("c");
-//		PublicKey pubk = tscpAsymmetry.getPublicKey();
-//		PrivateKey prik = tscpAsymmetry.getPrivateKey();
-//		byte[] byt = tscpAsymmetry.encrypt(prik, "测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据".getBytes("UTF-8"));
-//		String str = new String(tscpAsymmetry.decrypt(pubk, byt), "UTF-8");
+		AbsScorpionCipherConfiguration ScorpionCipherConfiguration = AbsScorpionCipherConfiguration.getInstance();
+		ScorpionCipherConfiguration.loadCipherConfiguration();
+		IScorpionAsymmetry ScorpionAsymmetry = ScorpionAsymmetryFactory.getCigher("c");
+//		PublicKey pubk = ScorpionAsymmetry.getPublicKey();
+//		PrivateKey prik = ScorpionAsymmetry.getPrivateKey();
+//		byte[] byt = ScorpionAsymmetry.encrypt(prik, "测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据测试加密数据".getBytes("UTF-8"));
+//		String str = new String(ScorpionAsymmetry.decrypt(pubk, byt), "UTF-8");
 //		System.out.println(str);
 		
 		String str = new String("测试数据");
 //		System.out.println(str.getBytes("UTF-8").length);
-		String signStr = TscpCipherManagerUtil.signAsymmetry(tscpAsymmetry, str);
+		String signStr = ScorpionCipherManagerUtil.signAsymmetry(ScorpionAsymmetry, str);
 		String str2 = new String("测试数据");
 		System.out.println(signStr.length());
-		System.out.println(TscpCipherManagerUtil.verifyAsymmetry(tscpAsymmetry, signStr, str2));
-//		byte[] sign = tscpAsymmetry.sign(str.getBytes("UTF-8"));
+		System.out.println(ScorpionCipherManagerUtil.verifyAsymmetry(ScorpionAsymmetry, signStr, str2));
+//		byte[] sign = ScorpionAsymmetry.sign(str.getBytes("UTF-8"));
 //		System.out.println(sign.length);
-//		System.out.println(tscpAsymmetry.verify(str.getBytes("UTF-8"), sign));
+//		System.out.println(ScorpionAsymmetry.verify(str.getBytes("UTF-8"), sign));
 	}
 
 }

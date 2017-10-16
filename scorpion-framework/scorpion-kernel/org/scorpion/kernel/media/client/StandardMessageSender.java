@@ -2,28 +2,28 @@ package org.scorpion.kernel.media.client;
 
 import java.util.Map;
 
-import org.scorpion.api.common.ITscpProtocal.ProtocolType;
-import org.scorpion.api.configuration.TscpRouteInfo;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.common.IScorpionProtocal.ProtocolType;
+import org.scorpion.api.configuration.ScorpionRouteInfo;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.kernel.IBaseMessageSender;
-import org.scorpion.api.kernel.ITscpAppliactionSession;
-import org.scorpion.api.kernel.ITscpReqMedia;
-import org.scorpion.api.kernel.ITscpRespMedia;
+import org.scorpion.api.kernel.IScorpionAppliactionSession;
+import org.scorpion.api.kernel.IScorpionReqMedia;
+import org.scorpion.api.kernel.IScorpionRespMedia;
 import org.scorpion.api.log.PlatformLogger;
 import org.scorpion.api.util.Constant;
 import org.scorpion.common.context.SystemContext;
-import org.scorpion.common.util.TscpSystemSessionUtils;
-import org.scorpion.kernel.media.DefaultTscpRespMedia;
+import org.scorpion.common.util.ScorpionSystemSessionUtils;
+import org.scorpion.kernel.media.DefaultScorpionRespMedia;
 import org.scorpion.kernel.route.ProtocolConf.EJBProtocolConf;
 import org.scorpion.kernel.route.ProtocolConf.RouteConf;
-import org.scorpion.kernel.util.TscpServiceUtil;
+import org.scorpion.kernel.util.ScorpionServiceUtil;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.SCORPION.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -32,10 +32,10 @@ import org.scorpion.kernel.util.TscpServiceUtil;
  * Description: the annotation is used to signal the method of component
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -64,26 +64,26 @@ public class StandardMessageSender implements IBaseMessageSender {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	final protected ITscpRespMedia send(final ITscpReqMedia req,final ProtocolType protocolType,final Map<String, Object> parameter, final boolean isLocalService)throws TscpBaseException {
+	final protected IScorpionRespMedia send(final IScorpionReqMedia req,final ProtocolType protocolType,final Map<String, Object> parameter, final boolean isLocalService)throws ScorpionBaseException {
 
 		if (!(SystemContext.getApplicationContext().getSystemProfile().getApplicationState() == Constant.RUNNING)) {
-			throw new TscpBaseException("TSCP-8759:SYSTEM DON'T START COMPLETE ，TRY AGAIN LATER !");
+			throw new ScorpionBaseException("scorpion-8759:SYSTEM DON'T START COMPLETE ，TRY AGAIN LATER !");
 		}
 
-		final ITscpAppliactionSession session = TscpSystemSessionUtils.clear();
+		final IScorpionAppliactionSession session = ScorpionSystemSessionUtils.clear();
 		final String serviceName = req.getServiceName();
 		Object value = null;
 
 		try {
 			if (isLocalService) {
-				value = TscpServiceUtil.callLocalServiceByServiceContainer(null, serviceName, req.getServiceArgument());
+				value = ScorpionServiceUtil.callLocalServiceByServiceContainer(null, serviceName, req.getServiceArgument());
 			} else {
-				value = TscpServiceUtil.callService(req.getServiceName(),req.getServiceArgument());
+				value = ScorpionServiceUtil.callService(req.getServiceName(),req.getServiceArgument());
 			}
 
-			final DefaultTscpRespMedia response = new DefaultTscpRespMedia();
+			final DefaultScorpionRespMedia response = new DefaultScorpionRespMedia();
 			response.setSessionID(req.getSessionId());
 			response.setResponseValue(value);
 			response.setCallLevel(session.getServiceCalledLevel().get());
@@ -91,23 +91,23 @@ public class StandardMessageSender implements IBaseMessageSender {
 			return response;
 		} catch (Throwable e) {
 			PlatformLogger.error(e);
-			throw new TscpBaseException(e);
+			throw new ScorpionBaseException(e);
 		}
 
 	}
 
 	@Override
-	public ITscpRespMedia send(ITscpReqMedia req) throws TscpBaseException {
+	public IScorpionRespMedia send(IScorpionReqMedia req) throws ScorpionBaseException {
 		return null;
 	}
 
 	@Override
-	public ITscpRespMedia send(String protocol, ITscpReqMedia req)throws TscpBaseException {
+	public IScorpionRespMedia send(String protocol, IScorpionReqMedia req)throws ScorpionBaseException {
 		return null;
 	}
 
 	@Override
-	public ITscpRespMedia send(TscpRouteInfo routeInfo, ITscpReqMedia req)throws TscpBaseException {
+	public IScorpionRespMedia send(ScorpionRouteInfo routeInfo, IScorpionReqMedia req)throws ScorpionBaseException {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -2,20 +2,20 @@ package org.scorpion.common.concurrentcpt;
 
 import java.util.List;
 
-import org.scorpion.api.common.AbsTscpThreadPrimer;
+import org.scorpion.api.common.AbsScorpionThreadPrimer;
 import org.scorpion.api.common.IConcurrentProcessor;
-import org.scorpion.api.common.ITscpConurrentEngine;
-import org.scorpion.api.common.ITscpTaskGenerator;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.common.IScorpionConurrentEngine;
+import org.scorpion.api.common.IScorpionTaskGenerator;
+import org.scorpion.api.exception.ScorpionBaseException;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -35,7 +35,7 @@ public class ConcurrentEngineUtil {
 	   * 
 	   * @return
 	   */
-	  public final static ITscpConurrentEngine createConcurrentEngine(String taskname,int threadnum,String enginemode){
+	  public final static IScorpionConurrentEngine createConcurrentEngine(String taskname,int threadnum,String enginemode){
 		  return getEngineInstace(taskname,threadnum,enginemode,null);
 	  }
 	
@@ -49,9 +49,9 @@ public class ConcurrentEngineUtil {
 	    * 
 	    * @return
 	    * 
-	    * @throws TscpBaseException
+	    * @throws ScorpionBaseException
 	    */
-	   public final static ITscpConurrentEngine createConcurrentEngine(String taskname,int threadnum,String enginemode,ThreadPropertiesEntity threadPropertiesEntity) throws TscpBaseException{
+	   public final static IScorpionConurrentEngine createConcurrentEngine(String taskname,int threadnum,String enginemode,ThreadPropertiesEntity threadPropertiesEntity) throws ScorpionBaseException{
 		   return getEngineInstace(taskname,threadnum,enginemode,threadPropertiesEntity);
 	   }
 	   
@@ -67,34 +67,34 @@ public class ConcurrentEngineUtil {
 	    * 
 	    * @return
 	    */
-	   private static ITscpConurrentEngine getEngineInstace(String taskname,final int threadnum,final String enginemode,final ThreadPropertiesEntity tpe){
+	   private static IScorpionConurrentEngine getEngineInstace(String taskname,final int threadnum,final String enginemode,final ThreadPropertiesEntity tpe){
 		   
-		    return new ITscpConurrentEngine() {
+		    return new IScorpionConurrentEngine() {
 		    	
 		    @Override
-			public List<TscpBaseException> getRuntimeException()throws TscpBaseException {
+			public List<ScorpionBaseException> getRuntimeException()throws ScorpionBaseException {
 				return null;
 			}
 			
 			@Override
-			public void getCurrentTaskProgress() throws TscpBaseException {
+			public void getCurrentTaskProgress() throws ScorpionBaseException {
 			}
 			
 			@Override
-			public void fire(ITscpTaskGenerator taskGenerator, IConcurrentProcessor processor,boolean isneedsyn) throws TscpBaseException {
-			    if(taskGenerator == null) throw new TscpBaseException("TSCP-1006：任务产生器不能为空");
-			    if(processor == null) throw new TscpBaseException("TSCP-1007：核心处理业务实现");
+			public void fire(IScorpionTaskGenerator taskGenerator, IConcurrentProcessor processor,boolean isneedsyn) throws ScorpionBaseException {
+			    if(taskGenerator == null) throw new ScorpionBaseException("scorpion-1006：任务产生器不能为空");
+			    if(processor == null) throw new ScorpionBaseException("scorpion-1007：核心处理业务实现");
 			    ConcurrentTaskRegister.registerTask(taskGenerator,processor,threadnum,tpe,enginemode,isneedsyn);
 			}
 
 			@Override
-			public void fire(AbsTscpThreadPrimer primer,IConcurrentProcessor processor) throws TscpBaseException {
-				if(primer == null) throw new TscpBaseException("TSCP-1006：任务产生器不能为空");
-				if(processor == null) throw new TscpBaseException("TSCP-1007：核心处理业务实现");
+			public void fire(AbsScorpionThreadPrimer primer,IConcurrentProcessor processor) throws ScorpionBaseException {
+				if(primer == null) throw new ScorpionBaseException("scorpion-1006：任务产生器不能为空");
+				if(processor == null) throw new ScorpionBaseException("scorpion-1007：核心处理业务实现");
 				try {
 					ConcurrentTaskRegister.registerTask(primer,processor,false);
 				} catch (InterruptedException e) {
-					throw new TscpBaseException(e);
+					throw new ScorpionBaseException(e);
 				}
 			}
 		    };

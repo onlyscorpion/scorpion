@@ -4,11 +4,11 @@ import org.apache.catalina.startup.ServerBoot;
 import org.scorpion.api.log.PlatformLogger;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.SCORPION.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -17,10 +17,10 @@ import org.scorpion.api.log.PlatformLogger;
  * Description: the annotation is used to signal the method of component
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -50,7 +50,7 @@ public class ContainerServer {
 			try {
 				daemon.init();
 			} catch (Throwable t) {
-				PlatformLogger.error("TSCP-1001:容器初始化失败", t);
+				PlatformLogger.error("scorpion-1001:容器初始化失败", t);
 				return;
 			}
 		}
@@ -75,7 +75,7 @@ public class ContainerServer {
 			}
 
 		} catch (Throwable t) {
-			PlatformLogger.error("TSCP-1002:容器启动失败", t);
+			PlatformLogger.error("scorpion-1002:容器启动失败", t);
 		}
 		
 	}

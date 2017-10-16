@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="scorpion-api"/>
-	<classpathentry kind="src" path="scorpion-cipher"/>
 	<classpathentry kind="src" path="scorpion-common"/>
 	<classpathentry kind="src" path="scorpion-extension"/>
 	<classpathentry kind="src" path="scorpion-kernel"/>

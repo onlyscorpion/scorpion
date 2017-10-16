@@ -2,18 +2,18 @@ package org.scorpion.kernel.transactionaspect;
 
 import java.sql.SQLException;
 
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.ITscpAopBeforeAdvice;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.IScorpionAopBeforeAdvice;
 import org.scorpion.api.util.Constant;
 import org.scorpion.common.annotation.Interceptor;
 import org.scorpion.common.session.ApplicationSession;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.SCORPION.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -23,7 +23,7 @@ import org.scorpion.common.session.ApplicationSession;
  * extends the abstract
  * </p>
  * <p>
- * class ATscpComponet. the ATscpComponent exist life cycle. developer can
+ * class AScorpionComponet. the AScorpionComponent exist life cycle. developer can
  * override
  * </p>
  * <p>
@@ -34,10 +34,10 @@ import org.scorpion.common.session.ApplicationSession;
  * but we don't suggest the developer do that
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -47,10 +47,10 @@ import org.scorpion.common.session.ApplicationSession;
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-@Interceptor(name = "TransactionBeforeInterceptor", classRegex = "com.taiji.tscp.persistence.handler.TscpPersistenceDAO", methodRegex = "(^(execute)(.*))|(^(insert(.*)))|(^(update)(.*))|(^(delete)(.*))")
-public class TransactionBeforeInterceptor implements ITscpAopBeforeAdvice {
+@Interceptor(name = "TransactionBeforeInterceptor", classRegex = "com.SCORPION.Scorpion.persistence.handler.ScorpionPersistenceDAO", methodRegex = "(^(execute)(.*))|(^(insert(.*)))|(^(update)(.*))|(^(delete)(.*))")
+public class TransactionBeforeInterceptor implements IScorpionAopBeforeAdvice {
 
-	public void doBeforeAdvice() throws TscpBaseException {
+	public void doBeforeAdvice() throws ScorpionBaseException {
 
 		ApplicationSession session = (ApplicationSession) ApplicationSession.getSession();
 		try {
@@ -61,7 +61,7 @@ public class TransactionBeforeInterceptor implements ITscpAopBeforeAdvice {
 					session.resetConnection(session.getCurrentPersistence().getDataSourceName(), session.getOtherPersistenceSessionByName(session.getCurrentPersistence().getDataSourceName()),Constant.OTHER_DATASOURCE);
 			}
 		} catch (SQLException e) {
-			throw new TscpBaseException("TSCP-9034:create persistence session failure", e);
+			throw new ScorpionBaseException("scorpion-9034:create persistence session failure", e);
 		}
 
 		if (session.getCurrentPersistence().isOpenTransaction())

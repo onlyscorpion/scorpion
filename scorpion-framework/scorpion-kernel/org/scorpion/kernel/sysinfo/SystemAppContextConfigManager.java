@@ -10,16 +10,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import org.scorpion.api.common.AbsTscpConfigFileHandler;
-import org.scorpion.api.common.ItscpXmlParser;
+import org.scorpion.api.common.AbsScorpionConfigFileHandler;
+import org.scorpion.api.common.IScorpionXmlParser;
 import org.scorpion.api.configuration.ComponentInformation;
 import org.scorpion.api.configuration.ExceptionInfo;
 import org.scorpion.api.configuration.SystemEnumType;
-import org.scorpion.api.configuration.TscpCoreConfig;
+import org.scorpion.api.configuration.ScorpionCoreConfig;
 import org.scorpion.api.configuration.ExceptionInfo.ExceptionDetail;
 import org.scorpion.api.configuration.PlatformConfiguration.Scanner;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.AbsTscpComponent;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.AbsScorpionComponent;
 import org.scorpion.api.kernel.IAnalyzerResourceRegister;
 import org.scorpion.api.log.PlatformLogger;
 import org.scorpion.api.util.Constant;
@@ -29,11 +29,11 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.SCORPION.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -42,10 +42,10 @@ import org.xml.sax.SAXException;
  * Description: the annotation is used to signal the method of component
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -55,10 +55,10 @@ import org.xml.sax.SAXException;
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-public class SystemAppContextConfigManager extends AbsTscpComponent {
+public class SystemAppContextConfigManager extends AbsScorpionComponent {
 
 	@Override
-	public void start(Map<String, String> arguments) throws TscpBaseException {
+	public void start(Map<String, String> arguments) throws ScorpionBaseException {
 
 		try {
 
@@ -70,46 +70,46 @@ public class SystemAppContextConfigManager extends AbsTscpComponent {
 
 		} catch (FileNotFoundException e) {
 
-			throw new TscpBaseException("TSCP-8709:THE CONFIGURATION FILE NOT FOUND, PLEASE CHECK IF EXIST OR NOT !");
+			throw new ScorpionBaseException("scorpion-8709:THE CONFIGURATION FILE NOT FOUND, PLEASE CHECK IF EXIST OR NOT !");
 		}
 	}
 
 	/**
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	private void loadLogConfig() throws TscpBaseException {
+	private void loadLogConfig() throws ScorpionBaseException {
 		PlatformLogger.info("Is beginning to initialize log configuration");
 		// @SuppressWarnings("unchecked")
-		// ItscpXmlParser<TscpLogConfig> systemconfigparser =
-		// (ItscpXmlParser<TscpLogConfig>)
-		// TscpParserFactory.getInstance().produceInstance(SystemEnumType.logconfigfileparser.getValue());
+		// IScorpionXmlParser<ScorpionLogConfig> systemconfigparser =
+		// (IScorpionXmlParser<ScorpionLogConfig>)
+		// ScorpionParserFactory.getInstance().produceInstance(SystemEnumType.logconfigfileparser.getValue());
 		/*
 		 * systemconfigparser.parseXml2Object(systemconfigparser.
 		 * getConfigFileInputStream
 		 * (SystemContext.getInstance().getSystemConfigFile
-		 * ().getLogConfigFile()), new AbsTscpConfigFileHandler<TscpLogConfig,
+		 * ().getLogConfigFile()), new AbsScorpionConfigFileHandler<ScorpionLogConfig,
 		 * InputStream>() {
 		 * 
-		 * @Override public TscpLogConfig processor(InputStream in)throws
-		 * TscpBaseException { return null; } });
+		 * @Override public ScorpionLogConfig processor(InputStream in)throws
+		 * ScorpionBaseException { return null; } });
 		 */
 	}
 
 	/**
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	private void loadExceptionConfig() throws TscpBaseException {
+	private void loadExceptionConfig() throws ScorpionBaseException {
 
 		PlatformLogger.info("Is beginning to initialize exception configuration");
 		@SuppressWarnings("unchecked")
-		ItscpXmlParser<ExceptionInfo> systemconfigparser = (ItscpXmlParser<ExceptionInfo>) TscpParserFactory.getInstance().produceInstance(SystemEnumType.exceptionconfigparser.getValue());
+		IScorpionXmlParser<ExceptionInfo> systemconfigparser = (IScorpionXmlParser<ExceptionInfo>) ScorpionParserFactory.getInstance().produceInstance(SystemEnumType.exceptionconfigparser.getValue());
 		
 		systemconfigparser.parseXml2Object(SystemContext.getApplicationContext().getSystemConfigFile().getUserDefaultExceptionPropertiesFiles(),
-				new AbsTscpConfigFileHandler<ExceptionInfo, File>() {
+				new AbsScorpionConfigFileHandler<ExceptionInfo, File>() {
 					@Override
-					public ExceptionInfo processor(File file)throws TscpBaseException {
+					public ExceptionInfo processor(File file)throws ScorpionBaseException {
 						Properties properties = new Properties();
 						try {
 							properties.load(new FileInputStream(file));
@@ -122,7 +122,7 @@ public class SystemAppContextConfigManager extends AbsTscpComponent {
 							}
 							this.entitys.add(exceptionInfo);
 						} catch (IOException e) {
-							throw new TscpBaseException("TSCP-6094:Open exception configuration file exception,please check whether the file exist or not!");
+							throw new ScorpionBaseException("scorpion-6094:Open exception configuration file exception,please check whether the file exist or not!");
 						}
 						return null;
 					}
@@ -131,16 +131,16 @@ public class SystemAppContextConfigManager extends AbsTscpComponent {
 
 	/**
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @throws FileNotFoundException
 	 */
-	private void loadSystemConfig() throws TscpBaseException,FileNotFoundException {
+	private void loadSystemConfig() throws ScorpionBaseException,FileNotFoundException {
 
 		PlatformLogger.info("Is beginning to initialize kernel configuration");
 		@SuppressWarnings("unchecked")
-		ItscpXmlParser<TscpCoreConfig> systemconfigparser = (ItscpXmlParser<TscpCoreConfig>) TscpParserFactory.getInstance().produceInstance(SystemEnumType.coreconfigfileparser.getValue());
+		IScorpionXmlParser<ScorpionCoreConfig> systemconfigparser = (IScorpionXmlParser<ScorpionCoreConfig>) ScorpionParserFactory.getInstance().produceInstance(SystemEnumType.coreconfigfileparser.getValue());
 		systemconfigparser.parseXml2Object(systemconfigparser.getConfigFileInputStream(SystemContext.getApplicationContext().getSystemConfigFile().getCoreConfigFile()),
-				new AbsTscpConfigFileHandler<TscpCoreConfig, InputStream>() {
+				new AbsScorpionConfigFileHandler<ScorpionCoreConfig, InputStream>() {
 					@Override
 					public void startElement(String uri, String localName,String qName, Attributes attributes)throws SAXException {
 						if (Constant.MACHINE_NAME.equals(qName)) {
@@ -179,7 +179,7 @@ public class SystemAppContextConfigManager extends AbsTscpComponent {
 					}
 
 					@Override
-					public TscpCoreConfig processor(InputStream in)throws TscpBaseException {
+					public ScorpionCoreConfig processor(InputStream in)throws ScorpionBaseException {
 
 						this.setParseDocumentStream(in);
 
@@ -198,7 +198,7 @@ public class SystemAppContextConfigManager extends AbsTscpComponent {
 								return 100;
 							return Integer.parseInt(num);
 						} catch (Exception e) {
-							throw new NumberFormatException("TSCP-6870:The sequence of component must be number !");
+							throw new NumberFormatException("scorpion-6870:The sequence of component must be number !");
 						}
 					}
 
@@ -206,7 +206,7 @@ public class SystemAppContextConfigManager extends AbsTscpComponent {
 					/**
 					 * @param attributes
 					 * 
-					 * @throws TscpBaseException
+					 * @throws ScorpionBaseException
 					 */
 					private void registerSystemAnalyzer(Attributes attributes)throws SAXException {
 
@@ -216,11 +216,11 @@ public class SystemAppContextConfigManager extends AbsTscpComponent {
 							try {
 								register = (AnalyzerResourceRegister) Class.forName(attributes.getValue(Constant.CLASS)).newInstance();
 							} catch (InstantiationException e) {
-								throw new SAXException("TSCP-8095:Instance class["+ attributes.getValue(Constant.CLASS)+ "] exception !", e);
+								throw new SAXException("scorpion-8095:Instance class["+ attributes.getValue(Constant.CLASS)+ "] exception !", e);
 							} catch (IllegalAccessException e) {
-								throw new SAXException("TSCP:8097:IllegalAccessException", e);
+								throw new SAXException("Scorpion:8097:IllegalAccessException", e);
 							} catch (ClassNotFoundException e) {
-								throw new SAXException("TSCP-8099:Can't find class["+ attributes.getValue(Constant.CLASS)+ "] exception !", e);
+								throw new SAXException("scorpion-8099:Can't find class["+ attributes.getValue(Constant.CLASS)+ "] exception !", e);
 							}
 							analyzer.putAll(register.getApplicationDefaultAnalyzer());
 							this.getEntity().getPlatformconfiguration().getScanners().get(this.getEntity().getPlatformconfiguration().getScanners().size() - 1).getAnalyzers().add(analyzer);
@@ -239,7 +239,7 @@ public class SystemAppContextConfigManager extends AbsTscpComponent {
 
 						ComponentInformation component = new ComponentInformation();
 						if(attributes.getValue(Constant.NAME) == null||"".equals(attributes.getValue(Constant.NAME))){
-							PlatformLogger.dumpStack("tscp.xml the name of component can't be null !",Thread.currentThread());
+							PlatformLogger.dumpStack("Scorpion.xml the name of component can't be null !",Thread.currentThread());
 						    return;
 						}
 						component.setName(attributes.getValue(Constant.NAME));

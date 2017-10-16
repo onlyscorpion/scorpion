@@ -2,14 +2,14 @@ package org.scorpion.cipher.security;
 
 import javax.crypto.SecretKey;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
-public interface ITscpSymmetryKey {
+public interface IScorpionSymmetryKey {
 	
-	public SecretKey byteToSecretKey(byte[] secretKey) throws TscpBaseException;
+	public SecretKey byteToSecretKey(byte[] secretKey) throws ScorpionBaseException;
 	
-	public SecretKey generateSecretKey() throws TscpBaseException;
+	public SecretKey generateSecretKey() throws ScorpionBaseException;
 	
-	public byte[] generateSecretKeyEncoded() throws TscpBaseException;
+	public byte[] generateSecretKeyEncoded() throws ScorpionBaseException;
 
 }

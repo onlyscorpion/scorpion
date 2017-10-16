@@ -7,21 +7,21 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.persistence.TscpDataBaseType;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.persistence.ScorpionDataBaseType;
 
 import oracle.jdbc.OracleDriver;
 
 import com.kingbase.Driver;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -40,9 +40,9 @@ public class DataDecoration {
 	/**
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	/*public static List<String> getTableName()throws TscpBaseException{
+	/*public static List<String> getTableName()throws ScorpionBaseException{
 		
 		List<String> tables = new ArrayList<String>();
 		try {
@@ -51,7 +51,7 @@ public class DataDecoration {
 				tables.add(result.getString(1));
 			}
 		} catch (SQLException e) {
-			throw new TscpBaseException("TSCP-6985:数据库操作异常",e);
+			throw new ScorpionBaseException("scorpion-6985:数据库操作异常",e);
 		}
 		return tables;
 	}*/
@@ -62,31 +62,31 @@ public class DataDecoration {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	private static ResultSet dataBaseHandler(String sql,String url,String username,String password) throws TscpBaseException{
+	private static ResultSet dataBaseHandler(String sql,String url,String username,String password) throws ScorpionBaseException{
 		
 		//if(user == null||password == null||url == null)
-		//	throw new TscpBaseException("TSCP-9854:数据源信息不完整");
+		//	throw new ScorpionBaseException("scorpion-9854:数据源信息不完整");
 		try{
 			//BitSet
-			initDataSource(TscpDataBaseType.kbe_db_type);
+			initDataSource(ScorpionDataBaseType.kbe_db_type);
 			//Connection conn = DriverManager.getConnection(url, user, password);
-			//Connection conn = DriverManager.getConnection("jdbc:kingbase://192.168.30.152:54321/tscp", "esb6", "123456");
-			//Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.152:1521:TSCP", "wjjh", "tscp123");
-			  Connection conn = DriverManager.getConnection("jdbc:kingbase://127.0.0.1:54321/tscp", "tscp", "admin");
+			//Connection conn = DriverManager.getConnection("jdbc:kingbase://192.168.30.152:54321/Scorpion", "esb6", "123456");
+			//Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.152:1521:Scorpion", "wjjh", "Scorpion123");
+			  Connection conn = DriverManager.getConnection("jdbc:kingbase://127.0.0.1:54321/Scorpion", "Scorpion", "admin");
 			//Connection conn = DriverManager.getConnection(url, username, password);
-			//Connection conn = DriverManager.getConnection("jdbc:kingbase://192.168.30.152:54321/tscp_esb", "tscp", "tscp123");
+			//Connection conn = DriverManager.getConnection("jdbc:kingbase://192.168.30.152:54321/Scorpion_esb", "Scorpion", "Scorpion123");
 			//Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:orcl", "tj_jcpt", "css");
 		    //Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.107:1521:tjfy", "tjfy", "tjfy");
-			//Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.152:1521:tscp", "esb4", "123456");
+			//Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.152:1521:Scorpion", "esb4", "123456");
 	    	/*Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:orcl", "tj_jcpt", "css");*/
 			//"select t.table_name,f.COLUMN_NAME,f.DATA_TYPE from user_tables t, user_tab_columns f where t.table_name = f.TABLE_NAME"
 			PreparedStatement statement = conn.prepareStatement(sql);
 			return statement.executeQuery();
 	
 		}catch(Exception e){
-			throw new TscpBaseException("TSCP-8094:GET DATABASE TYPE EXCEPTION ! ",e);
+			throw new ScorpionBaseException("scorpion-8094:GET DATABASE TYPE EXCEPTION ! ",e);
 		}
 	}
 	
@@ -114,8 +114,8 @@ public class DataDecoration {
 	private static void initDataSource(int dbType) throws InstantiationException, IllegalAccessException{
 		
 		switch(dbType){
-		case TscpDataBaseType.oracle_db_type: OracleDriver.class.newInstance(); break;
-		case TscpDataBaseType.kbe_db_type:Driver.class.newInstance();break;
+		case ScorpionDataBaseType.oracle_db_type: OracleDriver.class.newInstance(); break;
+		case ScorpionDataBaseType.kbe_db_type:Driver.class.newInstance();break;
 		}
 	}
 	
@@ -124,9 +124,9 @@ public class DataDecoration {
 	/**
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static Map<String,Map<String,String>> constructAttributeInfo(String url,String username,String password) throws TscpBaseException{
+	public static Map<String,Map<String,String>> constructAttributeInfo(String url,String username,String password) throws ScorpionBaseException{
 	
 		ResultSet result = dataBaseHandler("select distinct t.table_name,t.COLUMN_NAME,t.DATA_TYPE,t.DATA_PRECISION,t.DATA_SCALE,t.nullable ,T.DATA_DEFAULT,f.constraint_type from user_tables k, user_tab_cols t ,(select a.column_name,a.table_name,b.constraint_type from user_tables n, user_cons_columns a, user_constraints b where a.constraint_name = b.constraint_name and a.table_name = b.table_name AND B.constraint_type = 'P')f where t.column_name = f.column_name(+) and  t.table_name = f.table_name(+)  and k.table_name = t.table_name",url,username,password);
 		Map<String,Map<String,String>> models = new HashMap<String,Map<String,String>>();
@@ -149,14 +149,14 @@ public class DataDecoration {
 				}
 			}
 		} catch (Exception e) {
-			throw new TscpBaseException("TSCP-76554:DATABASE HANDLE FAILURE !",e);
+			throw new ScorpionBaseException("scorpion-76554:DATABASE HANDLE FAILURE !",e);
 		}
 		
 		return models;
 	}
 	
 	
-	public static void main(String[] args) throws TscpBaseException {}
+	public static void main(String[] args) throws ScorpionBaseException {}
 	
 
 }

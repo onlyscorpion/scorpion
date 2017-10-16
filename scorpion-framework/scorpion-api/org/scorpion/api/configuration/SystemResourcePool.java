@@ -8,13 +8,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.sql.DataSource;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: system constant information </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -39,13 +39,13 @@ public class SystemResourcePool {
 	
 	public void initResource(){
 		
-		resourceHashPool.put(SystemEnumType.systemcoreconfigresource.getValue(), new TscpCoreConfig());
+		resourceHashPool.put(SystemEnumType.systemcoreconfigresource.getValue(), new ScorpionCoreConfig());
 		resourceHashPool.put(SystemEnumType.systemcomponentresource.getValue(), new HashMap<String,ComponentInformation>());
 		resourceHashPool.put(SystemEnumType.systemdatasourceresource.getValue(), new DataSourceLis());
 		resourceHashPool.put(SystemEnumType.systemexceptionconfigresource.getValue(),new ArrayList<ExceptionInfo>());
 		resourceHashPool.put(SystemEnumType.datasource.getValue(), new HashMap<String,DataSource>());
 		resourceHashPool.put(SystemEnumType.systemsqlconfigresource.getValue(), new SQLConfig());
-		resourceHashPool.put(SystemEnumType.persistentMediate.getValue(), new TscpPersistentContext());
+		resourceHashPool.put(SystemEnumType.persistentMediate.getValue(), new ScorpionPersistentContext());
 	}
 	
 	

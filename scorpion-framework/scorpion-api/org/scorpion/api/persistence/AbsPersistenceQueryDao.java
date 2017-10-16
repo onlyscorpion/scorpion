@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.scorpion.api.configuration.DBParam;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.kernel.ApplicationContext;
 
 public abstract class AbsPersistenceQueryDao extends AbsPersistenceExecuteDao{
 	
 	@SuppressWarnings("unchecked")
 	protected <T> T queryPoBykey(String sql,DBParam param,final Class<?>clazz,final ApplicationContext appcontext)throws Throwable{
-		return (T) this.queryDataSuperDao(sql, param, new AbsTscpResultHandler<Object>() {
+		return (T) this.queryDataSuperDao(sql, param, new AbsScorpionResultHandler<Object>() {
 		
 			@Override
 			public Object resultHandler(ResultSet result)throws Throwable {
@@ -49,7 +49,7 @@ public abstract class AbsPersistenceQueryDao extends AbsPersistenceExecuteDao{
 	@SuppressWarnings("unchecked")
 	public  <T> List<T> queryPoLisByKey(String sql,DBParam param,Class<T> clazz,ApplicationContext context)throws Throwable{
 		try{
-			return  (List<T>) this.queryDataSuperDao(sql, param, new AbsTscpResultHandler<List<?>>() {
+			return  (List<T>) this.queryDataSuperDao(sql, param, new AbsScorpionResultHandler<List<?>>() {
 				private Class<?> clazz;
 			    private List<Object> pojos = new ArrayList<Object>();
 				@Override
@@ -64,7 +64,7 @@ public abstract class AbsPersistenceQueryDao extends AbsPersistenceExecuteDao{
 					return pojos;
 				}
 					
-				public AbsTscpResultHandler<?> setClazz(Class<?> clazz,ApplicationContext context) {
+				public AbsScorpionResultHandler<?> setClazz(Class<?> clazz,ApplicationContext context) {
 					this.clazz = clazz;
 					this.context = context;
 					return this;
@@ -79,10 +79,10 @@ public abstract class AbsPersistenceQueryDao extends AbsPersistenceExecuteDao{
 	/**
 	 * 
 	 */
-	public Map<String,Object> queryMapByKey(String sql,DBParam params)throws TscpBaseException{
+	public Map<String,Object> queryMapByKey(String sql,DBParam params)throws ScorpionBaseException{
 		try {
 		
-			return this.queryDataSuperDao(sql, params, new AbsTscpResultHandler<Map<String,Object>>() {
+			return this.queryDataSuperDao(sql, params, new AbsScorpionResultHandler<Map<String,Object>>() {
 		
 				@Override
 				public Map<String, Object> resultHandler(ResultSet result)throws Throwable {
@@ -99,7 +99,7 @@ public abstract class AbsPersistenceQueryDao extends AbsPersistenceExecuteDao{
 			}
 		});
 		} catch (Throwable e) {
-			throw new TscpBaseException("TSCP-9086:Query Map Data by key failure !",e);
+			throw new ScorpionBaseException("scorpion-9086:Query Map Data by key failure !",e);
 		}
 	}
 	
@@ -107,10 +107,10 @@ public abstract class AbsPersistenceQueryDao extends AbsPersistenceExecuteDao{
 	/**
 	 * 
 	 */
-	public List<Map<String,Object>> queryLisMapByKey(String sql,DBParam params)throws TscpBaseException{
+	public List<Map<String,Object>> queryLisMapByKey(String sql,DBParam params)throws ScorpionBaseException{
 	
 		try {	
-			return this.queryDataSuperDao(sql, params, new AbsTscpResultHandler<List<Map<String,Object>>>() {
+			return this.queryDataSuperDao(sql, params, new AbsScorpionResultHandler<List<Map<String,Object>>>() {
 				@Override
 				public List<Map<String,Object>> resultHandler(ResultSet result)throws Throwable {
 					List<Map<String,Object>> resultmap = new ArrayList<Map<String,Object>>();
@@ -125,7 +125,7 @@ public abstract class AbsPersistenceQueryDao extends AbsPersistenceExecuteDao{
 			}
 		});
 		} catch (Throwable e) {
-			throw new TscpBaseException("TSCP-9086:Query List Map data failure !",e);
+			throw new ScorpionBaseException("scorpion-9086:Query List Map data failure !",e);
 		}
 	}
 	

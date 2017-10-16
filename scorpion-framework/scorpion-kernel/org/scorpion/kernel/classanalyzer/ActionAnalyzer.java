@@ -2,9 +2,9 @@ package org.scorpion.kernel.classanalyzer;
 
 import java.lang.reflect.Method;
 
-import org.scorpion.api.configuration.TscpSystemScanInfo;
-import org.scorpion.api.configuration.TscpSystemScanInfo.ActionInfo;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.configuration.ScorpionSystemScanInfo;
+import org.scorpion.api.configuration.ScorpionSystemScanInfo.ActionInfo;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.kernel.IAnnotationAnalyzerListener;
 import org.scorpion.api.kernel.IReqData;
 import org.scorpion.api.kernel.IResData;
@@ -14,11 +14,11 @@ import org.scorpion.common.context.SystemContext;
 import org.scorpion.common.enums.Scope;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.SCORPION.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -28,7 +28,7 @@ import org.scorpion.common.enums.Scope;
  * extends the abstract
  * </p>
  * <p>
- * class ATscpComponet. the ATscpComponent exist life cycle. developer can
+ * class AScorpionComponet. the AScorpionComponent exist life cycle. developer can
  * override
  * </p>
  * <p>
@@ -39,10 +39,10 @@ import org.scorpion.common.enums.Scope;
  * but we don't suggest the developer do that
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -62,9 +62,9 @@ public class ActionAnalyzer implements IAnnotationAnalyzerListener {
 	 * 
 	 * @param action
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	private void constructActionInfo(ActionInfo actionInfo, Class<?> clazz,Action action) throws TscpBaseException {
+	private void constructActionInfo(ActionInfo actionInfo, Class<?> clazz,Action action) throws ScorpionBaseException {
 
 		actionInfo.setActionName("".equals(action.name()) ? clazz.getSimpleName() : action.name());
 		actionInfo.setClazz(clazz);
@@ -83,13 +83,13 @@ public class ActionAnalyzer implements IAnnotationAnalyzerListener {
 	}
 
 	@Override
-	public void analyse(Class<?> clazz, String jarName)throws TscpBaseException {
+	public void analyse(Class<?> clazz, String jarName)throws ScorpionBaseException {
 
 		if (clazz.getAnnotation(Action.class) == null)
 			return;
 
 		Action action = clazz.getAnnotation(Action.class);
-		TscpSystemScanInfo context = SystemContext.getApplicationContext().getScanInfo();
+		ScorpionSystemScanInfo context = SystemContext.getApplicationContext().getScanInfo();
 		ActionInfo actionInfo = SystemContext.getApplicationContext().getScanInfo().new ActionInfo();
 		actionInfo.setActionName(jarName);
 		constructActionInfo(actionInfo, clazz, action);

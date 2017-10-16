@@ -1,25 +1,25 @@
 package org.scorpion.api.kernel;
 
-import org.scorpion.api.configuration.TscpSystemScanInfo.ServiceInfo;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.configuration.ScorpionSystemScanInfo.ServiceInfo;
+import org.scorpion.api.exception.ScorpionBaseException;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: if developer want to create a component. the developer must extends the abstract </p>
- * <p>class ATscpComponet. the ATscpComponent exist life cycle. developer can override</p>
+ * <p>class AScorpionComponet. the AScorpionComponent exist life cycle. developer can override</p>
  * <p>the initialization method or service method or destroy method to handle themselves business</p>
  * <p>but we don't suggest the developer do that </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-public abstract class AbsServiceContainerProxy implements ITscpServiceProxy{
+public abstract class AbsServiceContainerProxy implements IScorpionServiceProxy{
 	
 	
 	private static final long serialVersionUID = 4362072895703806476L;
@@ -32,7 +32,7 @@ public abstract class AbsServiceContainerProxy implements ITscpServiceProxy{
 	
 	protected ServiceInfo serviceInfo;
 	
-	protected ITscpSystemIocManager iocManager;
+	protected IScorpionSystemIocManager iocManager;
 	
 	
 	/**
@@ -44,12 +44,12 @@ public abstract class AbsServiceContainerProxy implements ITscpServiceProxy{
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-    public Object callService(String serviceName,ServiceInfo serviceInfo,ITscpSystemIocManager iocManager,Object... args) throws TscpBaseException{
+    public Object callService(String serviceName,ServiceInfo serviceInfo,IScorpionSystemIocManager iocManager,Object... args) throws ScorpionBaseException{
     	
     	if(serviceInfo == null)
-    		throw new TscpBaseException("TSCP-9754:调用服务信息不存在");
+    		throw new ScorpionBaseException("scorpion-9754:调用服务信息不存在");
     	
     	if((args == null&&serviceInfo.getParameterTypes().length == 1)||(serviceInfo.getParameterTypes().length == 1&&serviceInfo.getParameterTypes()[0].isAssignableFrom(args.getClass()))){
     		parameters =new Object[]{args};
@@ -58,7 +58,7 @@ public abstract class AbsServiceContainerProxy implements ITscpServiceProxy{
     		parameters = null;	
     
     	}else if((args == null&&serviceInfo.getParameterTypes().length>1)||(args.length != serviceInfo.getParameterTypes().length)){
-    		throw new TscpBaseException("TSCP-9075:调用服务["+serviceName+"]传入参数和方法参数不匹配!");
+    		throw new ScorpionBaseException("scorpion-9075:调用服务["+serviceName+"]传入参数和方法参数不匹配!");
   
     	}else{
     		parameters = args;

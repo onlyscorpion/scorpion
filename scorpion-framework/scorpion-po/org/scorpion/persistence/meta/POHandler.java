@@ -12,22 +12,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.persistence.TscpDataBaseType;
-import org.scorpion.api.persistence.TscpDataBaseType.KingbaseDataType;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.persistence.ScorpionDataBaseType;
+import org.scorpion.api.persistence.ScorpionDataBaseType.KingbaseDataType;
 import org.scorpion.common.util.DynamicGeneratorCodeUtil;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -39,15 +39,15 @@ public class POHandler {
 	
 	
  	
- 	public void process(String url,String username,String password,int dbType,String packagePath,String filePath) throws IOException, TemplateException, TscpBaseException, SQLException {
+ 	public void process(String url,String username,String password,int dbType,String packagePath,String filePath) throws IOException, TemplateException, ScorpionBaseException, SQLException {
  		
  		Map<String,Map<String,String>> maps = null;
  			
- 		if(TscpDataBaseType.oracle_db_type == dbType)
+ 		if(ScorpionDataBaseType.oracle_db_type == dbType)
  			maps = DataDecoration.oconstructAttributeInfo(url,username,password,dbType);
- 		else if(TscpDataBaseType.kbe_db_type == dbType)
+ 		else if(ScorpionDataBaseType.kbe_db_type == dbType)
  			maps = DataDecoration.kconstructAttributeInfo(url,username,password,dbType);
- 		else if(TscpDataBaseType.mysql_db_type == dbType)
+ 		else if(ScorpionDataBaseType.mysql_db_type == dbType)
  			maps = DataDecoration.mconstructAttributeInfo(url,username,password,dbType);
  		
  		for(Entry<String,Map<String,String>>entry:maps.entrySet()){
@@ -69,8 +69,8 @@ public class POHandler {
  			
  	 		classInfo.setClassname(newClassName);
  	 		//classInfo.setImports(new String[]{"java.lang.*"});
- 	 		///xtgl.com.taiji.tscp.po
- 	 		//com.taiji.tscp.esb.manager.po
+ 	 		///xtgl.com.SCORPION.Scorpion.po
+ 	 		//com.SCORPION.Scorpion.esb.manager.po
  	 		classInfo.setPackagename(packagePath);
  	 		PhysicalModel model = new PhysicalModel();
  	 		model.setTableName(entry.getKey());
@@ -122,11 +122,11 @@ public class POHandler {
  	
  		POHandler hfm = new POHandler();
  		//	Connection conn = DriverManager.getConnection("jdbc:kingbase://192.168.1.100:54321/TEST", "zhuchao123", "123");
- 		//Map<Object,Object> map  =TscpDataHandler.getPropertyInfo("/tscp-po-generator.properties");
+ 		//Map<Object,Object> map  =ScorpionDataHandler.getPropertyInfo("/scorpion-po-generator.properties");
  		
  		//Connection conn = DriverManager.getConnection("jdbc:kingbase://192.168.1.100:54321/TEST11111", "zhuchao123", "123");
- 		hfm.process("jdbc:mysql://localhost:3306/tscp?user=root&password=admin",
- 				"root","admin",TscpDataBaseType.mysql_db_type,"com.taiji.tscp.lxjjw.po","E:/pos");
+ 		hfm.process("jdbc:mysql://localhost:3306/Scorpion?user=root&password=admin",
+ 				"root","admin",ScorpionDataBaseType.mysql_db_type,"com.SCORPION.Scorpion.lxjjw.po","E:/pos");
 
  		/*for(Entry<Object,Object>entry:map.entrySet()){
  			hfm.process(((String)entry.getValue()).split("#")[0],((String)entry.getValue()).split("#")[1],((String)entry.getValue()).split("#")[2]);
@@ -136,7 +136,7 @@ public class POHandler {
  	/*
  	 * 将模版进行指定文件的输出
  	 */
- 	public void write(Map<String, Object> root,String name,String filePath,String jarPath) throws IOException, TemplateException, TscpBaseException{
+ 	public void write(Map<String, Object> root,String name,String filePath,String jarPath) throws IOException, TemplateException, ScorpionBaseException{
  	
  		File basedir = new File(filePath);
  		if(!basedir.exists())

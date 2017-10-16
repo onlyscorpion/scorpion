@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.persistence.TscpDataBaseType;
-import org.scorpion.api.persistence.TscpDataBaseType.KingbaseDataType;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.persistence.ScorpionDataBaseType;
+import org.scorpion.api.persistence.ScorpionDataBaseType.KingbaseDataType;
 import org.scorpion.common.util.DynamicGeneratorCodeUtil;
 import org.scorpion.persistence.util.DbDataTypeConvert;
 
@@ -21,13 +21,13 @@ import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -39,7 +39,7 @@ public class POHandler {
 	
 	
  	
- 	public void process(String url,String username,String password) throws IOException, TemplateException, TscpBaseException {
+ 	public void process(String url,String username,String password) throws IOException, TemplateException, ScorpionBaseException {
  		
  		Map<String,Map<String,String>> maps = DataDecoration.constructAttributeInfo(url,username,password);
  		
@@ -60,9 +60,9 @@ public class POHandler {
  			
  	 		classInfo.setClassname(newClassName);
  	 		//classInfo.setImports(new String[]{"java.lang.*"});
- 	 		///xtgl.com.taiji.tscp.po
- 	 		//com.taiji.tscp.esb.manager.po
- 	 		classInfo.setPackagename("com.taiji.tscp.esb.po");
+ 	 		///xtgl.com.SCORPION.Scorpion.po
+ 	 		//com.SCORPION.Scorpion.esb.manager.po
+ 	 		classInfo.setPackagename("com.SCORPION.Scorpion.esb.po");
  	 		PhysicalModel model = new PhysicalModel();
  	 		model.setTableName(entry.getKey());
  	 		List<AttributeTemplate> attributes = new ArrayList<AttributeTemplate>();
@@ -84,7 +84,7 @@ public class POHandler {
 	 	 		attribute.setAttributeName(field);
 	 	 		if(KingbaseDataType.BLOB.name().equals(entryMap.getValue().split("#")[0]))
 	 	 			classInfo.getImports().add("java.io.UnsupportedEncodingException");
-	 	 		attribute.setAttributeType(DbDataTypeConvert.convertDataType(entryMap.getValue().split("#")[0],TscpDataBaseType.kbe_db_type));
+	 	 		attribute.setAttributeType(DbDataTypeConvert.convertDataType(entryMap.getValue().split("#")[0],ScorpionDataBaseType.kbe_db_type));
 	 	 		attribute.setNullenable(entryMap.getValue().split("#")[1]);
 	 	 		attribute.setDataDefault(entryMap.getValue().split("#")[2]);
 	 	 		attribute.setIsPrimaryKey(entryMap.getValue().split("#")[3]);
@@ -108,7 +108,7 @@ public class POHandler {
  	public static void main(String[] args) throws Throwable {
  		POHandler hfm = new POHandler();
  		//	Connection conn = DriverManager.getConnection("jdbc:kingbase://192.168.1.100:54321/TEST", "zhuchao123", "123");
- 		//Map<Object,Object> map  =TscpDataHandler.getPropertyInfo("/tscp-po-generator.properties");
+ 		//Map<Object,Object> map  =ScorpionDataHandler.getPropertyInfo("/scorpion-po-generator.properties");
  		//Connection conn = DriverManager.getConnection("jdbc:kingbase://192.168.1.100:54321/TEST11111", "zhuchao123", "123");
  		hfm.process("jdbc:kingbase://192.168.1.100:54321/TEST11111","zhuchao123","123");
 
@@ -120,7 +120,7 @@ public class POHandler {
  	/*
  	 * 将模版进行指定文件的输出
  	 */
- 	public void write(Map<String, Object> root,String name) throws IOException, TemplateException, TscpBaseException{
+ 	public void write(Map<String, Object> root,String name) throws IOException, TemplateException, ScorpionBaseException{
  	
  		Writer out = new OutputStreamWriter(new FileOutputStream(new File("E:\\1\\"+name+"Po.java")));
  		DynamicGeneratorCodeUtil.generatorCodeByConfiguration(new File(this.getClass().getResource("/META-INF/resources/po-template.ftl").getPath()), root, out);

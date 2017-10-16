@@ -32,11 +32,11 @@ import javax.tools.ForwardingJavaFileManager;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaCompiler.CompilationTask;
 
-import org.scorpion.api.common.TscpLogger;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.log.TscpLogFactory;
+import org.scorpion.api.common.ScorpionLogger;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.log.ScorpionLogFactory;
 import org.scorpion.common.context.SystemContext;
-import org.scorpion.kernel.tscpclassloader.TscpClassLoaderFactory;
+import org.scorpion.kernel.tscpclassloader.ScorpionClassLoaderFactory;
 
 import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
@@ -45,7 +45,7 @@ import javax.tools.ToolProvider;
 
 public class ClassUtils {
 	
-	private static final TscpLogger log = TscpLogFactory.getLogger(ClassUtils.class);
+	private static final ScorpionLogger log = ScorpionLogFactory.getLogger(ClassUtils.class);
 	public static final String PRIMITIVE_DATA_TYPE_BOOLEAN = Boolean.TYPE.getName();
 	public static final String PRIMITIVE_DATA_TYPE_CHAR = Character.TYPE.getName();
 	public static final String PRIMITIVE_DATA_TYPE_BYTE = Byte.TYPE.getName();
@@ -63,11 +63,11 @@ public class ClassUtils {
 	 * @Time 创建时间:2011-8-30下午2:55:16
 	 * @param clazz
 	 * @param loader
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @history 修订历史（历次修订内容、修订人、修订时间等）
 	 */
 	// private static void appendClassPath(String clazz, ClassLoader loader)
-	// throws TscpBaseException {
+	// throws ScorpionBaseException {
 	// ClassPool cp = ClassPool.getDefault();
 	//
 	// try {
@@ -77,7 +77,7 @@ public class ClassUtils {
 	// cp.appendClassPath(new ClassClassPath(Class.forName(clazz, false,
 	// loader)));
 	// } catch (ClassNotFoundException ex2) {
-	// throw new TscpBaseException("UT-01001:增加类路径" + clazz + "时发生错误",
+	// throw new ScorpionBaseException("UT-01001:增加类路径" + clazz + "时发生错误",
 	// ex2);
 	// }
 	// }
@@ -91,11 +91,11 @@ public class ClassUtils {
 	 * @Time 创建时间:2011-8-30下午2:55:16
 	 * @param clazz
 	 * @param loader
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @history 修订历史（历次修订内容、修订人、修订时间等）
 	 */
 	// private static void removeClassPath(String clazz, ClassLoader loader)
-	// throws TscpBaseException {
+	// throws ScorpionBaseException {
 	// ClassPool cp = ClassPool.getDefault();
 	//
 	// try {
@@ -104,7 +104,7 @@ public class ClassUtils {
 	// cp.removeClassPath(new ClassClassPath(Class.forName(clazz, false,
 	// loader)));
 	// } catch (ClassNotFoundException ex) {
-	// throw new TscpBaseException("UT-01002:删除类路径" + clazz + "时发生错误",
+	// throw new ScorpionBaseException("UT-01002:删除类路径" + clazz + "时发生错误",
 	// ex);
 	// }
 	// }
@@ -128,7 +128,7 @@ public class ClassUtils {
 	 * @param interfaces
 	 * @param logClass
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @history 修订历史（历次修订内容、修订人、修订时间等）
 	 */
 
@@ -181,12 +181,12 @@ public class ClassUtils {
 	 * @param className
 	 * @param code
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @throws ClassNotFoundException 
 	 * @history 修订历史（历次修订内容、修订人、修订时间等）
 	 */
 	public static Class<?> generateDynamicClassByJDK(ClassLoader classloader, String className, String code)
-			throws TscpBaseException, ClassNotFoundException {
+			throws ScorpionBaseException, ClassNotFoundException {
 		JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 		DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
 		final List<ByteArrayJavaSource> source = new ArrayList<ByteArrayJavaSource>(1);
@@ -233,19 +233,19 @@ public class ClassUtils {
 		try {
 			fileManager.close();
 		} catch (IOException ex) {
-			throw new TscpBaseException("UT-01004:关闭编译器的文件管理器时发生错误", ex);
+			throw new ScorpionBaseException("UT-01004:关闭编译器的文件管理器时发生错误", ex);
 		}
 
 		// 处理编译结果
 		if (!result) {
-			throw new TscpBaseException("UT-01005:编译" + className + "类失败");
+			throw new ScorpionBaseException("UT-01005:编译" + className + "类失败");
 		}
 
 		// 处理类加载器
 		ClassLoader loader = ClassUtils.class.getClassLoader();
 
 		if (classloader == null) {
-			loader = TscpClassLoaderFactory.getNewInstance().produceInstance(new Object[]{});
+			loader = ScorpionClassLoaderFactory.getNewInstance().produceInstance(new Object[]{});
 		}
 		// 生成类
 		return loader.loadClass("");
@@ -266,12 +266,12 @@ public class ClassUtils {
 	 * @param superClass
 	 * @param interfaces
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @throws ClassNotFoundException 
 	 * @history 修订历史（历次修订内容、修订人、修订时间等）
 	 */
 	public static Class<?> generateDynamicClassByJDK(ClassLoader classloader, String className, String[] methodCodes, String superClass,
-			String[] interfaces) throws TscpBaseException, ClassNotFoundException {
+			String[] interfaces) throws ScorpionBaseException, ClassNotFoundException {
 		StringBuilder code = new StringBuilder();
 		int index = -1;
 
@@ -332,10 +332,10 @@ public class ClassUtils {
 	 * @Time 创建时间:2011-11-22下午9:41:31
 	 * @param type
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @history 修订历史（历次修订内容、修订人、修订时间等）
 	 */
-	public static Class<?> getClass(String type) throws TscpBaseException {
+	public static Class<?> getClass(String type) throws ScorpionBaseException {
 		Class<?> clazz = null;
 
 		if (PRIMITIVE_DATA_TYPE_CHAR.equals(type)) {
@@ -358,7 +358,7 @@ public class ClassUtils {
 			try {
 				clazz = Class.forName(type);
 			} catch (ClassNotFoundException ex) {
-				throw new TscpBaseException("UT-01006:类" + type + "不存在", ex);
+				throw new ScorpionBaseException("UT-01006:类" + type + "不存在", ex);
 			}
 		}
 
@@ -414,12 +414,12 @@ public class ClassUtils {
 	 * @return
 	 * @throws ClassNotFoundException
 	 * 
-	 * @throws TscpBaseException 
+	 * @throws ScorpionBaseException 
 	 * @history 修订历史（历次修订内容、修订人、修订时间等）
 	 */
-	public static Class<?> forName(String name, boolean initialize, ClassLoader classloader) throws ClassNotFoundException, TscpBaseException {
+	public static Class<?> forName(String name, boolean initialize, ClassLoader classloader) throws ClassNotFoundException, ScorpionBaseException {
 		if (classloader == null) {
-			classloader = TscpClassLoaderFactory.getNewInstance().produceInstance(new Object[]{});
+			classloader = ScorpionClassLoaderFactory.getNewInstance().produceInstance(new Object[]{});
 		}
 		return Class.forName(name, initialize, classloader);
 	}
@@ -456,10 +456,10 @@ public class ClassUtils {
 	 * @param obj
 	 * @param debugMsg
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @history 修订历史（历次修订内容、修订人、修订时间等）
 	 */
-	public static void checkSerializable(Object obj, String debugMsg) throws TscpBaseException {
+	public static void checkSerializable(Object obj, String debugMsg) throws ScorpionBaseException {
 		if (obj == null) {
 			return;
 		}
@@ -482,19 +482,19 @@ public class ClassUtils {
 			oos.writeObject(obj);
 		} catch (IOException ex) {
 			checkSerializable(obj, new Stack<Object>());
-			throw new TscpBaseException("UT-01007:对象序列化时发生错误", ex);
+			throw new ScorpionBaseException("UT-01007:对象序列化时发生错误", ex);
 		} finally {
 			if (oos != null) {
 				try {
 					oos.close();
 				} catch (IOException ex) {
-					throw new TscpBaseException("UT-01008:关闭对象序列化流时发生错误", ex);
+					throw new ScorpionBaseException("UT-01008:关闭对象序列化流时发生错误", ex);
 				}
 			}
 		}
 	}
 
-	private static void checkSerializable(Object data, Stack<Object> stack) throws TscpBaseException {
+	private static void checkSerializable(Object data, Stack<Object> stack) throws ScorpionBaseException {
 		if (data == null) {
 			return;
 		}
@@ -506,7 +506,7 @@ public class ClassUtils {
 			}
 			errorMsg.setLength(errorMsg.length() - 2);
 			errorMsg.append("\n\t失败对象类型：").append(data.getClass().getName());
-			throw new TscpBaseException("UT-01009:对象序列化失败", new NotSerializableException(errorMsg.toString()));
+			throw new ScorpionBaseException("UT-01009:对象序列化失败", new NotSerializableException(errorMsg.toString()));
 		} else if (data instanceof Map) {
 			Map<?, ?> map = (Map<?, ?>) data;
 			for (Entry<?, ?> entry : map.entrySet()) {
@@ -542,7 +542,7 @@ public class ClassUtils {
 	 * @throws IOException
 	 * @history 修订历史（历次修订内容、修订人、修订时间等）
 	 */
-	public static URL createURLFromLocalFile(File file) throws TscpBaseException {
+	public static URL createURLFromLocalFile(File file) throws ScorpionBaseException {
 		URL url = null;
 		try {
 			final String name = file.getCanonicalPath().replace('\\', '/');
@@ -556,7 +556,7 @@ public class ClassUtils {
 				}
 			}
 		} catch (Exception ex) {
-			throw new TscpBaseException("UT-01010:生成" + file + "的URL对象时发生错误", ex);
+			throw new ScorpionBaseException("UT-01010:生成" + file + "的URL对象时发生错误", ex);
 		}
 		return url;
 	}
@@ -568,15 +568,15 @@ public class ClassUtils {
 	 * @Time 创建时间:2012-2-3下午4:00:19
 	 * @param jarURL
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @history 修订历史（历次修订内容、修订人、修订时间等）
 	 */
-	public static JarFile getJarFile(URL jarURL) throws TscpBaseException {
+	public static JarFile getJarFile(URL jarURL) throws ScorpionBaseException {
 		URLConnection con = null;
 		try {
 			con = jarURL.openConnection();
 		} catch (IOException ex) {
-			throw new TscpBaseException("UT-01011:读取Jar文件" + jarURL + "失败，请检查文件或网络是否正常", ex);
+			throw new ScorpionBaseException("UT-01011:读取Jar文件" + jarURL + "失败，请检查文件或网络是否正常", ex);
 		}
 
 		JarFile jarFile = null;
@@ -587,7 +587,7 @@ public class ClassUtils {
 			try {
 				jarFile = jarCon.getJarFile();
 			} catch (IOException ex) {
-				throw new TscpBaseException("UT-01012:获取Jar文件" + jarURL + "的文件对象失败，请检查文件是否损坏", ex);
+				throw new ScorpionBaseException("UT-01012:获取Jar文件" + jarURL + "的文件对象失败，请检查文件是否损坏", ex);
 			}
 		}
 		return jarFile;

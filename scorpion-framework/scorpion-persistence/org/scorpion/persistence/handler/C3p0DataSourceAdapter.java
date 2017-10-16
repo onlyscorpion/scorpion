@@ -6,32 +6,32 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.scorpion.api.configuration.DataSourceLis.DataSourceInfo;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.TscpDataSource;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.ScorpionDataSource;
 import org.scorpion.api.log.PlatformLogger;
-import org.scorpion.api.persistence.AbsTscpDataSourceAdapter;
-import org.scorpion.api.persistence.ITscpDataSource;
+import org.scorpion.api.persistence.AbsScorpionDataSourceAdapter;
+import org.scorpion.api.persistence.IScorpionDataSource;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-public class C3p0DataSourceAdapter extends AbsTscpDataSourceAdapter{
+public class C3p0DataSourceAdapter extends AbsScorpionDataSourceAdapter{
 	
 	
 	@Override
-	public ITscpDataSource getDataSource(DataSourceInfo dataSourceInfo)throws TscpBaseException {
+	public IScorpionDataSource getDataSource(DataSourceInfo dataSourceInfo)throws ScorpionBaseException {
 		
 		ComboPooledDataSource dataSource = new ComboPooledDataSource();      
 		
@@ -52,10 +52,10 @@ public class C3p0DataSourceAdapter extends AbsTscpDataSourceAdapter{
 			if(dataSourceInfo.isDumpStack())
 				startMonitor(dataSource);
 		}catch(PropertyVetoException e){
-			throw new TscpBaseException("TSCP9084:Initialize C3P0 connection pool exception ! ",e);
+			throw new ScorpionBaseException("Scorpion9084:Initialize C3P0 connection pool exception ! ",e);
 		}
 		
-		return new TscpDataSource(dataSourceInfo.getName(),dataSource,this.getDBType(dataSourceInfo.getDriverClassName()),dataSourceInfo.isDefaultDataSource());
+		return new ScorpionDataSource(dataSourceInfo.getName(),dataSource,this.getDBType(dataSourceInfo.getDriverClassName()),dataSourceInfo.isDefaultDataSource());
 	}
 	
 	

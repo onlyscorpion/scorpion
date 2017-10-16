@@ -5,44 +5,44 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.scorpion.api.common.AbsTscpFactory;
+import org.scorpion.api.common.AbsScorpionFactory;
 import org.scorpion.api.configuration.DataSourceLis;
 import org.scorpion.api.configuration.SystemEnumType;
 import org.scorpion.api.configuration.SystemResourcePool;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.kernel.ConnectionFactory;
-import org.scorpion.api.kernel.ITscpSystemIocManager;
-import org.scorpion.api.kernel.TscpConnection;
-import org.scorpion.api.kernel.TscpDataSource;
-import org.scorpion.api.persistence.AbsTscpPersistenceDao;
-import org.scorpion.api.persistence.ITscpPersistenceSession;
+import org.scorpion.api.kernel.IScorpionSystemIocManager;
+import org.scorpion.api.kernel.ScorpionConnection;
+import org.scorpion.api.kernel.ScorpionDataSource;
+import org.scorpion.api.persistence.AbsScorpionPersistenceDao;
+import org.scorpion.api.persistence.IScorpionPersistenceSession;
 import org.scorpion.common.context.SystemContext;
-import org.scorpion.persistence.handler.TscpPersistenceDAO;
-import org.scorpion.persistence.handler.TscpSQLManager;
+import org.scorpion.persistence.handler.ScorpionPersistenceDAO;
+import org.scorpion.persistence.handler.ScorpionSQLManager;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: if developer want to create a component. the developer must extends the abstract </p>
- * <p>class ATscpComponet. the ATscpComponent exist life cycle. developer can override</p>
+ * <p>class AScorpionComponet. the AScorpionComponent exist life cycle. developer can override</p>
  * <p>the initialization method or service method or destroy method to handle themselves business</p>
  * <p>but we don't suggest the developer do that </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-public class SessionFactory extends AbsTscpFactory<ITscpPersistenceSession>{
+public class SessionFactory extends AbsScorpionFactory<IScorpionPersistenceSession>{
 	
-	private static AbsTscpFactory<ITscpPersistenceSession> sessionFatory= getInstance();
+	private static AbsScorpionFactory<IScorpionPersistenceSession> sessionFatory= getInstance();
 	/** connection cache **/
 	private final Map<String,DataSource> datasourceMap ;
 	
-	private ITscpSystemIocManager iocManager;
+	private IScorpionSystemIocManager iocManager;
 	
 	
 	@SuppressWarnings("unchecked")
@@ -54,15 +54,15 @@ public class SessionFactory extends AbsTscpFactory<ITscpPersistenceSession>{
 	}
 	
 	@Override
-	public ITscpPersistenceSession produceInstance() throws TscpBaseException {
+	public IScorpionPersistenceSession produceInstance() throws ScorpionBaseException {
 	
 		if(!datasourceMap.containsKey(DataSourceLis.DEFAULT_DATASOURCE))
-			throw new TscpBaseException("TSCP-8006:Application default datasource don't initialize, plese check datasource configuration !");
+			throw new ScorpionBaseException("scorpion-8006:Application default datasource don't initialize, plese check datasource configuration !");
 	
-		AbsTscpPersistenceDao persistenceService = iocManager.getBeanByClassType(TscpPersistenceDAO.class);
+		AbsScorpionPersistenceDao persistenceService = iocManager.getBeanByClassType(ScorpionPersistenceDAO.class);
 		persistenceService.setContext(SystemContext.getApplicationContext());
-		persistenceService.setSqlManager(new TscpSQLManager());
-		TscpPersistenceSession session = new TscpPersistenceSession();
+		persistenceService.setSqlManager(new ScorpionSQLManager());
+		ScorpionPersistenceSession session = new ScorpionPersistenceSession();
 		session.setPersistenceService(persistenceService);
 		session.setConnection(ConnectionFactory.getDefaultConn());
 		session.setCommitTrasaction(false);
@@ -73,31 +73,31 @@ public class SessionFactory extends AbsTscpFactory<ITscpPersistenceSession>{
 	 * @return
 	 * @throws SQLException
 	 */
-	public TscpConnection getDefaultConn() throws TscpBaseException{
+	public ScorpionConnection getDefaultConn() throws ScorpionBaseException{
 	
 		try {
-			return new TscpConnection(datasourceMap.get(DataSourceLis.DEFAULT_DATASOURCE).getConnection(),((TscpDataSource)datasourceMap.get(DataSourceLis.DEFAULT_DATASOURCE).getConnection()).getDbType(),false,false);
+			return new ScorpionConnection(datasourceMap.get(DataSourceLis.DEFAULT_DATASOURCE).getConnection(),((ScorpionDataSource)datasourceMap.get(DataSourceLis.DEFAULT_DATASOURCE).getConnection()).getDbType(),false,false);
 		} catch (SQLException e) {
-			throw new TscpBaseException("TSCP-8796:Create connection failure !",e);
+			throw new ScorpionBaseException("scorpion-8796:Create connection failure !",e);
 		}
 	
 	}
 	
 
 	@Override
-	public ITscpPersistenceSession produceInstance(Object... arg)throws TscpBaseException {
+	public IScorpionPersistenceSession produceInstance(Object... arg)throws ScorpionBaseException {
 
 		if(arg == null||arg.length<1)
-			throw new TscpBaseException("TSCP-9760:Input datasource name don't allow null !");
+			throw new ScorpionBaseException("scorpion-9760:Input datasource name don't allow null !");
 		
 		if(!datasourceMap.containsKey(arg[0]))
-			throw new TscpBaseException("TSC-8006:Application default datasource don't initialize, plese check datasource configuration !");
+			throw new ScorpionBaseException("TSC-8006:Application default datasource don't initialize, plese check datasource configuration !");
 	
-		AbsTscpPersistenceDao persistenceService = iocManager.getBeanByClassType(TscpPersistenceDAO.class);
+		AbsScorpionPersistenceDao persistenceService = iocManager.getBeanByClassType(ScorpionPersistenceDAO.class);
 		persistenceService.setContext(SystemContext.getApplicationContext());
-		persistenceService.setSqlManager(new TscpSQLManager());
+		persistenceService.setSqlManager(new ScorpionSQLManager());
 		
-		TscpPersistenceSession session = new TscpPersistenceSession();
+		ScorpionPersistenceSession session = new ScorpionPersistenceSession();
 		session.setPersistenceService(persistenceService);
 		session.setConnection(ConnectionFactory.getConnByDataSourceName((String)arg[0]));
 		session.setCommitTrasaction(false);
@@ -105,11 +105,11 @@ public class SessionFactory extends AbsTscpFactory<ITscpPersistenceSession>{
 	}
 
 	@Override
-	public <P> P produceInstance(Class<P> clazz) throws TscpBaseException {
+	public <P> P produceInstance(Class<P> clazz) throws ScorpionBaseException {
 		try {
 			return clazz.newInstance();
 		} catch (Throwable ex) {
-			throw new TscpBaseException(ex);
+			throw new ScorpionBaseException(ex);
 		}
 	}
 	
@@ -119,7 +119,7 @@ public class SessionFactory extends AbsTscpFactory<ITscpPersistenceSession>{
 	 * 
 	 * @return
 	 */
-	public static AbsTscpFactory<ITscpPersistenceSession> getInstance(){
+	public static AbsScorpionFactory<IScorpionPersistenceSession> getInstance(){
 		
 		if(sessionFatory == null)
 			sessionFatory = new SessionFactory();

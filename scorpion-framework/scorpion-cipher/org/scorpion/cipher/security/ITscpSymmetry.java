@@ -1,5 +1,5 @@
 package org.scorpion.cipher.security;
 
-public interface ITscpSymmetry extends ITscpSymmetryKey, ITscpCipherKey {
+public interface IScorpionSymmetry extends IScorpionSymmetryKey, IScorpionCipherKey {
 
 }

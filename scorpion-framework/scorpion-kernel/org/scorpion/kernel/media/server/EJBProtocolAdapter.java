@@ -5,18 +5,18 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.ITscpBaseInternalReceiver;
-import org.scorpion.api.kernel.ITscpBaseMessageReceiver;
-import org.scorpion.api.kernel.ITscpReqMedia;
-import org.scorpion.api.kernel.ITscpRespMedia;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.IScorpionBaseInternalReceiver;
+import org.scorpion.api.kernel.IScorpionBaseMessageReceiver;
+import org.scorpion.api.kernel.IScorpionReqMedia;
+import org.scorpion.api.kernel.IScorpionRespMedia;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.SCORPION.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -25,10 +25,10 @@ import org.scorpion.api.kernel.ITscpRespMedia;
  * Description: the annotation is used to signal the method of component
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -40,23 +40,23 @@ import org.scorpion.api.kernel.ITscpRespMedia;
  */
 @Stateless(mappedName = "EJBProtocolAdapter")
 @TransactionManagement(TransactionManagementType.BEAN)
-@Remote(value = { ITscpBaseMessageReceiver.class,ITscpBaseInternalReceiver.class })
-public class EJBProtocolAdapter implements ITscpBaseMessageReceiver,ITscpBaseInternalReceiver {
+@Remote(value = { IScorpionBaseMessageReceiver.class,IScorpionBaseInternalReceiver.class })
+public class EJBProtocolAdapter implements IScorpionBaseMessageReceiver,IScorpionBaseInternalReceiver {
 
 	private static final long serialVersionUID = 1651513324412399396L;
 
 	@Override
-	public ITscpRespMedia internalInvoke(ITscpReqMedia req)throws TscpBaseException {
+	public IScorpionRespMedia internalInvoke(IScorpionReqMedia req)throws ScorpionBaseException {
 		return null;
 	}
 
 	@Override
-	public String recevieXml(String argument) throws TscpBaseException {
+	public String recevieXml(String argument) throws ScorpionBaseException {
 		return null;
 	}
 
 	@Override
-	public ITscpRespMedia receiveBean(ITscpReqMedia argument)throws TscpBaseException {
+	public IScorpionRespMedia receiveBean(IScorpionReqMedia argument)throws ScorpionBaseException {
 		return null;
 	}
 

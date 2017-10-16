@@ -3,7 +3,7 @@ package org.scorpion.cipher.security;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
 import ts.client.TsaClient;
 
@@ -16,7 +16,7 @@ import com.sdt.as.SignException;
 import com.sdt.as.VerifySign;
 import com.sdt.as.VerifySignException;
 
-public class TscpDigitalEnvelopeImpl extends AbsTscpDigitalEnvelope {
+public class ScorpionDigitalEnvelopeImpl extends AbsScorpionDigitalEnvelope {
 	
 	private final static int BUF_SIZE = 16 * 1024;	//16KB
 	
@@ -62,7 +62,7 @@ public class TscpDigitalEnvelopeImpl extends AbsTscpDigitalEnvelope {
 
 	
 	@Override
-	public byte[] encrypt(byte[] data) throws TscpBaseException {
+	public byte[] encrypt(byte[] data) throws ScorpionBaseException {
 		AsymEncData aed = null;
 		try {
 			//构造加密类
@@ -121,20 +121,20 @@ public class TscpDigitalEnvelopeImpl extends AbsTscpDigitalEnvelope {
 			
 			return enDate;
 		} catch (AsymEncDataException e) {
-			throw new TscpBaseException(e);
+			throw new ScorpionBaseException(e);
 		} finally{
 			if(aed != null){
 				try {
 					aed.freeResource();
 				} catch (AsymEncDataException e) {
-					throw new TscpBaseException(e);
+					throw new ScorpionBaseException(e);
 				}
 			}
 		}
 	}
 
 	@Override
-	public byte[] decrypt(byte[] data) throws TscpBaseException {
+	public byte[] decrypt(byte[] data) throws ScorpionBaseException {
 		AsymDecData add = null;
 		try {
 			//构造解密类
@@ -184,20 +184,20 @@ public class TscpDigitalEnvelopeImpl extends AbsTscpDigitalEnvelope {
 			
 			return deDate;
 		} catch (AsymDecDataException e) {
-			throw new TscpBaseException(e);
+			throw new ScorpionBaseException(e);
 		} finally{
 			if(add != null){
 				try {
 					add.freeResource();
 				} catch (AsymDecDataException e) {
-					throw new TscpBaseException(e);
+					throw new ScorpionBaseException(e);
 				}
 			}
 		}
 	}
 
 	@Override
-	public byte[] sign(byte[] data) throws TscpBaseException {
+	public byte[] sign(byte[] data) throws ScorpionBaseException {
 		Sign sign = null;
 		try{
 			sign = new Sign(appId, businessType);
@@ -218,20 +218,20 @@ public class TscpDigitalEnvelopeImpl extends AbsTscpDigitalEnvelope {
 			
 			return sign.finalData();
 		}catch (SignException e) {
-			throw new TscpBaseException(e);
+			throw new ScorpionBaseException(e);
 		} finally {
 			try {
 				if (sign != null) {
 					sign.freeResource();
 				}
 			} catch (SignException e) {
-				throw new TscpBaseException(e);
+				throw new ScorpionBaseException(e);
 			}
 		}
 	}
 
 	@Override
-	public boolean verifySign(byte[] data, byte[] sign) throws TscpBaseException {
+	public boolean verifySign(byte[] data, byte[] sign) throws ScorpionBaseException {
 		VerifySign verify = null;
 		try{
 			verify = new VerifySign(appId, sign);
@@ -252,20 +252,20 @@ public class TscpDigitalEnvelopeImpl extends AbsTscpDigitalEnvelope {
 			
 			return verify.finalData();
 		}catch (VerifySignException e) {
-			throw new TscpBaseException(e);
+			throw new ScorpionBaseException(e);
 		} finally {
 			try {
 				if (verify != null) {
 					verify.freeResource();
 				}
 			} catch (VerifySignException e) {
-				throw new TscpBaseException(e);
+				throw new ScorpionBaseException(e);
 			}
 		}
 	}
 	
 	@Override
-	public byte[] timestamp(byte[] data) throws TscpBaseException{
+	public byte[] timestamp(byte[] data) throws ScorpionBaseException{
 		TsaClient tsa = new TsaClient();
 		//以下set方法中的参数请应用支持可配置，便于项目实际部署时进行必要的调整
 		tsa.setType("1");				// 设置请求类型1请求、2验证
@@ -279,18 +279,18 @@ public class TscpDigitalEnvelopeImpl extends AbsTscpDigitalEnvelope {
 
 		try {
 			if (!tsa.dofinal()) {
-				throw new TscpBaseException("底层时间戳返回失败");
+				throw new ScorpionBaseException("底层时间戳返回失败");
 			}
 			
 			//获取时间戳数据
 			return tsa.getTsrData(); 
 		} catch (Exception e) {
-			throw new TscpBaseException(e);
+			throw new ScorpionBaseException(e);
 		}
 	}
 
 	@Override
-	public boolean verifyTimestamp(byte[] data, byte[] timestamp) throws TscpBaseException{
+	public boolean verifyTimestamp(byte[] data, byte[] timestamp) throws ScorpionBaseException{
 		TsaClient tsa = new TsaClient();
 		//以下set方法中的参数请应用支持可配置，便于项目实际部署时进行必要的调整
 		tsa.setTsrData(timestamp);
@@ -303,7 +303,7 @@ public class TscpDigitalEnvelopeImpl extends AbsTscpDigitalEnvelope {
 		try {
 			return tsa.dofinal();
 		} catch (Exception e) {
-			throw new TscpBaseException(e);
+			throw new ScorpionBaseException(e);
 		}
 	}
 

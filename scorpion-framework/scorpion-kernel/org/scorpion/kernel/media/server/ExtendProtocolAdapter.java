@@ -1,14 +1,14 @@
 package org.scorpion.kernel.media.server;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.kernel.IExtendBaseMessageReceiver;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.SCORPION.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -17,10 +17,10 @@ import org.scorpion.api.kernel.IExtendBaseMessageReceiver;
  * Description: the annotation is used to signal the method of component
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -33,12 +33,12 @@ import org.scorpion.api.kernel.IExtendBaseMessageReceiver;
 public class ExtendProtocolAdapter implements IExtendBaseMessageReceiver {
 
 	@Override
-	public String extendReceiver(String argument) throws TscpBaseException {
+	public String extendReceiver(String argument) throws ScorpionBaseException {
 		return null;
 	}
 
 	@Override
-	public Object extendReceiver(Object obj) throws TscpBaseException {
+	public Object extendReceiver(Object obj) throws ScorpionBaseException {
 		return null;
 	}
 

@@ -17,25 +17,25 @@ import org.scorpion.api.configuration.SystemConfigFile;
 import org.scorpion.api.configuration.SystemEnumType;
 import org.scorpion.api.configuration.SystemProfile;
 import org.scorpion.api.configuration.SystemResourcePool;
-import org.scorpion.api.configuration.TscpCoreConfig;
-import org.scorpion.api.configuration.TscpSystemScanInfo;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.AbsTscpComponent;
+import org.scorpion.api.configuration.ScorpionCoreConfig;
+import org.scorpion.api.configuration.ScorpionSystemScanInfo;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.AbsScorpionComponent;
 import org.scorpion.api.kernel.ApplicationContext;
 import org.scorpion.api.kernel.IBaseMessageSender;
 import org.scorpion.api.kernel.IMessageReceiveHandler;
-import org.scorpion.api.kernel.ITscpSystemIocManager;
+import org.scorpion.api.kernel.IScorpionSystemIocManager;
 import org.scorpion.api.util.SystemUtils;
-import org.scorpion.common.lifecycle.TscpLifecycleManager;
+import org.scorpion.common.lifecycle.ScorpionLifecycleManager;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -46,7 +46,7 @@ public final class SystemContext implements ApplicationContext{
     /**
      * EXTENSION COMPONET INFORMATION
      */
-	private final Map<String,AbsTscpComponent> components;
+	private final Map<String,AbsScorpionComponent> components;
 	
 	/**
 	 * EXCEPTION CONFIGURATION
@@ -71,7 +71,7 @@ public final class SystemContext implements ApplicationContext{
     /**
      * SCANNING INFORMATION
      */
-   	private final TscpSystemScanInfo scanInfo;
+   	private final ScorpionSystemScanInfo scanInfo;
   
    	/**
    	 * PERSISTENCE OBJECT INFORMATION
@@ -81,7 +81,7 @@ public final class SystemContext implements ApplicationContext{
     /**
      * CORE FILE CONFIGURATION
      */
-	private final TscpCoreConfig coreconfig;
+	private final ScorpionCoreConfig coreconfig;
 	
 	/**
 	 * CORE COMPONENT CONFIGURATION INFORMATION
@@ -106,7 +106,7 @@ public final class SystemContext implements ApplicationContext{
    	/**
    	 * IOC MANAGER
    	 */
-   	private ITscpSystemIocManager iocManager;
+   	private IScorpionSystemIocManager iocManager;
    	
    	/**
    	 * SYSTEM MESSAGE SENDER
@@ -136,11 +136,11 @@ public final class SystemContext implements ApplicationContext{
 	      exceptions=  SystemResourcePool.getDefaultInstance().getResourceByKey(SystemEnumType.systemexceptionconfigresource.getValue(),List.class);
 	      sqlconfig = SystemResourcePool.getDefaultInstance().getResourceByKey(SystemEnumType.systemsqlconfigresource.getValue(),SQLConfig.class);
 	      dataSource = SystemResourcePool.getDefaultInstance().getResourceByKey(SystemEnumType.systemdatasourceresource.getValue(),DataSourceLis.class);
-	      coreconfig = SystemResourcePool.getDefaultInstance().getResourceByKey(SystemEnumType.systemcoreconfigresource.getValue(),TscpCoreConfig.class);
+	      coreconfig = SystemResourcePool.getDefaultInstance().getResourceByKey(SystemEnumType.systemcoreconfigresource.getValue(),ScorpionCoreConfig.class);
 	      components = SystemResourcePool.getDefaultInstance().getResourceByKey(SystemEnumType.systemcomponentresource.getValue(),Map.class);
 	   
 	 //     timers = new HashMap<String,TimerEntity>();
-	      scanInfo = new TscpSystemScanInfo();
+	      scanInfo = new ScorpionSystemScanInfo();
 	      systemProfile = new SystemProfile();
 		  coreComponets = new HashMap<String,ComponentInformation>();
 		  pojoInfo = new PojoEntityInfo();
@@ -149,7 +149,7 @@ public final class SystemContext implements ApplicationContext{
 	}
 	
 	@Override
-	public String getServerName() throws TscpBaseException {
+	public String getServerName() throws ScorpionBaseException {
 		
 		checkSystemContextInitInfo(coreconfig);
 	
@@ -177,13 +177,13 @@ public final class SystemContext implements ApplicationContext{
 	 * 
 	 * @param systemProfile
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 */
-	public void checkSystemContextInitInfo(TscpCoreConfig systemProfile) throws TscpBaseException{
+	public void checkSystemContextInitInfo(ScorpionCoreConfig systemProfile) throws ScorpionBaseException{
 		
 		if(systemProfile == null)
-			throw new TscpBaseException("TSCP-9964:System argument don't initialize !");
+			throw new ScorpionBaseException("scorpion-9964:System argument don't initialize !");
 	
 	}
 	
@@ -252,7 +252,7 @@ public final class SystemContext implements ApplicationContext{
      * 
 	 * @param
      */
-	public TscpCoreConfig getSystemCoreConfig(){
+	public ScorpionCoreConfig getSystemCoreConfig(){
 	
 		return coreconfig;
 	}
@@ -263,7 +263,7 @@ public final class SystemContext implements ApplicationContext{
 	 * 
 	 * @return
 	 */
-	public Map<String,AbsTscpComponent> components(){
+	public Map<String,AbsScorpionComponent> components(){
 	
 		return this.components;
 	}
@@ -276,16 +276,16 @@ public final class SystemContext implements ApplicationContext{
 	 * 
 	 * @param component
 	 */
-	public void registerSystemComponent(String name,AbsTscpComponent component) throws TscpBaseException{
+	public void registerSystemComponent(String name,AbsScorpionComponent component) throws ScorpionBaseException{
 		
-		TscpLifecycleManager.registerLifecycleSingle(component);
+		ScorpionLifecycleManager.registerLifecycleSingle(component);
 		
 		this.components.put(name, component);
 	}
 
 	
 	@Override
-	public String[] getSystemBuildPath()throws TscpBaseException {
+	public String[] getSystemBuildPath()throws ScorpionBaseException {
 		
 		if(appBuildPath == null)
 			 appBuildPath = new HashSet<String>();
@@ -301,9 +301,9 @@ public final class SystemContext implements ApplicationContext{
      * 
      * @param buildPath
      * 
-     * @throws TscpBaseException 
+     * @throws ScorpionBaseException 
      */
-	public void setBuildPath(String[] buildPath) throws TscpBaseException {
+	public void setBuildPath(String[] buildPath) throws ScorpionBaseException {
 		
 		if(appBuildPath == null)  appBuildPath = new HashSet<String>();
 		
@@ -325,13 +325,13 @@ public final class SystemContext implements ApplicationContext{
 			for(int i=0;i<buildPath.length;i++) 
 				appBuildPath.add(buildPath[i]);
 		}else{
-			throw new TscpBaseException("TSCP9076:Don't support operating system ["+SystemUtils.getOSName()+"]");
+			throw new ScorpionBaseException("Scorpion9076:Don't support operating system ["+SystemUtils.getOSName()+"]");
 		}
 	}
 
 	
 	@Override
-	public File getExceptionPropertiesFileByName(String name) throws TscpBaseException {
+	public File getExceptionPropertiesFileByName(String name) throws ScorpionBaseException {
 		
 		for(File file:systemconfigfile.getUserDefaultExceptionPropertiesFiles())
 			
@@ -343,7 +343,7 @@ public final class SystemContext implements ApplicationContext{
 
 	
 	@Override
-	public File getSQLConfigFileByName(String name) throws TscpBaseException {
+	public File getSQLConfigFileByName(String name) throws ScorpionBaseException {
 		
 		for(File file:systemconfigfile.getSqlConfigFiles())
 		 
@@ -354,20 +354,20 @@ public final class SystemContext implements ApplicationContext{
 	}
 
 	@Override
-	public SystemConfigFile getSystemConfigFile() throws TscpBaseException {
+	public SystemConfigFile getSystemConfigFile() throws ScorpionBaseException {
 		
 		return systemconfigfile;
 	}
 
 	@Override
-	public ClassLoader getSystemClassLoader()throws TscpBaseException{
+	public ClassLoader getSystemClassLoader()throws ScorpionBaseException{
 		
 		return systemClassLoader;
 	}
 
 	
 	@Override
-	public Map<String, ComponentInformation> getCoreComponets() throws TscpBaseException{
+	public Map<String, ComponentInformation> getCoreComponets() throws ScorpionBaseException{
 		
 		return coreComponets;
 	}
@@ -378,7 +378,7 @@ public final class SystemContext implements ApplicationContext{
 	 * 
 	 * @param
 	 */
-	public void setSystemClassLoader(ClassLoader systemClassLoader)throws TscpBaseException {
+	public void setSystemClassLoader(ClassLoader systemClassLoader)throws ScorpionBaseException {
 		
 		this.systemClassLoader = systemClassLoader;
 	}
@@ -386,9 +386,9 @@ public final class SystemContext implements ApplicationContext{
 	
 	/**
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public SystemProfile getSystemProfile()throws TscpBaseException{
+	public SystemProfile getSystemProfile()throws ScorpionBaseException{
 	
 		return systemProfile;
 	}
@@ -396,7 +396,7 @@ public final class SystemContext implements ApplicationContext{
     /**
      * @Description Return application scanning information ...
      */
-	public TscpSystemScanInfo getScanInfo()throws TscpBaseException {
+	public ScorpionSystemScanInfo getScanInfo()throws ScorpionBaseException {
 
 		return scanInfo;
 	}
@@ -405,7 +405,7 @@ public final class SystemContext implements ApplicationContext{
 	/**
      * 获取系统IOC容器
      */
-	public ITscpSystemIocManager getIocManager() {
+	public IScorpionSystemIocManager getIocManager() {
 	
 		return iocManager;
 	}
@@ -416,14 +416,14 @@ public final class SystemContext implements ApplicationContext{
      * 
      * @param iocManager
      */
-	public void setIocManager(ITscpSystemIocManager iocManager) {
+	public void setIocManager(IScorpionSystemIocManager iocManager) {
 	
 		this.iocManager = iocManager;
 	}
 
 	
 	@Override
-	public PojoEntityInfo getSystemPojoInformation() throws TscpBaseException {
+	public PojoEntityInfo getSystemPojoInformation() throws ScorpionBaseException {
 
 		return this.pojoInfo;
 	}

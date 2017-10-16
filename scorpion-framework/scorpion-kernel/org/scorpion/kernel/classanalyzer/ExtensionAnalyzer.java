@@ -7,7 +7,7 @@ import java.util.Map;
 import org.scorpion.api.common.ICommandExecutor;
 import org.scorpion.api.configuration.DrivenBean;
 import org.scorpion.api.configuration.MessageSenderInfo;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.kernel.IAnnotationAnalyzerListener;
 import org.scorpion.api.kernel.IBaseMessageSender;
 import org.scorpion.api.kernel.IMessageReceiveHandler;
@@ -19,14 +19,14 @@ import org.scorpion.common.annotation.Sender;
 import org.scorpion.common.context.ApplicationOuterContext;
 import org.scorpion.common.context.SystemContext;
 import org.scorpion.common.enums.SenderType;
-import org.scorpion.common.util.TscpCommand;
+import org.scorpion.common.util.ScorpionCommand;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.SCORPION.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -36,7 +36,7 @@ import org.scorpion.common.util.TscpCommand;
  * extends the abstract
  * </p>
  * <p>
- * class ATscpComponet. the ATscpComponent exist life cycle. developer can
+ * class AScorpionComponet. the AScorpionComponent exist life cycle. developer can
  * override
  * </p>
  * <p>
@@ -47,10 +47,10 @@ import org.scorpion.common.util.TscpCommand;
  * but we don't suggest the developer do that
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -70,9 +70,9 @@ public class ExtensionAnalyzer implements IAnnotationAnalyzerListener {
 	 * 
 	 * @param clazz
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public void analyseMessageDrivenBean(Class<?> clazz) throws TscpBaseException{
+	public void analyseMessageDrivenBean(Class<?> clazz) throws ScorpionBaseException{
 		
 		if(clazz.getAnnotation(MessageDrivenBean.class)==null||!IMessageReceiveHandler.class.isAssignableFrom(clazz))
 			return;
@@ -87,7 +87,7 @@ public class ExtensionAnalyzer implements IAnnotationAnalyzerListener {
 			Map<String, String> arguments = new HashMap<String, String>();
 			for (String param : drivenBean.parameter()) {
 				if (!SystemUtils.regularExpressionValidate(param != null ? param.replace(" ", "") : param,Constant.PARAM_REGEX))
-					throw new TscpBaseException("扫描组件["+ drivenBean.name()+ "]出现异常, 组件参数属性格式不正确,异常类出现在["+ clazz.getName()+ "]中，param正确属性为 params={\"KEY1=VALUE1\",\"KEY2==VALUE2\"}");
+					throw new ScorpionBaseException("扫描组件["+ drivenBean.name()+ "]出现异常, 组件参数属性格式不正确,异常类出现在["+ clazz.getName()+ "]中，param正确属性为 params={\"KEY1=VALUE1\",\"KEY2==VALUE2\"}");
 
 				arguments.put(param.split("=")[0], param.split("=")[1]);
 			}
@@ -107,18 +107,18 @@ public class ExtensionAnalyzer implements IAnnotationAnalyzerListener {
 	 * 
 	 * @param jarName
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @throws IllegalAccessException
 	 * 
 	 * @throws InstantiationException
 	 */
-	private void messageSenderAnalyzer(Class<?> clazz, String jarName)throws TscpBaseException, InstantiationException,IllegalAccessException {
+	private void messageSenderAnalyzer(Class<?> clazz, String jarName)throws ScorpionBaseException, InstantiationException,IllegalAccessException {
 
 		if (clazz.getAnnotation(Sender.class) != null&& SenderType.STANDARD_SENDER.name().equals(clazz.getAnnotation(Sender.class).sendertype())) {
 			
 			if (!clazz.isAssignableFrom(IBaseMessageSender.class))
-				throw new TscpBaseException("TSCP-6904:The sender must implement interface 'IMessageSender' ");
+				throw new ScorpionBaseException("scorpion-6904:The sender must implement interface 'IMessageSender' ");
 
 			MessageSenderInfo senderInfo = new MessageSenderInfo();
 			senderInfo.setClassName(clazz);
@@ -145,13 +145,13 @@ public class ExtensionAnalyzer implements IAnnotationAnalyzerListener {
 	 * 
 	 * @param clazz
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @throws IllegalAccessException
 	 * 
 	 * @throws InstantiationException
 	 */
-	public void messageRecevieAnalyze(Class<?> clazz) throws TscpBaseException,InstantiationException, IllegalAccessException {
+	public void messageRecevieAnalyze(Class<?> clazz) throws ScorpionBaseException,InstantiationException, IllegalAccessException {
 
 		if (!clazz.isAssignableFrom(IMessageReceiveHandler.class))
 			return;
@@ -170,10 +170,10 @@ public class ExtensionAnalyzer implements IAnnotationAnalyzerListener {
 	 * 
 	 * @throws IllegalAccessException
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 */
-	public void loadSystemCommand(Class<?> clazz)throws InstantiationException, IllegalAccessException,TscpBaseException {
+	public void loadSystemCommand(Class<?> clazz)throws InstantiationException, IllegalAccessException,ScorpionBaseException {
 
 		if (!Constant.DEVELOP_MODEL.equals(SystemContext.getApplicationContext().getSystemCoreConfig().getRunModel()))
 			return;
@@ -181,38 +181,38 @@ public class ExtensionAnalyzer implements IAnnotationAnalyzerListener {
 		if (!ICommandExecutor.class.isAssignableFrom(clazz))
 			return;
 
-		if (TscpCommand.executors == null || TscpCommand.executors.size() == 0)
-			TscpCommand.executors = new ArrayList<ICommandExecutor>();
+		if (ScorpionCommand.executors == null || ScorpionCommand.executors.size() == 0)
+			ScorpionCommand.executors = new ArrayList<ICommandExecutor>();
 
-		TscpCommand.executors.add((ICommandExecutor) clazz.newInstance());
+		ScorpionCommand.executors.add((ICommandExecutor) clazz.newInstance());
 
 	}
 
 	@Override
-	public void analyse(Class<?> clazz, String jarName)throws TscpBaseException {
+	public void analyse(Class<?> clazz, String jarName)throws ScorpionBaseException {
 
 		try {
 			messageSenderAnalyzer(clazz, jarName);
 		} catch (Exception e) {
-			PlatformLogger.error("TSCP-8965:Scanning the system sender exception!",e);
+			PlatformLogger.error("scorpion-8965:Scanning the system sender exception!",e);
 		}
 
 		try {
 			messageRecevieAnalyze(clazz);
 		} catch (Exception e) {
-			PlatformLogger.error("TSCP-4097：Loading extension receiver exception",e);
+			PlatformLogger.error("scorpion-4097：Loading extension receiver exception",e);
 		}
 
 		try {
 			loadSystemCommand(clazz);
 		} catch (Exception e) {
-			PlatformLogger.error("TSCP-4097：Loading extension command exception",e);
+			PlatformLogger.error("scorpion-4097：Loading extension command exception",e);
 		}
 		
 		try{
 			analyseMessageDrivenBean(clazz);
 		}catch(Exception e){
-			PlatformLogger.error("TSCP-4098:Loading message driven bean failure !",e);
+			PlatformLogger.error("scorpion-4098:Loading message driven bean failure !",e);
 		}
 		
 	}

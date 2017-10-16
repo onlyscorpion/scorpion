@@ -16,7 +16,7 @@ import java.util.List;
 import org.scorpion.common.mdb.client.util.SafeEncoder;
 
 /**
- * Builder Class for {@link TscpRDClient#sort(String, SortingParams) SORT} Parameters.
+ * Builder Class for {@link ScorpionRDClient#sort(String, SortingParams) SORT} Parameters.
  * 
  */
 public class SortingParams {
