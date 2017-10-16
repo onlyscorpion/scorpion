@@ -15,9 +15,9 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.scorpion.api.log.PlatformLogger;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -141,7 +141,7 @@ public class AMQConnectionPool extends AbsConnectionPool<ActiveMQConnection>{
 				return conn;
 			}
 		} catch (Throwable e) {
-			throw new ConnectionPoolException("TSCP-9075:Generate connection from MQ conneciton pool failure !",e);
+			throw new ConnectionPoolException("scorpion-9075:Generate connection from MQ conneciton pool failure !",e);
 		}
 	}
 	
@@ -203,7 +203,7 @@ public class AMQConnectionPool extends AbsConnectionPool<ActiveMQConnection>{
 				else
 					freePool.get(key).put(k);
 			} catch (Throwable e) {
-				throw new ConnectionPoolException("TSCP-6876:Release connection failure . The connection key is ["+key+"]");
+				throw new ConnectionPoolException("scorpion-6876:Release connection failure . The connection key is ["+key+"]");
 			}
 		}
 	}

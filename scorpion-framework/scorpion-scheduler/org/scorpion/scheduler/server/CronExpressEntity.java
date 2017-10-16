@@ -5,15 +5,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.scorpion.api.common.AbsTscpSchedulerJob;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.common.AbsScorpionSchedulerJob;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.util.Constant;
-import org.scorpion.scheduler.server.TscpDefaultSchedulerJob;
+import org.scorpion.scheduler.server.ScorpionDefaultSchedulerJob;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -47,7 +47,7 @@ public class CronExpressEntity implements Serializable{
 	
 	private String serviceName;
 	
-	private Class<? extends AbsTscpSchedulerJob> job;
+	private Class<? extends AbsScorpionSchedulerJob> job;
 	
 	private boolean isDefaultJob;
 	
@@ -60,22 +60,22 @@ public class CronExpressEntity implements Serializable{
 	 * 
 	 * @param job
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
 	@SuppressWarnings("unchecked")
-	public void setJob(Object job) throws TscpBaseException{
+	public void setJob(Object job) throws ScorpionBaseException{
 		if(job instanceof Class){
-			this.job =  (Class<? extends AbsTscpSchedulerJob>) job;
+			this.job =  (Class<? extends AbsScorpionSchedulerJob>) job;
 			isDefaultJob = true;
 		}else if(job instanceof String){
 			if(jobDataMap == null)
 				jobDataMap = new HashMap<Object,Object>();
 			jobDataMap.put(Constant.SERVICE_NAME, job);
 			this.serviceName = (String) job;
-			this.job = TscpDefaultSchedulerJob.class;
+			this.job = ScorpionDefaultSchedulerJob.class;
 			isDefaultJob = false;
 		}else{
-			throw new TscpBaseException("TSCP-4907:Unknown tscp scheduler job type !");
+			throw new ScorpionBaseException("scorpion-4907:Unknown Scorpion scheduler job type !");
 		}
 		
 	}
@@ -84,7 +84,7 @@ public class CronExpressEntity implements Serializable{
 		return serviceName;
 	}
 
-	public Class<? extends AbsTscpSchedulerJob> getJob() {
+	public Class<? extends AbsScorpionSchedulerJob> getJob() {
 		return job;
 	}
 

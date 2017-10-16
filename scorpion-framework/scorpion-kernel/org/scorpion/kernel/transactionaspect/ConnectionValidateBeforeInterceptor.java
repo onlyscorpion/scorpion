@@ -2,18 +2,18 @@ package org.scorpion.kernel.transactionaspect;
 
 import java.sql.SQLException;
 
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.ITscpAopBeforeAdvice;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.IScorpionAopBeforeAdvice;
 import org.scorpion.api.util.Constant;
 import org.scorpion.common.annotation.Interceptor;
 import org.scorpion.common.session.ApplicationSession;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(TAIJI Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.taiji.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -35,11 +35,11 @@ import org.scorpion.common.session.ApplicationSession;
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-@Interceptor(name = "ConnectionValidateBeforeInterceptor", classRegex = "com.taiji.tscp.persistence.handler.TscpPersistenceDAO", methodRegex = "(^(query)(.*))")
-public class ConnectionValidateBeforeInterceptor implements ITscpAopBeforeAdvice {
+@Interceptor(name = "ConnectionValidateBeforeInterceptor", classRegex = "com.taiji.Scorpion.persistence.handler.ScorpionPersistenceDAO", methodRegex = "(^(query)(.*))")
+public class ConnectionValidateBeforeInterceptor implements IScorpionAopBeforeAdvice {
 
 	@Override
-	public void doBeforeAdvice() throws TscpBaseException {
+	public void doBeforeAdvice() throws ScorpionBaseException {
 
 		ApplicationSession session = (ApplicationSession) ApplicationSession.getSession();
 		try {
@@ -51,7 +51,7 @@ public class ConnectionValidateBeforeInterceptor implements ITscpAopBeforeAdvice
 					session.resetConnection(session.getCurrentPersistence().getDataSourceName(), session.getOtherPersistenceSessionByName(session.getCurrentPersistence().getDataSourceName()),Constant.OTHER_DATASOURCE);
 			}
 		} catch (SQLException e) {
-			throw new TscpBaseException("TSCP-9034:create persistence session failure !", e);
+			throw new ScorpionBaseException("scorpion-9034:create persistence session failure !", e);
 		}
 	}
 }

@@ -3,7 +3,7 @@ package org.scorpion.cipher.security;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
-public interface ITscpAsymmetryKey {
+public interface IScorpionAsymmetryKey {
 	
 	public PrivateKey getPrivateKey();
 	

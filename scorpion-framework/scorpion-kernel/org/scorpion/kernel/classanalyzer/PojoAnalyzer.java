@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import org.scorpion.api.configuration.PojoEntityInfo;
 import org.scorpion.api.configuration.PojoEntityInfo.PoProperty;
 import org.scorpion.api.configuration.SQLConfig.SQLProperty;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.kernel.IAnnotationAnalyzerListener;
 import org.scorpion.api.log.PlatformLogger;
 import org.scorpion.common.annotation.Column;
@@ -14,11 +14,11 @@ import org.scorpion.common.annotation.Entity;
 import org.scorpion.common.context.SystemContext;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(TAIJI Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.taiji.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -28,7 +28,7 @@ import org.scorpion.common.context.SystemContext;
  * extends the abstract
  * </p>
  * <p>
- * class ATscpComponet. the ATscpComponent exist life cycle. developer can
+ * class AScorpionComponet. the AScorpionComponent exist life cycle. developer can
  * override
  * </p>
  * <p>
@@ -61,9 +61,9 @@ public class PojoAnalyzer implements IAnnotationAnalyzerListener {
 	 * 
 	 * @param poproperty
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	private void FeildHandler(Class<?> clazz, Field field, PoProperty poproperty)throws TscpBaseException {
+	private void FeildHandler(Class<?> clazz, Field field, PoProperty poproperty)throws ScorpionBaseException {
 
 		Column column = field.getAnnotation(Column.class);
 		if (column == null)
@@ -98,9 +98,9 @@ public class PojoAnalyzer implements IAnnotationAnalyzerListener {
 	 * 
 	 * @param poproperty
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	protected void poConvertSQL(PoProperty poproperty) throws TscpBaseException {
+	protected void poConvertSQL(PoProperty poproperty) throws ScorpionBaseException {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("insert into " + poproperty.getTableName() + " (");
@@ -113,7 +113,7 @@ public class PojoAnalyzer implements IAnnotationAnalyzerListener {
 				value.append("?,");
 			}
 		} catch (Exception e) {
-			throw new TscpBaseException("TSCP-9858:非法参数异常", e);
+			throw new ScorpionBaseException("scorpion-9858:非法参数异常", e);
 		}
 
 		SQLProperty sqlpropertyInsert = ((SystemContext) SystemContext.getApplicationContext()).getSqlconfig().new SQLProperty();
@@ -146,9 +146,9 @@ public class PojoAnalyzer implements IAnnotationAnalyzerListener {
 	 * 
 	 * @throws NoSuchMethodException
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public Method getMethod(Class<?> clazz, Field field, boolean isGet)throws TscpBaseException {
+	public Method getMethod(Class<?> clazz, Field field, boolean isGet)throws ScorpionBaseException {
 
 		Method method = null;
 
@@ -157,36 +157,36 @@ public class PojoAnalyzer implements IAnnotationAnalyzerListener {
 			try {
 				method = clazz.getMethod("get"+ Character.toUpperCase(field.getName().charAt(0))+ field.getName().substring(1, field.getName().length()));
 			} catch (SecurityException e) {
-				throw new TscpBaseException("TSCP-9076:存在安全侵犯", e);
+				throw new ScorpionBaseException("scorpion-9076:存在安全侵犯", e);
 			} catch (NoSuchMethodException e) {
-				throw new TscpBaseException("TSCP-9064:PO信息不完整,PO["+ clazz.getName()+ "]不存在GET方法["+ "get"+ Character.toUpperCase(field.getName().charAt(0))+ field.getName().substring(1, field.getName().length()) + "]",e);
+				throw new ScorpionBaseException("scorpion-9064:PO信息不完整,PO["+ clazz.getName()+ "]不存在GET方法["+ "get"+ Character.toUpperCase(field.getName().charAt(0))+ field.getName().substring(1, field.getName().length()) + "]",e);
 			}
 
 			if (method != null)
 				return method;
-			throw new TscpBaseException("TSCP-9064:PO信息不完整,PO["+ clazz.getName() + "]不存在GET方法");
+			throw new ScorpionBaseException("scorpion-9064:PO信息不完整,PO["+ clazz.getName() + "]不存在GET方法");
 
 		} else {
 
 			try {
 				method = clazz.getMethod("set"+ Character.toUpperCase(field.getName().charAt(0))+ field.getName().substring(1,field.getName().length()),field.getType());
 			} catch (SecurityException e) {
-				throw new TscpBaseException("TSCP-9076:存在安全侵犯", e);
+				throw new ScorpionBaseException("scorpion-9076:存在安全侵犯", e);
 			} catch (NoSuchMethodException e) {
-				throw new TscpBaseException("TSCP-9064:PO信息不完整,PO["+ clazz.getName()+ "]不存在SET方法["+ "set"+ Character.toUpperCase(field.getName().charAt(0))+ field.getName().substring(1, field.getName().length()) + "]",e);
+				throw new ScorpionBaseException("scorpion-9064:PO信息不完整,PO["+ clazz.getName()+ "]不存在SET方法["+ "set"+ Character.toUpperCase(field.getName().charAt(0))+ field.getName().substring(1, field.getName().length()) + "]",e);
 			}
 
 			if (method != null)
 				return method;
 
-			throw new TscpBaseException("TSCP-9064:PO信息不完整,PO["+ clazz.getName() + "]不存在SET方法");
+			throw new ScorpionBaseException("scorpion-9064:PO信息不完整,PO["+ clazz.getName() + "]不存在SET方法");
 		}
 
 	}
 
 	
 	@Override
-	public void analyse(Class<?> clazz, String jarName)throws TscpBaseException {
+	public void analyse(Class<?> clazz, String jarName)throws ScorpionBaseException {
 
 		Entity entity = clazz.getAnnotation(Entity.class);
 
@@ -209,7 +209,7 @@ public class PojoAnalyzer implements IAnnotationAnalyzerListener {
 			poproperty.setValid(true);
 		} catch (Throwable e) {
 			poproperty.setValid(false);
-			throw new TscpBaseException("TSCP-9086:加载PO[" + clazz.getName()+ "]出错！", e);
+			throw new ScorpionBaseException("scorpion-9086:加载PO[" + clazz.getName()+ "]出错！", e);
 		}
 		PlatformLogger.info("在类[" + clazz.getName() + "]扫描到POJO信息,["+ clazz.getName() + "]");
 	}

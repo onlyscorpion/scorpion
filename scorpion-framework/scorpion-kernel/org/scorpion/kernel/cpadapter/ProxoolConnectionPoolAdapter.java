@@ -2,15 +2,15 @@ package org.scorpion.kernel.cpadapter;
 
 import java.sql.Connection;
 
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.ITscpConnectionPoolAdapter;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.IScorpionConnectionPoolAdapter;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(TAIJI Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.taiji.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -32,15 +32,15 @@ import org.scorpion.api.kernel.ITscpConnectionPoolAdapter;
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-public class ProxoolConnectionPoolAdapter implements ITscpConnectionPoolAdapter {
+public class ProxoolConnectionPoolAdapter implements IScorpionConnectionPoolAdapter {
 
 	@Override
-	public void connectionPoolInit() throws TscpBaseException {
+	public void connectionPoolInit() throws ScorpionBaseException {
 
 	}
 
 	@Override
-	public Connection getConnectoin() throws TscpBaseException {
+	public Connection getConnectoin() throws ScorpionBaseException {
 		return null;
 	}
 

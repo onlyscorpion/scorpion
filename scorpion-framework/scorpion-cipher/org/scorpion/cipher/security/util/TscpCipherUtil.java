@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 import org.apache.commons.codec.binary.Base64;
 
-public class TscpCipherUtil {
+public class ScorpionCipherUtil {
 
 	public static String Base64Encoding(byte[] data) throws UnsupportedEncodingException {
 		return Base64.encodeBase64String(data);

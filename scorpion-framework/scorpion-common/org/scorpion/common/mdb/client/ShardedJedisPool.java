@@ -52,7 +52,7 @@ public class ShardedJedisPool extends Pool<ShardedJedis> {
         public void destroyObject(final Object obj) throws Exception {
             if ((obj != null) && (obj instanceof ShardedJedis)) {
                 ShardedJedis shardedJedis = (ShardedJedis) obj;
-                for (TscpRDClient jedis : shardedJedis.getAllShards()) {
+                for (ScorpionRDClient jedis : shardedJedis.getAllShards()) {
                     try {
                    		try {
                    			jedis.quit();
@@ -70,7 +70,7 @@ public class ShardedJedisPool extends Pool<ShardedJedis> {
         public boolean validateObject(final Object obj) {
         	try {
                 ShardedJedis jedis = (ShardedJedis) obj;
-                for (TscpRDClient shard : jedis.getAllShards()) {
+                for (ScorpionRDClient shard : jedis.getAllShards()) {
                     if (!shard.ping().equals("PONG")) {
                         return false;
                     }

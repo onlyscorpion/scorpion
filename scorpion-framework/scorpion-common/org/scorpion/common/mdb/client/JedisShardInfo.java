@@ -5,7 +5,7 @@ import java.net.URI;
 import org.scorpion.common.mdb.client.util.ShardInfo;
 import org.scorpion.common.mdb.client.util.Sharded;
 
-public class JedisShardInfo extends ShardInfo<TscpRDClient> {
+public class JedisShardInfo extends ShardInfo<ScorpionRDClient> {
     public String toString() {
 	return host + ":" + port + "*" + getWeight();
     }
@@ -93,7 +93,7 @@ public class JedisShardInfo extends ShardInfo<TscpRDClient> {
     }
 
     @Override
-    public TscpRDClient createResource() {
-	return new TscpRDClient(this);
+    public ScorpionRDClient createResource() {
+	return new ScorpionRDClient(this);
     }
 }

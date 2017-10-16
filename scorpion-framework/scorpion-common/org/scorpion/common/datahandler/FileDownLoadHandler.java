@@ -14,13 +14,13 @@ import javax.swing.JOptionPane;
 
 import org.scorpion.api.kernel.ABigDataDecoderPipeline;
 import org.scorpion.api.kernel.SecurityEnum;
-import org.scorpion.common.security.TscpSecurityFactory;
+import org.scorpion.common.security.ScorpionSecurityFactory;
 
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -53,7 +53,7 @@ public class FileDownLoadHandler {
 		String filenamedisplay = URLEncoder.encode(fileName, "UTF-8");
 		resp.addHeader("Content-Disposition", "attachment;filename="+ filenamedisplay);
 		if(opposite == null)
-			throw new FileNotFoundException("TSCP-1034:下载文件路径不能为空");
+			throw new FileNotFoundException("scorpion-1034:下载文件路径不能为空");
 		RequestDispatcher dis = req.getRequestDispatcher(opposite);
 		if (dis != null) {
 			dis.forward(req, resp);
@@ -79,7 +79,7 @@ public class FileDownLoadHandler {
 	public static void DownLoadFileByFileStream(HttpServletRequest req,HttpServletResponse resp,String absolutelyPath,String fileName) throws IOException{
 
 		if(absolutelyPath == null)
-			throw new FileNotFoundException("TSCP-1034:下载文件路径不能为空");
+			throw new FileNotFoundException("scorpion-1034:下载文件路径不能为空");
 		
 		if(fileName != null&&fileName.split(BOUNDARY).length>1){
 			try {
@@ -131,7 +131,7 @@ public class FileDownLoadHandler {
 			String absolutelyPath,String fileName) throws Exception{
 		
 		if(absolutelyPath == null)
-			throw new FileNotFoundException("TSCP-1034:下载文件路径不能为空");
+			throw new FileNotFoundException("scorpion-1034:下载文件路径不能为空");
 		resp.reset();
 		resp.setContentType("application/x-download");
 		String filedisplay = null;
@@ -208,17 +208,17 @@ public class FileDownLoadHandler {
 	public static byte[] encrypt(byte[] tempData,int off,int len,String algorithm,String key) throws Exception{
 	    	
 		if(SecurityEnum.DecoderAlgorithmType.DES.name().equals(algorithm)){
-			ABigDataDecoderPipeline decoderPipeline = TscpSecurityFactory.getDataDecoder(algorithm);
+			ABigDataDecoderPipeline decoderPipeline = ScorpionSecurityFactory.getDataDecoder(algorithm);
 			decoderPipeline.setKey(key);
 			decoderPipeline.setAlgorithm(SecurityEnum.DecoderAlgorithmType.DES.name());
 			return decoderPipeline.encrypt(tempData,off,len);
 		}else if(SecurityEnum.DecoderAlgorithmType.RSA.name().equals(algorithm)){
-			ABigDataDecoderPipeline decoderPipeline = TscpSecurityFactory.getDataDecoder(algorithm);
+			ABigDataDecoderPipeline decoderPipeline = ScorpionSecurityFactory.getDataDecoder(algorithm);
 			decoderPipeline.setKey(key);
 			decoderPipeline.setAlgorithm(SecurityEnum.DecoderAlgorithmType.RSA.name());
 			return decoderPipeline.encrypt(tempData,off,len);
 		}else if(SecurityEnum.DecoderAlgorithmType.DSA.name().equals(algorithm)){
-			ABigDataDecoderPipeline decoderPipeline = TscpSecurityFactory.getDataDecoder(algorithm);
+			ABigDataDecoderPipeline decoderPipeline = ScorpionSecurityFactory.getDataDecoder(algorithm);
 			decoderPipeline.setKey(key);
 			decoderPipeline.setAlgorithm(SecurityEnum.DecoderAlgorithmType.DSA.name());
 			return decoderPipeline.encrypt(tempData,off,len);

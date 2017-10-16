@@ -3,16 +3,16 @@ package org.scorpion.api.common;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.ITscpAppliactionSession;
-import org.scorpion.api.kernel.ITscpReqMedia;
-import org.scorpion.api.kernel.ITscpRespMedia;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.IScorpionAppliactionSession;
+import org.scorpion.api.kernel.IScorpionReqMedia;
+import org.scorpion.api.kernel.IScorpionRespMedia;
 import org.scorpion.api.log.PlatformLogger;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -48,25 +48,25 @@ public abstract class AbsMediationFactor implements Serializable{
 	
 	private long callTimeOut;
 	
-	protected ITscpAppliactionSession session;
+	protected IScorpionAppliactionSession session;
 	
 	
-	public abstract void initialize()throws TscpBaseException;
+	public abstract void initialize()throws ScorpionBaseException;
 	
 	/**
 	 * @param req
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public abstract ITscpRespMedia messageSenderHandler(ITscpReqMedia req)throws TscpBaseException;
+	public abstract IScorpionRespMedia messageSenderHandler(IScorpionReqMedia req)throws ScorpionBaseException;
 	
 	
 	/**
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public abstract void close() throws TscpBaseException;
+	public abstract void close() throws ScorpionBaseException;
 	
 	
 	public String getProtocolId() {
@@ -179,9 +179,9 @@ public abstract class AbsMediationFactor implements Serializable{
 	 * @param req
 	 * @param e
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public ITscpRespMedia sendResMediaAgain(ITscpReqMedia req,Throwable e) throws TscpBaseException{
+	public IScorpionRespMedia sendResMediaAgain(IScorpionReqMedia req,Throwable e) throws ScorpionBaseException{
 		
 		try{
 			if(session != null&&session.getTmpData("CallNum")==null){
@@ -189,12 +189,12 @@ public abstract class AbsMediationFactor implements Serializable{
 				try {
 					return tryAgain(req);
 				} catch (InterruptedException e1) {
-					throw new TscpBaseException(e1);
+					throw new ScorpionBaseException(e1);
 				}
 			}else{
 				if(e != null&&e.getMessage() != null&&e.getMessage().indexOf("java.lang.ClassNotFoundException") >= 0)
-					PlatformLogger.error("TSCP-9458：Remote object can't find . ");
-				throw new TscpBaseException(e);
+					PlatformLogger.error("scorpion-9458：Remote object can't find . ");
+				throw new ScorpionBaseException(e);
 			}
 		}finally{
 			if(session != null&&session.getTmpData("CallNum")!=null)
@@ -207,11 +207,11 @@ public abstract class AbsMediationFactor implements Serializable{
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @throws InterruptedException
 	 */
-	protected abstract ITscpRespMedia tryAgain(ITscpReqMedia req) throws TscpBaseException, InterruptedException;
+	protected abstract IScorpionRespMedia tryAgain(IScorpionReqMedia req) throws ScorpionBaseException, InterruptedException;
 
 	
 	

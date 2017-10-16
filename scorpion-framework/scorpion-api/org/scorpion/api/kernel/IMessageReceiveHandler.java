@@ -1,11 +1,11 @@
 package org.scorpion.api.kernel;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -25,9 +25,9 @@ public interface IMessageReceiveHandler {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public ITscpRespMedia receveInternalMessage(ITscpReqMedia arguments)throws TscpBaseException;
+	public IScorpionRespMedia receveInternalMessage(IScorpionReqMedia arguments)throws ScorpionBaseException;
 	
 	
 	/**
@@ -37,9 +37,9 @@ public interface IMessageReceiveHandler {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public String receiveXml(String xml)throws TscpBaseException;
+	public String receiveXml(String xml)throws ScorpionBaseException;
 	
 	
 	/**
@@ -49,26 +49,26 @@ public interface IMessageReceiveHandler {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public Object receiveObj(Object obj)throws TscpBaseException;
+	public Object receiveObj(Object obj)throws ScorpionBaseException;
 
 	
 	/**
 	 * 
 	 * @param obj
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public Object receiveExtendObjMessage(Object obj) throws TscpBaseException;
+	public Object receiveExtendObjMessage(Object obj) throws ScorpionBaseException;
 	
 	
 	/**
 	 * @param xml
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public String receiveExtendStrMessage(String xml)throws TscpBaseException;
+	public String receiveExtendStrMessage(String xml)throws ScorpionBaseException;
 	
 
 }

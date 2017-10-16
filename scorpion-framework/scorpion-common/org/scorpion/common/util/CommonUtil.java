@@ -12,7 +12,7 @@ import java.io.OutputStream;
 import java.util.Hashtable;
 import javax.imageio.ImageIO;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -24,9 +24,9 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: system constant information </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -164,10 +164,10 @@ public class CommonUtil {
 	}
 	
 	
-	public static byte[] O2Byte(Object obj) throws TscpBaseException, IOException{
+	public static byte[] O2Byte(Object obj) throws ScorpionBaseException, IOException{
 		/*
 		if(obj instanceof Serializable)
-			throw new TscpBaseException("对象为实现序列化接口");*/
+			throw new ScorpionBaseException("对象为实现序列化接口");*/
 		
 		ObjectOutputStream oos = null; ByteArrayOutputStream bos = null;
 		try{
@@ -183,10 +183,10 @@ public class CommonUtil {
 	/**
 	 * @param obj
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @throws IOException
 	 */
-	public static String O2String(Object obj) throws TscpBaseException, IOException{
+	public static String O2String(Object obj) throws ScorpionBaseException, IOException{
 		return new BASE64Encoder().encode(O2Byte(obj));
 	}
 	

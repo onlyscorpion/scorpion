@@ -5,17 +5,17 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.scorpion.api.common.AbsTscpConfigFileHandler;
-import org.scorpion.api.common.AbsTscpXmlParser;
-import org.scorpion.api.common.ItscpXmlParser;
+import org.scorpion.api.common.AbsScorpionConfigFileHandler;
+import org.scorpion.api.common.AbsScorpionXmlParser;
+import org.scorpion.api.common.IScorpionXmlParser;
 import org.scorpion.api.configuration.DataSourceLis;
 import org.scorpion.api.configuration.SQLConfig;
 import org.scorpion.api.configuration.SystemEnumType;
 import org.scorpion.api.configuration.DataSourceLis.DataSourceInfo;
 import org.scorpion.api.configuration.SQLConfig.SQLProperty;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.log.PlatformLogger;
-import org.scorpion.api.persistence.ITscpPersistenceConfiguration;
+import org.scorpion.api.persistence.IScorpionPersistenceConfiguration;
 import org.scorpion.api.util.Constant;
 import org.scorpion.common.command.LoadSQLCommand;
 import org.scorpion.common.context.SystemContext;
@@ -23,9 +23,9 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -35,7 +35,7 @@ import org.xml.sax.SAXException;
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-public class PersistenceConfiguration implements ITscpPersistenceConfiguration{
+public class PersistenceConfiguration implements IScorpionPersistenceConfiguration{
 	
 
 	/**
@@ -43,18 +43,18 @@ public class PersistenceConfiguration implements ITscpPersistenceConfiguration{
 	 * 
 	 * @param configFile
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @Time 2015-06-03上午10:36
 	 */
-	public static void loadConfiguration(String configFile)throws TscpBaseException{
+	public static void loadConfiguration(String configFile)throws ScorpionBaseException{
 	
 		PersistenceConfiguration persistence = new PersistenceConfiguration();
 		
 		try {
 			persistence.loadDataSourceConfig(configFile,false);
 		} catch (FileNotFoundException e) {
-			throw new TscpBaseException("TSCP-6082:Datasource configuration file no found !",e);
+			throw new ScorpionBaseException("scorpion-6082:Datasource configuration file no found !",e);
 		}
 	
 		persistence.loadSQLConfig();
@@ -62,20 +62,20 @@ public class PersistenceConfiguration implements ITscpPersistenceConfiguration{
 	
 	
 	/**
-	 * @description LOCAL TSCP DEFAULT DATASOURCE CONFIG
+	 * @description LOCAL Scorpion DEFAULT DATASOURCE CONFIG
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @Time 2015-06-03上午10:36
 	 */
-	public static void loadConfigurationByTscpDefaultSetting()throws TscpBaseException{
+	public static void loadConfigurationByScorpionDefaultSetting()throws ScorpionBaseException{
 	
 		PersistenceConfiguration persistence = new PersistenceConfiguration();
 		
 		try {
 			persistence.loadDataSourceConfig(null,true);
 		} catch (FileNotFoundException e) {
-			throw new TscpBaseException("TSCP-6082:Datasource configuration file no found !",e);
+			throw new ScorpionBaseException("scorpion-6082:Datasource configuration file no found !",e);
 		}
 		
 		persistence.loadSQLConfig();
@@ -85,9 +85,9 @@ public class PersistenceConfiguration implements ITscpPersistenceConfiguration{
 	/**
 	 * @description reload sql configuration
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static void reloadSQLConfig() throws TscpBaseException{
+	public static void reloadSQLConfig() throws ScorpionBaseException{
 		
 		PersistenceConfiguration persistence = new PersistenceConfiguration();
 
@@ -108,19 +108,19 @@ public class PersistenceConfiguration implements ITscpPersistenceConfiguration{
 	
 
 	/**
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @throws FileNotFoundException 
 	 * 
 	 * @Time 2015-06-03上午10:36
 	 */
-	public void loadDataSourceConfig(String dataSourceConfigFile,boolean isLoadSystemDefaultConfig)throws TscpBaseException, FileNotFoundException {
+	public void loadDataSourceConfig(String dataSourceConfigFile,boolean isLoadSystemDefaultConfig)throws ScorpionBaseException, FileNotFoundException {
     	
 		PlatformLogger.info("Is beginning to initialize datasource configuration");
 		File configFile = initDataSourceConfigFile(dataSourceConfigFile,isLoadSystemDefaultConfig);
 		@SuppressWarnings("unchecked")
-		ItscpXmlParser<DataSourceLis> logParser = (AbsTscpXmlParser<DataSourceLis>) TscpParserFactory.getInstance().produceInstance(SystemEnumType.datasourceconfigparser.getValue());
-		logParser.parseXml2Object(logParser.getConfigFileInputStream(configFile), new AbsTscpConfigFileHandler<DataSourceLis, InputStream>() {
+		IScorpionXmlParser<DataSourceLis> logParser = (AbsScorpionXmlParser<DataSourceLis>) ScorpionParserFactory.getInstance().produceInstance(SystemEnumType.datasourceconfigparser.getValue());
+		logParser.parseXml2Object(logParser.getConfigFileInputStream(configFile), new AbsScorpionConfigFileHandler<DataSourceLis, InputStream>() {
 		
 			@Override
 			public void startElement(String uri, String localName,String qName, Attributes attributes) throws SAXException {
@@ -149,7 +149,7 @@ public class PersistenceConfiguration implements ITscpPersistenceConfiguration{
 			}
 			
 			@Override
-			public DataSourceLis processor(InputStream in)throws TscpBaseException {
+			public DataSourceLis processor(InputStream in)throws ScorpionBaseException {
 			
 				this.setParseDocumentStream(in);
 				return this.getEntity();
@@ -166,11 +166,11 @@ public class PersistenceConfiguration implements ITscpPersistenceConfiguration{
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @Time 2015-06-03上午10:36
 	 */
-	private File initDataSourceConfigFile(String dataSourceConfigFile,boolean isLoadSystemDefaultConfig) throws TscpBaseException{
+	private File initDataSourceConfigFile(String dataSourceConfigFile,boolean isLoadSystemDefaultConfig) throws ScorpionBaseException{
 		 
 		File configFile = null;
     	
@@ -180,7 +180,7 @@ public class PersistenceConfiguration implements ITscpPersistenceConfiguration{
 			configFile = new File(dataSourceConfigFile);
       
 		if(!configFile.exists())
-			throw new TscpBaseException("TSC-6008:The datasource configuration file ["+configFile.getPath()+"] not exist ！");
+			throw new ScorpionBaseException("TSC-6008:The datasource configuration file ["+configFile.getPath()+"] not exist ！");
       
 		return configFile;
 	}
@@ -190,16 +190,16 @@ public class PersistenceConfiguration implements ITscpPersistenceConfiguration{
     
 	/**
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @Time 2015-06-03上午10:36
 	 */
-	public void loadSQLConfig()throws TscpBaseException{
+	public void loadSQLConfig()throws ScorpionBaseException{
     
 		PlatformLogger.info("Is beginning to load SQL configuration file!");
 		@SuppressWarnings("unchecked")
-		ItscpXmlParser<SQLConfig> sqlParser = (AbsTscpXmlParser<SQLConfig>) TscpParserFactory.getInstance().produceInstance(SystemEnumType.sqlconfigfileparser.getValue());
-		sqlParser.parseXml2Object(checkSQLConfigFileVaild(SystemContext.getApplicationContext().getSystemConfigFile().getSqlConfigFiles()),new AbsTscpConfigFileHandler<SQLConfig, File>() {
+		IScorpionXmlParser<SQLConfig> sqlParser = (AbsScorpionXmlParser<SQLConfig>) ScorpionParserFactory.getInstance().produceInstance(SystemEnumType.sqlconfigfileparser.getValue());
+		sqlParser.parseXml2Object(checkSQLConfigFileVaild(SystemContext.getApplicationContext().getSystemConfigFile().getSqlConfigFiles()),new AbsScorpionConfigFileHandler<SQLConfig, File>() {
 			@Override
 			public void startElement(String uri, String localName,String qName, Attributes attributes) throws SAXException {
 		       
@@ -213,7 +213,7 @@ public class PersistenceConfiguration implements ITscpPersistenceConfiguration{
 			}
 		
 			@Override
-			public SQLConfig processor(File file)throws TscpBaseException {
+			public SQLConfig processor(File file)throws ScorpionBaseException {
 			
 				this.setParseDocumentFile(file);
 				return this.getEntity();
@@ -224,14 +224,14 @@ public class PersistenceConfiguration implements ITscpPersistenceConfiguration{
 	/**
 	 * @param configFiles
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	private List<File> checkSQLConfigFileVaild(List<File> configFiles) throws TscpBaseException{
+	private List<File> checkSQLConfigFileVaild(List<File> configFiles) throws ScorpionBaseException{
 		
 		for(File file:SystemContext.getApplicationContext().getSystemConfigFile().getSqlConfigFiles()){
 			
 			if(!file.exists())
-				throw new TscpBaseException("TSCP-9076:SQL configuration file ["+file.getName()+"]not exist ! ");
+				throw new ScorpionBaseException("scorpion-9076:SQL configuration file ["+file.getName()+"]not exist ! ");
 		
 			PlatformLogger.info("扫描到SQL配置文件["+file.getPath()+"]");
 		}
@@ -242,9 +242,9 @@ public class PersistenceConfiguration implements ITscpPersistenceConfiguration{
 
 	/**
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public PersistenceConfiguration() throws TscpBaseException {
+	public PersistenceConfiguration() throws ScorpionBaseException {
 		if(Constant.DEVELOP_MODEL.equals(SystemContext.getApplicationContext().getSystemCoreConfig().getRunModel()))
 			LoadSQLCommand.configuration = this;
 	}

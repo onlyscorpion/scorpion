@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * @author GuoMing
- * @Package com.tj.tscp.platform.web.event
+ * @Package com.tj.Scorpion.platform.web.event
  * @Title: IResData.java
  * @Description: ResponseEvent用户接口DTO <br>
  * @date 2015年6月3日 上午10:58:09

@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -16,7 +16,7 @@ import java.util.Date;
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-public abstract class AbsCacheConnection<T> implements ITscpConnection<T>,Serializable{
+public abstract class AbsCacheConnection<T> implements IScorpionConnection<T>,Serializable{
 	
 	private static final long serialVersionUID = 1439563620230193230L;
 
@@ -28,7 +28,7 @@ public abstract class AbsCacheConnection<T> implements ITscpConnection<T>,Serial
 	
 	private int refreshTime;
 	
-	protected ITscpConnectionPool<ITscpConnection<T>> pool;
+	protected IScorpionConnectionPool<IScorpionConnection<T>> pool;
 	
 	
 	/**
@@ -41,12 +41,12 @@ public abstract class AbsCacheConnection<T> implements ITscpConnection<T>,Serial
 		return url;
 	}
 
-	public ITscpConnection<T> setUrl(String url) {
+	public IScorpionConnection<T> setUrl(String url) {
 		this.url = url;
 		return this;
 	}
 	
-	public ITscpConnection<T> setConnInfo(String url,int port,ITscpConnectionPool<ITscpConnection<T>> pool){
+	public IScorpionConnection<T> setConnInfo(String url,int port,IScorpionConnectionPool<IScorpionConnection<T>> pool){
 		this.url = url;
 		this.port = port;
 		this.pool = pool;
@@ -73,7 +73,7 @@ public abstract class AbsCacheConnection<T> implements ITscpConnection<T>,Serial
 		return port;
 	}
 
-	public ITscpConnection<T> setPort(int port) {
+	public IScorpionConnection<T> setPort(int port) {
 		this.port = port;
 		return this;
 	}

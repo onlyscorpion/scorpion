@@ -1,6 +1,6 @@
 package org.scorpion.cipher.security;
 
-public interface ITscpAsymmetry extends ITscpAsymmetryKey, ITscpCipherKey,
-		ITscpSignature {
+public interface IScorpionAsymmetry extends IScorpionAsymmetryKey, IScorpionCipherKey,
+		IScorpionSignature {
 
 }

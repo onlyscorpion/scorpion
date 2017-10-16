@@ -1,16 +1,16 @@
 package org.scorpion.common.command;
 
 import org.scorpion.api.common.AbsCommandExecutor;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.log.PlatformLogger;
-import org.scorpion.api.persistence.ITscpPersistenceConfiguration;
+import org.scorpion.api.persistence.IScorpionPersistenceConfiguration;
 import org.scorpion.api.util.Constant;
 import org.scorpion.common.context.SystemContext;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -23,11 +23,11 @@ import org.scorpion.common.context.SystemContext;
 public class LoadSQLCommand extends AbsCommandExecutor{
 	
 	
-	public static ITscpPersistenceConfiguration configuration; 
+	public static IScorpionPersistenceConfiguration configuration; 
 
 	
 	@Override
-	protected boolean analyseCommand() throws TscpBaseException{
+	protected boolean analyseCommand() throws ScorpionBaseException{
 		
 		if(!Constant.RLS.equals(command))
 			return false;
@@ -38,7 +38,7 @@ public class LoadSQLCommand extends AbsCommandExecutor{
 	
 	
 	@Override
-	protected void processor() throws TscpBaseException {
+	protected void processor() throws ScorpionBaseException {
 		
 	    ((SystemContext)SystemContext.getApplicationContext()).getSqlconfig().clear();
 		

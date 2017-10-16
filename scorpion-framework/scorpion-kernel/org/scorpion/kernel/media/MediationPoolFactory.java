@@ -5,15 +5,15 @@ import java.util.Map;
 
 import org.scorpion.api.common.AbsMedaitionPool;
 import org.scorpion.api.common.AbsMediationFactor;
-import org.scorpion.api.common.AbsTscpFactory;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.common.AbsScorpionFactory;
+import org.scorpion.api.exception.ScorpionBaseException;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(TAIJI Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.taiji.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -35,7 +35,7 @@ import org.scorpion.api.exception.TscpBaseException;
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-public class MediationPoolFactory extends AbsTscpFactory<AbsMedaitionPool<AbsMediationFactor>> {
+public class MediationPoolFactory extends AbsScorpionFactory<AbsMedaitionPool<AbsMediationFactor>> {
 
 	private Map<String, AbsMedaitionPool<?>> poolmap = new HashMap<String, AbsMedaitionPool<?>>();
 
@@ -56,22 +56,22 @@ public class MediationPoolFactory extends AbsTscpFactory<AbsMedaitionPool<AbsMed
 	}
 
 	@Override
-	public AbsMedaitionPool<AbsMediationFactor> produceInstance(Object... arg)throws TscpBaseException {
+	public AbsMedaitionPool<AbsMediationFactor> produceInstance(Object... arg)throws ScorpionBaseException {
 
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <P> P produceInstance(Class<P> clazz) throws TscpBaseException {
+	public <P> P produceInstance(Class<P> clazz) throws ScorpionBaseException {
 
 		if(!poolmap.containsKey(clazz.getName()))
-			throw new TscpBaseException("TSCP-9423:Application route component don't start, so can't call service by dynamic ip address");
+			throw new ScorpionBaseException("scorpion-9423:Application route component don't start, so can't call service by dynamic ip address");
 
 		/*
-		 * if(TscpEJBSenderMediationPool.class.isAssignableFrom(clazz)){ return
+		 * if(ScorpionEJBSenderMediationPool.class.isAssignableFrom(clazz)){ return
 		 * (P) poolmap.get(clazz.getName()); }else
-		 * if(TscpRMSenderMediationPool.class.isAssignableFrom(clazz)){ return
+		 * if(ScorpionRMSenderMediationPool.class.isAssignableFrom(clazz)){ return
 		 * (P) poolmap.get(clazz.getName()); }
 		 */
 		
@@ -79,7 +79,7 @@ public class MediationPoolFactory extends AbsTscpFactory<AbsMedaitionPool<AbsMed
 	}
 
 	@Override
-	public AbsMedaitionPool<AbsMediationFactor> produceInstance()throws TscpBaseException {
+	public AbsMedaitionPool<AbsMediationFactor> produceInstance()throws ScorpionBaseException {
 
 		// return new EJBBaseMessageMediation();
 		return null;
@@ -90,7 +90,7 @@ public class MediationPoolFactory extends AbsTscpFactory<AbsMedaitionPool<AbsMed
 	 * 
 	 * @return
 	 */
-	public static AbsTscpFactory<AbsMedaitionPool<AbsMediationFactor>> getMessageMediation() {
+	public static AbsScorpionFactory<AbsMedaitionPool<AbsMediationFactor>> getMessageMediation() {
 
 		if (factory == null)
 			factory = new MediationPoolFactory();
@@ -98,6 +98,6 @@ public class MediationPoolFactory extends AbsTscpFactory<AbsMedaitionPool<AbsMed
 		return factory;
 	}
 
-	private static AbsTscpFactory<AbsMedaitionPool<AbsMediationFactor>> factory;
+	private static AbsScorpionFactory<AbsMedaitionPool<AbsMediationFactor>> factory;
 
 }

@@ -1,9 +1,9 @@
 package org.scorpion.cipher.security;
 
-public abstract class AbsTscpDigitalEnvelope implements ITscpCipherDigitalEnvelope, ITscpSignature, ITscpTimestamp{
+public abstract class AbsScorpionDigitalEnvelope implements IScorpionCipherDigitalEnvelope, IScorpionSignature, IScorpionTimestamp{
 	
-	public static AbsTscpDigitalEnvelope getInstance(){
-		return new TscpDigitalEnvelopeImpl();
+	public static AbsScorpionDigitalEnvelope getInstance(){
+		return new ScorpionDigitalEnvelopeImpl();
 	}
 	
 	public abstract void setAppId(String appId);

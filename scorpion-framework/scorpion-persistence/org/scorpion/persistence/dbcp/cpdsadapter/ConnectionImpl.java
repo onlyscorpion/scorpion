@@ -26,9 +26,9 @@ import org.scorpion.persistence.dbcp.DelegatingPreparedStatement;
 
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description:  * This class is the <code>Connection</code> that will be returned
  *   from <code>PooledConnectionImpl.getConnection()</code>.  

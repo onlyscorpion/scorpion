@@ -6,7 +6,7 @@ import org.apache.commons.pool.impl.GenericObjectPool;
 import org.apache.commons.pool.impl.GenericObjectPool.Config;
 import org.scorpion.common.mdb.client.util.Pool;
 
-public class JedisPool extends Pool<TscpRDClient> {
+public class JedisPool extends Pool<ScorpionRDClient> {
 
     public JedisPool(final Config poolConfig, final String host) {
         this(poolConfig, host, Protocol.DEFAULT_PORT, Protocol.DEFAULT_TIMEOUT, null, Protocol.DEFAULT_DATABASE);

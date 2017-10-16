@@ -8,15 +8,15 @@ import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.scorpion.api.common.ILogMessage;
 import org.scorpion.api.common.IMessageProducer;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.log.PlatformLogger;
 import org.scorpion.api.util.Constant;
 import org.scorpion.common.context.SystemContext;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -34,7 +34,7 @@ public class BrokerLogMessageProducer implements IMessageProducer{
 	 static boolean inited = false;
 	
 	@Override
-	public void init() throws TscpBaseException {
+	public void init() throws ScorpionBaseException {
 	  try{
 		  if(inited)
 			  return;
@@ -45,25 +45,25 @@ public class BrokerLogMessageProducer implements IMessageProducer{
 			  session = conn.createSession(false,Session.AUTO_ACKNOWLEDGE);
 		  }
 	  }catch(JMSException e){
-		  throw new TscpBaseException(e);
+		  throw new ScorpionBaseException(e);
 	  }
 	  
 	}
 
 	@Override
-	public void produce(Object logMessage) throws TscpBaseException {
+	public void produce(Object logMessage) throws ScorpionBaseException {
 		try{
 			MessageProducer consumer = session.createProducer(session.createQueue(SystemContext.getApplicationContext().getSystemCoreConfig().getLogframeworkInfo().getLogs().get(0).get(Constant.THEME)));
 			ObjectMessage message = session.createObjectMessage();
 			message.setObject((ILogMessage)logMessage);
 			consumer.send(message);
 		}catch(JMSException e){
-			throw new TscpBaseException(e);
+			throw new ScorpionBaseException(e);
 		}
 	}
 
 	@Override
-	public void destroy() throws TscpBaseException {
+	public void destroy() throws ScorpionBaseException {
 	
 		try {
 			if(session != null)

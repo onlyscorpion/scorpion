@@ -3,22 +3,22 @@ package org.scorpion.kernel.media.client;
 import java.net.URL;
 import org.codehaus.xfire.client.Client;
 import org.scorpion.api.common.AbsMediationFactor;
-import org.scorpion.api.common.ITscpProtocal.ProtocolType;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.ITscpReqMedia;
-import org.scorpion.api.kernel.ITscpRespMedia;
+import org.scorpion.api.common.IScorpionProtocal.ProtocolType;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.IScorpionReqMedia;
+import org.scorpion.api.kernel.IScorpionRespMedia;
 import org.scorpion.api.log.PlatformLogger;
 import org.scorpion.api.util.Constant;
 import org.scorpion.common.annotation.Sender;
 import org.scorpion.common.enums.SenderType;
-import org.scorpion.kernel.media.DefaultTscpRespMedia;
+import org.scorpion.kernel.media.DefaultScorpionRespMedia;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(TAIJI Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.taiji.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -50,17 +50,17 @@ public class WSBaseMessageMediation extends AbsMediationFactor {
 	private Client sender;
 	
 	@Override
-	public ITscpRespMedia messageSenderHandler(ITscpReqMedia req)throws TscpBaseException {
+	public IScorpionRespMedia messageSenderHandler(IScorpionReqMedia req)throws ScorpionBaseException {
 		
 		if(sender == null)
-			throw new TscpBaseException("TSCP-4213:The WEBSERVICE CLIENT don't initialize or initialization failure ! The WEBSERVICE ADDRESS IS ["+this.provideURL+"]");
+			throw new ScorpionBaseException("scorpion-4213:The WEBSERVICE CLIENT don't initialize or initialization failure ! The WEBSERVICE ADDRESS IS ["+this.provideURL+"]");
 		
 		try {
 			
 			//Object retnObj = sender.invoke(this.method, new Object[]{(String)req.getServiceArgument()[0]})[0];
 			Object retnObj = sender.invoke(this.method, req.getServiceArgument())[0];
 			
-			DefaultTscpRespMedia resp = new DefaultTscpRespMedia();
+			DefaultScorpionRespMedia resp = new DefaultScorpionRespMedia();
 			
 			resp.setStatus(Constant.SUCCESS);
 			
@@ -69,18 +69,18 @@ public class WSBaseMessageMediation extends AbsMediationFactor {
 			return resp;
 			
 		} catch (Throwable e) {
-			throw new TscpBaseException(e);
+			throw new ScorpionBaseException(e);
 		}
 	}
 
 	@Override
-	public void close() throws TscpBaseException {
+	public void close() throws ScorpionBaseException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void initialize() throws TscpBaseException {
+	public void initialize() throws ScorpionBaseException {
 		try {
 			this.sender = new Client(new URL(this.getProvideURL()));
 		}catch (Throwable e) {
@@ -89,7 +89,7 @@ public class WSBaseMessageMediation extends AbsMediationFactor {
 	}
 
 	@Override
-	protected ITscpRespMedia tryAgain(ITscpReqMedia req)throws TscpBaseException, InterruptedException {
+	protected IScorpionRespMedia tryAgain(IScorpionReqMedia req)throws ScorpionBaseException, InterruptedException {
 		// TODO Auto-generated method stub
 		return null;
 	}

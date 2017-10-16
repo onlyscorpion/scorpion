@@ -4,9 +4,9 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
-public abstract class AbsTscpAsymmetry extends TscpCipherKeyImpl implements ITscpAsymmetry{
+public abstract class AbsScorpionAsymmetry extends ScorpionCipherKeyImpl implements IScorpionAsymmetry{
 	
 	protected String signAlgorithm;
 	
@@ -15,14 +15,14 @@ public abstract class AbsTscpAsymmetry extends TscpCipherKeyImpl implements ITsc
 	protected PublicKey publickKey;
 
 	@Override
-	public byte[] sign(byte[] data) throws TscpBaseException {
+	public byte[] sign(byte[] data) throws ScorpionBaseException {
 		try{
 			Signature signature = Signature.getInstance(this.signAlgorithm);
 			signature.initSign(this.privateKey);
 			signature.update(data);
 			return signature.sign();
 		}catch(Exception e){
-			throw new TscpBaseException("TSCP-6030:sign exception!", e);
+			throw new ScorpionBaseException("scorpion-6030:sign exception!", e);
 		}
 	}
 	

@@ -1,11 +1,11 @@
 package org.scorpion.api.common;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -19,43 +19,43 @@ public interface IMediationPool<T> {
 	
 	/**
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public void init() throws TscpBaseException;
+	public void init() throws ScorpionBaseException;
 	
 	/**
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public void rebuild() throws TscpBaseException;
+	public void rebuild() throws ScorpionBaseException;
 	
 	/**
 	 * @param key
 	 * @param protocolType
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public void rebuildByProtocolId(String key,String protocolType) throws TscpBaseException;
+	public void rebuildByProtocolId(String key,String protocolType) throws ScorpionBaseException;
 	
 	/**
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public void increase() throws TscpBaseException;
+	public void increase() throws ScorpionBaseException;
 	
 	/**
 	 * @param key
 	 * 
 	 * @param protocolType
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public void increaseByProtocolInfo(String key,String protocolType) throws TscpBaseException;
+	public void increaseByProtocolInfo(String key,String protocolType) throws ScorpionBaseException;
 	
 	/**
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public void reduce() throws TscpBaseException;
+	public void reduce() throws ScorpionBaseException;
 	
 	
 	void clear();
@@ -64,9 +64,9 @@ public interface IMediationPool<T> {
 	
 	/**
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public AbsMediationFactor getMediation(String protocolId,AbsProtocol absProtocol) throws InterruptedException,TscpBaseException;
+	public AbsMediationFactor getMediation(String protocolId,AbsProtocol absProtocol) throws InterruptedException,ScorpionBaseException;
 	
 	
 	
@@ -77,9 +77,9 @@ public interface IMediationPool<T> {
 	 * 
 	 * @throws InterruptedException
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public AbsMediationFactor getMediation(String protocolId) throws InterruptedException,TscpBaseException;
+	public AbsMediationFactor getMediation(String protocolId) throws InterruptedException,ScorpionBaseException;
 	
 	
 	/**
@@ -90,15 +90,15 @@ public interface IMediationPool<T> {
 	 * 
 	 * @throws InterruptedException
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	//public AbsMediationFactor getInitMediation(String protocolId) throws InterruptedException,TscpBaseException;
+	//public AbsMediationFactor getInitMediation(String protocolId) throws InterruptedException,ScorpionBaseException;
 	
 	/**
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public void destroy() throws TscpBaseException;
+	public void destroy() throws ScorpionBaseException;
 	
 	
 

@@ -5,19 +5,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.scorpion.api.common.AbsProtocol;
-import org.scorpion.api.common.ITscpProtocal.ProtocolType;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.kernel.media.TscpEJBSenderMediationPool;
-import org.scorpion.kernel.media.TscpJMSSenderMediationPool;
-import org.scorpion.kernel.media.TscpRMSenderMediationPool;
-import org.scorpion.kernel.media.TscpWSSenderMediationPool;
+import org.scorpion.api.common.IScorpionProtocal.ProtocolType;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.kernel.media.ScorpionEJBSenderMediationPool;
+import org.scorpion.kernel.media.ScorpionJMSSenderMediationPool;
+import org.scorpion.kernel.media.ScorpionRMSenderMediationPool;
+import org.scorpion.kernel.media.ScorpionWSSenderMediationPool;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(TAIJI Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.taiji.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -147,22 +147,22 @@ public class ProtocolConf {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public Class<?> getProtocolByServiceName(String serviceName)throws TscpBaseException {
+	public Class<?> getProtocolByServiceName(String serviceName)throws ScorpionBaseException {
 
 		String protocolType = serviceConf.get(serviceName).getProtocolType();
 
 		if (ProtocolType.EJB.name().equals(protocolType)) {
-			return TscpEJBSenderMediationPool.class;
+			return ScorpionEJBSenderMediationPool.class;
 		} else if (ProtocolType.JMS.name().equals(protocolType)) {
-			return TscpJMSSenderMediationPool.class;
+			return ScorpionJMSSenderMediationPool.class;
 		} else if (ProtocolType.WEBSERVICE.name().equals(protocolType)) {
-			return TscpWSSenderMediationPool.class;
+			return ScorpionWSSenderMediationPool.class;
 		} else if (ProtocolType.TMI.name().equals(protocolType)) {
-			return TscpRMSenderMediationPool.class;
+			return ScorpionRMSenderMediationPool.class;
 		} else {
-			throw new TscpBaseException("TSCP-6798：Can't find the service ["+ serviceName + "]mapping protocol type !");
+			throw new ScorpionBaseException("scorpion-6798：Can't find the service ["+ serviceName + "]mapping protocol type !");
 		}
 
 	}

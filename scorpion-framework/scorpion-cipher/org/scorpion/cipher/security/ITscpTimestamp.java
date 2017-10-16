@@ -1,11 +1,11 @@
 package org.scorpion.cipher.security;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
-public interface ITscpTimestamp {
+public interface IScorpionTimestamp {
 	
-	public byte[] timestamp(byte []data) throws TscpBaseException;
+	public byte[] timestamp(byte []data) throws ScorpionBaseException;
 	
-	public boolean verifyTimestamp(byte[] data, byte[] timestamp) throws TscpBaseException;
+	public boolean verifyTimestamp(byte[] data, byte[] timestamp) throws ScorpionBaseException;
 
 }

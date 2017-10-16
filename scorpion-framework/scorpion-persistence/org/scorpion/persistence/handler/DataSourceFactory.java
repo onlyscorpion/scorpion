@@ -10,14 +10,14 @@ import org.scorpion.api.configuration.DataSourceLis;
 import org.scorpion.api.configuration.SystemEnumType;
 import org.scorpion.api.configuration.SystemResourcePool;
 import org.scorpion.api.configuration.DataSourceLis.DataSourceInfo;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.persistence.AbsTscpDataSourceAdapter;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.persistence.AbsScorpionDataSourceAdapter;
 import org.scorpion.api.util.Constant;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -37,7 +37,7 @@ public class DataSourceFactory {
 	/**
 	 * @parameter dataSourceAdapters key 值为 驱动的名称， adapter为用户实现datasourceAdapter
 	 */
-	private final Map<String,AbsTscpDataSourceAdapter> dataSourceAdapters = new HashMap<String,AbsTscpDataSourceAdapter>();
+	private final Map<String,AbsScorpionDataSourceAdapter> dataSourceAdapters = new HashMap<String,AbsScorpionDataSourceAdapter>();
 	
 	
 	/**
@@ -45,14 +45,14 @@ public class DataSourceFactory {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public final DataSource getDefaultDataSource() throws TscpBaseException{
+	public final DataSource getDefaultDataSource() throws ScorpionBaseException{
 	
 		DataSource dataSource = datasourceMap.get(DataSourceLis.DEFAULT_DATASOURCE);
 		
 		if(dataSource == null)
-			throw new TscpBaseException("TSCP-9086:Application default datasource don't initialize, please check datasource configuration !");
+			throw new ScorpionBaseException("scorpion-9086:Application default datasource don't initialize, please check datasource configuration !");
 		
 		return dataSource;
 	}
@@ -65,14 +65,14 @@ public class DataSourceFactory {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public final DataSource getDataSourceByName(String dataSourceName)throws TscpBaseException{
+	public final DataSource getDataSourceByName(String dataSourceName)throws ScorpionBaseException{
 	
 		DataSource dataSource = datasourceMap.get(dataSourceName);
 		
 		if(dataSource == null)
-			throw new TscpBaseException("TSCP-9875:Application don't find datasource ["+dataSourceName+"] !");
+			throw new ScorpionBaseException("scorpion-9875:Application don't find datasource ["+dataSourceName+"] !");
 	
 		return dataSource;
 	}
@@ -85,22 +85,22 @@ public class DataSourceFactory {
 	 * 
 	 * @param dataSourceAdapter
 	 */
-	public void registerDataSourceAdapter(String adapterName,AbsTscpDataSourceAdapter dataSourceAdapter) {
+	public void registerDataSourceAdapter(String adapterName,AbsScorpionDataSourceAdapter dataSourceAdapter) {
 		
 		dataSourceAdapters.put(adapterName, dataSourceAdapter);
 	}
 
 
-	private DataSourceFactory() throws TscpBaseException {
+	private DataSourceFactory() throws ScorpionBaseException {
 	}
 
 	
 	/**
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public synchronized static DataSourceFactory getInstance() throws TscpBaseException {
+	public synchronized static DataSourceFactory getInstance() throws ScorpionBaseException {
 		
 		if(dataSourceFactory == null)
 			dataSourceFactory = new DataSourceFactory();
@@ -109,7 +109,7 @@ public class DataSourceFactory {
 	}
 
 
-	public void initDataSource() throws TscpBaseException{
+	public void initDataSource() throws ScorpionBaseException{
 		
 		for(Entry<String,DataSourceInfo>entry:DataSourceLis.getAllDataSource().entrySet()){
 			String key = null;
@@ -119,7 +119,7 @@ public class DataSourceFactory {
 			else
 				key = entry.getKey();
 			
-			AbsTscpDataSourceAdapter dataSourceAdapter = null;
+			AbsScorpionDataSourceAdapter dataSourceAdapter = null;
 			
 			if(entry.getValue().isUseJndiDs())
 				 dataSourceAdapter = dataSourceAdapters.get(Constant.JNDI);
@@ -127,7 +127,7 @@ public class DataSourceFactory {
 				 dataSourceAdapter = dataSourceAdapters.get(entry.getValue().getDscp());
 
 			if(dataSourceAdapter == null)
-				throw new TscpBaseException("TSCP-9758:Don't implement connection pool type ["+entry.getValue().getDscp()+"] , please modify the attribute of datasource configuration file 'DSCPT' !");
+				throw new ScorpionBaseException("scorpion-9758:Don't implement connection pool type ["+entry.getValue().getDscp()+"] , please modify the attribute of datasource configuration file 'DSCPT' !");
 			
 			datasourceMap.put(key, dataSourceAdapter.getDataSource(entry.getValue()));
 		}

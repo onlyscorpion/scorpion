@@ -23,7 +23,7 @@ class JedisFactory extends BasePoolableObjectFactory {
     }
 
     public Object makeObject() throws Exception {
-        final TscpRDClient jedis = new TscpRDClient(this.host, this.port, this.timeout);
+        final ScorpionRDClient jedis = new ScorpionRDClient(this.host, this.port, this.timeout);
 
         jedis.connect();
         if (null != this.password) {
@@ -38,8 +38,8 @@ class JedisFactory extends BasePoolableObjectFactory {
     
     @Override
     public void activateObject(Object obj) throws Exception {
-		if (obj instanceof TscpRDClient) {
-            final TscpRDClient jedis = (TscpRDClient)obj;
+		if (obj instanceof ScorpionRDClient) {
+            final ScorpionRDClient jedis = (ScorpionRDClient)obj;
             if (jedis.getDB() != database) {
             	jedis.select(database);
             }
@@ -47,8 +47,8 @@ class JedisFactory extends BasePoolableObjectFactory {
     }
 
     public void destroyObject(final Object obj) throws Exception {
-        if (obj instanceof TscpRDClient) {
-            final TscpRDClient jedis = (TscpRDClient) obj;
+        if (obj instanceof ScorpionRDClient) {
+            final ScorpionRDClient jedis = (ScorpionRDClient) obj;
             if (jedis.isConnected()) {
                 try {
                     try {
@@ -64,8 +64,8 @@ class JedisFactory extends BasePoolableObjectFactory {
     }
 
     public boolean validateObject(final Object obj) {
-        if (obj instanceof TscpRDClient) {
-            final TscpRDClient jedis = (TscpRDClient) obj;
+        if (obj instanceof ScorpionRDClient) {
+            final ScorpionRDClient jedis = (ScorpionRDClient) obj;
             try {
                 return jedis.isConnected() && jedis.ping().equals("PONG");
             } catch (final Exception e) {

@@ -8,16 +8,16 @@ import org.scorpion.api.configuration.ComponentInformation;
 import org.scorpion.api.configuration.ExceptionInfo;
 import org.scorpion.api.configuration.SystemEnumType;
 import org.scorpion.api.configuration.SystemResourcePool;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.AbsTscpComponent;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.AbsScorpionComponent;
 import org.scorpion.common.context.SystemContext;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(TAIJI Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.taiji.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -44,7 +44,7 @@ public class SystemConfResourceContext {
 	/**
 	 * 异常组件管理器
 	 */
-	public static AbsTscpComponent exceptionComponentManager;
+	public static AbsScorpionComponent exceptionComponentManager;
 
 	/**
 	 * 组件信息
@@ -54,17 +54,17 @@ public class SystemConfResourceContext {
 	/**
 	 * 日志组件管理器
 	 */
-	public static AbsTscpComponent logComponentManager;
+	public static AbsScorpionComponent logComponentManager;
 
 	/**
 	 * 服务组件管理
 	 */
-	public static AbsTscpComponent serviceComponentManager;
+	public static AbsScorpionComponent serviceComponentManager;
 
 	/**
 	 * 
 	 */
-	public static Stack<AbsTscpComponent> outerComponentManager;
+	public static Stack<AbsScorpionComponent> outerComponentManager;
 
 	/**
 	 * 
@@ -72,9 +72,9 @@ public class SystemConfResourceContext {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static ComponentInformation getComponentInfoByName(String componentName) throws TscpBaseException {
+	public static ComponentInformation getComponentInfoByName(String componentName) throws ScorpionBaseException {
 
 		if (componentInfos != null && componentInfos.containsKey(componentName))
 			return componentInfos.get(componentName);
@@ -105,18 +105,18 @@ public class SystemConfResourceContext {
 	/**
 	 * @param componentName
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static void getComponentManagerByName(String componentName)throws TscpBaseException {
+	public static void getComponentManagerByName(String componentName)throws ScorpionBaseException {
 
 	}
 
 	/**
 	 * 刷新组件信息
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static void refreshComponentInfo() throws TscpBaseException {
+	public static void refreshComponentInfo() throws ScorpionBaseException {
 
 		componentInfos = SystemContext.getApplicationContext().getScanInfo().getComponents();
 	}
@@ -124,9 +124,9 @@ public class SystemConfResourceContext {
 	/**
 	 * 注销组件管理器
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public static void stopComponentManager() throws TscpBaseException {
+	public static void stopComponentManager() throws ScorpionBaseException {
 
 		for (int i = 0; i < outerComponentManager.size(); i++)
 			outerComponentManager.peek().destroy();

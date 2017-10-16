@@ -4,17 +4,17 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.Signature;
 
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.cipher.security.AbsTscpAsymmetry;
-import org.scorpion.cipher.security.configuration.TscpCipherInfo;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.cipher.security.AbsScorpionAsymmetry;
+import org.scorpion.cipher.security.configuration.ScorpionCipherInfo;
 
-public class TscpCipherAsymmetry extends AbsTscpAsymmetry{
+public class ScorpionCipherAsymmetry extends AbsScorpionAsymmetry{
 
-	public TscpCipherAsymmetry(TscpCipherInfo info) throws TscpBaseException {
+	public ScorpionCipherAsymmetry(ScorpionCipherInfo info) throws ScorpionBaseException {
 		initParam(info);
 	}
 	
-	private void initParam(TscpCipherInfo info) throws TscpBaseException {
+	private void initParam(ScorpionCipherInfo info) throws ScorpionBaseException {
 		try{
 			KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(info.getAlgorithm());
 			keyPairGen.initialize(info.getKeyLength());
@@ -23,12 +23,12 @@ public class TscpCipherAsymmetry extends AbsTscpAsymmetry{
 			this.publickKey = keyPair.getPublic();
 			this.signAlgorithm = info.getSignAlgorithm();
 		}catch(Exception e){
-			throw new TscpBaseException("TSCP-6052:生成密钥对失败!", e);
+			throw new ScorpionBaseException("scorpion-6052:生成密钥对失败!", e);
 		}
 	}
 	
 	@Override
-	public boolean verifySign(byte[] data, byte[] sign) throws TscpBaseException {
+	public boolean verifySign(byte[] data, byte[] sign) throws ScorpionBaseException {
 		try{
 			Signature signature = Signature.getInstance(this.signAlgorithm);
 			signature.initVerify(this.publickKey);
@@ -36,7 +36,7 @@ public class TscpCipherAsymmetry extends AbsTscpAsymmetry{
 			return signature.verify(sign);
 //			return true;
 		}catch(Exception e){
-			throw new TscpBaseException("TSCP-6031:sign verify exception!", e);
+			throw new ScorpionBaseException("scorpion-6031:sign verify exception!", e);
 		}
 	}
 }

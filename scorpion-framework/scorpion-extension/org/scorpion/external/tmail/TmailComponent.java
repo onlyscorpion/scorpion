@@ -4,13 +4,13 @@ import java.net.URI;
 import java.util.Map;
 import org.apache.activemq.broker.BrokerFactory;
 import org.apache.activemq.broker.BrokerService;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.AbsTscpComponent;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.AbsScorpionComponent;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -20,10 +20,10 @@ import org.scorpion.api.kernel.AbsTscpComponent;
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-public class TmailComponent extends AbsTscpComponent{
+public class TmailComponent extends AbsScorpionComponent{
 
 	@Override
-	public void start(Map<String, String> arguments) throws TscpBaseException {
+	public void start(Map<String, String> arguments) throws ScorpionBaseException {
 		initMailMessageQueue();
 		TMailMessageConsumer.getInstance();
 		TMailMessageConsumer.handlers.add(new TMailMessageHandler());
@@ -33,9 +33,9 @@ public class TmailComponent extends AbsTscpComponent{
 	
 	
 	/**
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	private void initMailMessageQueue() throws TscpBaseException{
+	private void initMailMessageQueue() throws ScorpionBaseException{
 		
 	    String BROKER_URL ="broker:vm://tmail?marshal=false&broker.persistent=false&broker.useJmx=false";
 		
@@ -46,7 +46,7 @@ public class TmailComponent extends AbsTscpComponent{
 			broker.setPersistent(false);
 			broker.start();
 		} catch (Throwable e) {
-			throw new TscpBaseException("TSCP-3459：start broker exception !",e);
+			throw new ScorpionBaseException("scorpion-3459：start broker exception !",e);
 		}
 	
 		

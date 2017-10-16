@@ -1,14 +1,14 @@
 package org.scorpion.persistence.util;
 
 
-import org.scorpion.api.persistence.TscpDataBaseType;
-import org.scorpion.api.persistence.TscpDataBaseType.KingbaseDataType;
-import org.scorpion.api.persistence.TscpDataBaseType.OracleDataType;
+import org.scorpion.api.persistence.ScorpionDataBaseType;
+import org.scorpion.api.persistence.ScorpionDataBaseType.KingbaseDataType;
+import org.scorpion.api.persistence.ScorpionDataBaseType.OracleDataType;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -28,9 +28,9 @@ public class DbDataTypeConvert {
 	 */
 	public static String convertDataType(String dataType,int dbType){
 		
-		if(TscpDataBaseType.oracle_db_type == dbType){
+		if(ScorpionDataBaseType.oracle_db_type == dbType){
 			return oracleTypeConvert(dataType);
-		}else if(TscpDataBaseType.kbe_db_type == dbType){
+		}else if(ScorpionDataBaseType.kbe_db_type == dbType){
 			return kingbaseConvertType(dataType);
 		}else
 			return null;

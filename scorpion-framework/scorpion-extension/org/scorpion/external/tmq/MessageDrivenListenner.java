@@ -14,16 +14,16 @@ import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.ActiveMQSession;
 import org.scorpion.api.common.AbsMessageListener;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.kernel.IMessageReceiveHandler;
-import org.scorpion.api.kernel.ITscpReqMedia;
-import org.scorpion.api.kernel.ITscpRespMedia;
+import org.scorpion.api.kernel.IScorpionReqMedia;
+import org.scorpion.api.kernel.IScorpionRespMedia;
 import org.scorpion.api.log.PlatformLogger;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -36,18 +36,18 @@ import org.scorpion.api.log.PlatformLogger;
 public class MessageDrivenListenner extends AbsMessageListener{
 
 	@Override
-	public void onMessage(Message message) throws TscpBaseException, JMSException {
+	public void onMessage(Message message) throws ScorpionBaseException, JMSException {
 		for(IMessageReceiveHandler handler:handlers){
 			if(message instanceof TextMessage){
 				textmessagehandler(handler,message);
 			}else if(message instanceof ObjectMessage){
-				if(((ObjectMessage) message).getObject() instanceof ITscpReqMedia){
+				if(((ObjectMessage) message).getObject() instanceof IScorpionReqMedia){
 					internalMessageHandler(handler,message);
 				}else{
 					objectmessageHandler(handler,message);
 				}
 			}else{
-				throw new TscpBaseException("TSCP-9874:Unknow message type !");
+				throw new ScorpionBaseException("scorpion-9874:Unknow message type !");
 			}
 		}
 	}
@@ -56,10 +56,10 @@ public class MessageDrivenListenner extends AbsMessageListener{
 	 * 
 	 * @param handler
 	 * @param message
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @throws JMSException
 	 */
-	public void textmessagehandler(IMessageReceiveHandler handler,Message message) throws TscpBaseException, JMSException{
+	public void textmessagehandler(IMessageReceiveHandler handler,Message message) throws ScorpionBaseException, JMSException{
 		if(!message.getBooleanProperty("SFTB"))
 			handler.receiveXml(((TextMessage) message).getText());
 		else{
@@ -72,14 +72,14 @@ public class MessageDrivenListenner extends AbsMessageListener{
 	/**
 	 * @param handler
 	 * @param message
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @throws JMSException
 	 */
-	public void internalMessageHandler(IMessageReceiveHandler handler,Message message) throws TscpBaseException, JMSException{
+	public void internalMessageHandler(IMessageReceiveHandler handler,Message message) throws ScorpionBaseException, JMSException{
 		if(!message.getBooleanProperty("SFTB"))
-			handler.receveInternalMessage((ITscpReqMedia)((ObjectMessage) message).getObject());
+			handler.receveInternalMessage((IScorpionReqMedia)((ObjectMessage) message).getObject());
 		else{
-			ITscpRespMedia result = handler.receveInternalMessage((ITscpReqMedia)((ObjectMessage) message).getObject());
+			IScorpionRespMedia result = handler.receveInternalMessage((IScorpionReqMedia)((ObjectMessage) message).getObject());
 			replyMessage(message,result);
 		}
 	}
@@ -88,10 +88,10 @@ public class MessageDrivenListenner extends AbsMessageListener{
 	/**
 	 * @param handler
 	 * @param message
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @throws JMSException
 	 */
-	public void objectmessageHandler(IMessageReceiveHandler handler,Message message) throws TscpBaseException, JMSException{
+	public void objectmessageHandler(IMessageReceiveHandler handler,Message message) throws ScorpionBaseException, JMSException{
 		if(!message.getBooleanProperty("SFTB"))
 			handler.receiveObj(((ObjectMessage) message).getObject());
 		else{

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.log.PlatformLogger;
 import org.scorpion.kernel.container.tool.BytecodeUtils.ClassWriterUtil;
 import org.scorpion.kernel.container.tool.commons.LocalVariablesSorter;
@@ -303,12 +303,12 @@ public abstract class BytecodeUtils extends ClassUtils implements Opcodes {
 	}
 
 	public static void packageTypeConvertPrimitiveType(final ClassWriterUtil cwu, final int var, final Class<?> clazz, boolean checkNull)
-			throws TscpBaseException {
+			throws ScorpionBaseException {
 		packageTypeConvertPrimitiveType(cwu, var, Type.getDescriptor(clazz), checkNull);
 	}
 
 	public static void packageTypeConvertPrimitiveType(final ClassWriterUtil cwu, final int var, final String innerType,
-			final boolean checkNull) throws TscpBaseException {
+			final boolean checkNull) throws ScorpionBaseException {
 		final LocalVariablesSorter lvs = cwu.lvs;
 		final Label l1 = new Label();
 		final Label l2 = new Label();
@@ -442,17 +442,17 @@ public abstract class BytecodeUtils extends ClassUtils implements Opcodes {
 				lvs.visitLabel(l2);
 			}
 		} else {
-			throw new TscpBaseException("不支持的对象类型转换:" + innerType);
+			throw new ScorpionBaseException("不支持的对象类型转换:" + innerType);
 		}
 	}
 
 	public static void primitiveTypeConvertPackageType(final ClassWriterUtil cwu, final Class<?> clazz, final int var)
-			throws TscpBaseException {
+			throws ScorpionBaseException {
 		primitiveTypeConvertPackageType(cwu, Type.getDescriptor(clazz), var);
 	}
 
 	public static void primitiveTypeConvertPackageType(final ClassWriterUtil cwu, final String innerType, final int var)
-			throws TscpBaseException {
+			throws ScorpionBaseException {
 		final LocalVariablesSorter lvs = cwu.lvs;
 		if ("C".equals(innerType)) {
 			lvs.visitMethodInsn(INVOKESTATIC, "java/lang/Character", "valueOf", "(C)Ljava/lang/Character;", false);
@@ -471,7 +471,7 @@ public abstract class BytecodeUtils extends ClassUtils implements Opcodes {
 		} else if ("Z".equals(innerType)) {
 			lvs.visitMethodInsn(INVOKESTATIC, "java/lang/Boolean", "valueOf", "(Z)Ljava/lang/Boolean;", false);
 		} else {
-			throw new TscpBaseException("不支持类型" + innerType);
+			throw new ScorpionBaseException("不支持类型" + innerType);
 		}
 		if (var > 0) {
 			lvs.visitVarInsn(ASTORE, var);

@@ -1,8 +1,8 @@
 package org.scorpion.cipher.security.configuration;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
  * <p>File: Constant.java create time:2015-8-25下午03:00:00</p> 
  * <p>Title: Constant class </p>
  * <p>Description: system constant information </p>
@@ -18,7 +18,7 @@ public class Constant {
 	/**
 	 * 配置文件名称
 	 */
-	public final static String CIPHER_CONFIG_FILE = "tscp-cipher.xml";
+	public final static String CIPHER_CONFIG_FILE = "scorpion-cipher.xml";
 	
 	public final static String ENCODING = "UTF-8";
 	

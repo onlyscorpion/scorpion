@@ -12,14 +12,14 @@ import org.scorpion.api.configuration.MessageSenderInfo;
 import org.scorpion.api.configuration.PojoEntityInfo;
 import org.scorpion.api.configuration.SystemConfigFile;
 import org.scorpion.api.configuration.SystemProfile;
-import org.scorpion.api.configuration.TscpCoreConfig;
-import org.scorpion.api.configuration.TscpSystemScanInfo;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.configuration.ScorpionCoreConfig;
+import org.scorpion.api.configuration.ScorpionSystemScanInfo;
+import org.scorpion.api.exception.ScorpionBaseException;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -34,9 +34,9 @@ public interface ApplicationContext {
 	/**
 	 * @Description Return current server node name ...
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public String getServerName() throws TscpBaseException;
+	public String getServerName() throws ScorpionBaseException;
 	
 	/**
 	 * @Descrtion Get application build path ...
@@ -45,9 +45,9 @@ public interface ApplicationContext {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public String[] getSystemBuildPath()throws TscpBaseException;
+	public String[] getSystemBuildPath()throws ScorpionBaseException;
 	
 	
 	/**
@@ -55,9 +55,9 @@ public interface ApplicationContext {
 	 * 
 	 * @param systemClassLoader
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public void setSystemClassLoader(ClassLoader systemClassLoader)throws TscpBaseException;
+	public void setSystemClassLoader(ClassLoader systemClassLoader)throws ScorpionBaseException;
 	
 	
 	/**
@@ -67,17 +67,17 @@ public interface ApplicationContext {
 	 * 
 	 * @param component
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
 	//@Deprecated
-	public void registerSystemComponent(String name,AbsTscpComponent component) throws TscpBaseException;
+	public void registerSystemComponent(String name,AbsScorpionComponent component) throws ScorpionBaseException;
 	
 	/**
 	 * @Description Get component manager information ...
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public Map<String,ComponentInformation> getCoreComponets() throws TscpBaseException;
+	public Map<String,ComponentInformation> getCoreComponets() throws ScorpionBaseException;
 	
 	
 	/**
@@ -87,9 +87,9 @@ public interface ApplicationContext {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public File getExceptionPropertiesFileByName(String name)throws TscpBaseException;
+	public File getExceptionPropertiesFileByName(String name)throws ScorpionBaseException;
 	
 	
 	/**
@@ -99,9 +99,9 @@ public interface ApplicationContext {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public File getSQLConfigFileByName(String name)throws TscpBaseException;
+	public File getSQLConfigFileByName(String name)throws ScorpionBaseException;
 	
 	
 	/**
@@ -109,9 +109,9 @@ public interface ApplicationContext {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public SystemConfigFile getSystemConfigFile() throws TscpBaseException;
+	public SystemConfigFile getSystemConfigFile() throws ScorpionBaseException;
 	
 	
 	
@@ -122,9 +122,9 @@ public interface ApplicationContext {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public ClassLoader getSystemClassLoader() throws TscpBaseException;
+	public ClassLoader getSystemClassLoader() throws ScorpionBaseException;
 	
 	
 	/**
@@ -132,9 +132,9 @@ public interface ApplicationContext {
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public SystemProfile getSystemProfile()throws TscpBaseException;
+	public SystemProfile getSystemProfile()throws ScorpionBaseException;
 	
 	/**
      * Creates a URL from the specified <code>protocol</code>
@@ -154,23 +154,23 @@ public interface ApplicationContext {
      * @see        java.net.URL#URL(java.lang.String, java.lang.String,
      *			int, java.lang.String)
      */
-	public TscpCoreConfig getSystemCoreConfig();
+	public ScorpionCoreConfig getSystemCoreConfig();
 	
 	/**
 	 * @description Application scanning information...
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public TscpSystemScanInfo getScanInfo()throws TscpBaseException;
+	public ScorpionSystemScanInfo getScanInfo()throws ScorpionBaseException;
 	
 	/**
 	 * @Description Return IOC manager ...
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-    public ITscpSystemIocManager getIocManager();
+    public IScorpionSystemIocManager getIocManager();
     
     /**
      * @return
@@ -181,7 +181,7 @@ public interface ApplicationContext {
 	 * 
 	 * @return
 	 */
-	public PojoEntityInfo getSystemPojoInformation()throws TscpBaseException;
+	public PojoEntityInfo getSystemPojoInformation()throws ScorpionBaseException;
 	
 	/**
 	 * 

@@ -1,17 +1,17 @@
 package org.scorpion.kernel.media.server;
 
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.ITscpBaseInternalReceiver;
-import org.scorpion.api.kernel.ITscpBaseMessageReceiver;
-import org.scorpion.api.kernel.ITscpReqMedia;
-import org.scorpion.api.kernel.ITscpRespMedia;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.IScorpionBaseInternalReceiver;
+import org.scorpion.api.kernel.IScorpionBaseMessageReceiver;
+import org.scorpion.api.kernel.IScorpionReqMedia;
+import org.scorpion.api.kernel.IScorpionRespMedia;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(TAIJI Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.taiji.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -33,24 +33,24 @@ import org.scorpion.api.kernel.ITscpRespMedia;
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-public class MQProtocolAdapter implements ITscpBaseMessageReceiver,ITscpBaseInternalReceiver {
+public class MQProtocolAdapter implements IScorpionBaseMessageReceiver,IScorpionBaseInternalReceiver {
 
 	private static final long serialVersionUID = 97025127696673667L;
 
 	@Override
-	public ITscpRespMedia internalInvoke(ITscpReqMedia req)throws TscpBaseException {
+	public IScorpionRespMedia internalInvoke(IScorpionReqMedia req)throws ScorpionBaseException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String recevieXml(String argument) throws TscpBaseException {
+	public String recevieXml(String argument) throws ScorpionBaseException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ITscpRespMedia receiveBean(ITscpReqMedia argument)throws TscpBaseException {
+	public IScorpionRespMedia receiveBean(IScorpionReqMedia argument)throws ScorpionBaseException {
 		// TODO Auto-generated method stub
 		return null;
 	}

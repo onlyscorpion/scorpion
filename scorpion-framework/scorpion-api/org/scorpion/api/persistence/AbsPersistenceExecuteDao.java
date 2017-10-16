@@ -14,14 +14,14 @@ import java.util.Map;
 
 import org.scorpion.api.configuration.DBParam;
 import org.scorpion.api.configuration.PojoEntityInfo.PoProperty;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.kernel.AbsTscpBasePo;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.kernel.AbsScorpionBasePo;
 import org.scorpion.api.log.PlatformLogger;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: all the class have life cycle characteristic will implement the interface. it concludes three methods</p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -31,7 +31,7 @@ import org.scorpion.api.log.PlatformLogger;
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
+public abstract class AbsPersistenceExecuteDao extends AbsScorpionPersistenceDao{
 	
 
 	
@@ -45,11 +45,11 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @throws SQLException
 	 */
-	protected boolean doInsertPo(AbsTscpBasePo po,PoProperty poproperty,String sql)throws TscpBaseException, SQLException{
+	protected boolean doInsertPo(AbsScorpionBasePo po,PoProperty poproperty,String sql)throws ScorpionBaseException, SQLException{
 		
 		
 		return this.doExecuteByParams(sql, this.getSQLParamByPo(po, poproperty));
@@ -69,15 +69,15 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @throws SQLException 
 	 */
-	protected int[] doInsertPos(Collection<? extends AbsTscpBasePo> pos,PoProperty poProperty,String sql)throws TscpBaseException, SQLException{
+	protected int[] doInsertPos(Collection<? extends AbsScorpionBasePo> pos,PoProperty poProperty,String sql)throws ScorpionBaseException, SQLException{
 	
 		List<DBParam> params = new ArrayList<DBParam>();
 	
-		for(AbsTscpBasePo po:pos)
+		for(AbsScorpionBasePo po:pos)
 			params.add(this.getSQLParamByPo(po, poProperty));
 		
 		return this.doExecuteBatchByParams(sql, params);
@@ -91,16 +91,16 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @throws SQLException 
 	 */
-	protected boolean doDeletePo(String sql,AbsTscpBasePo po)throws TscpBaseException, SQLException{
+	protected boolean doDeletePo(String sql,AbsScorpionBasePo po)throws ScorpionBaseException, SQLException{
 		
 		PoProperty poProperty = context.getSystemPojoInformation().getPojoByName(po.getClass().getName());
 		
 		if(poProperty == null)
-			throw new TscpBaseException("TSCP-System can't scan POJO ["+po.getClass()+"] information !");
+			throw new ScorpionBaseException("scorpion-System can't scan POJO ["+po.getClass()+"] information !");
 		
 		return this.doExecuteByParams(sql, getParameterByUserSettingPO(po,poProperty,true));
 		
@@ -115,7 +115,7 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @throws SQLException 
 	 * 
@@ -125,12 +125,12 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	 * 
 	 * @throws IllegalArgumentException 
 	 */
-	protected int[] doDeletePos(String sql,Collection<? extends AbsTscpBasePo> pos,PoProperty poProperty)throws TscpBaseException, 
+	protected int[] doDeletePos(String sql,Collection<? extends AbsScorpionBasePo> pos,PoProperty poProperty)throws ScorpionBaseException, 
 	                SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
 		
 		List<DBParam> params = new ArrayList<DBParam>();
 		
-		for(AbsTscpBasePo po:pos)
+		for(AbsScorpionBasePo po:pos)
 			params.add(getParameterByUserSettingPO(po,poProperty,true));
 		
 		return this.doExecuteBatchByParams(sql, params);
@@ -146,10 +146,10 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * @throws SQLException 
 	 */
-	protected int doExecuteSuper(String sql,DBParam param)throws TscpBaseException, SQLException{
+	protected int doExecuteSuper(String sql,DBParam param)throws ScorpionBaseException, SQLException{
 	
 		try{
 			PreparedStatement statement = this.getPreparedStatement(sql);
@@ -171,7 +171,7 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @throws InvocationTargetException 
 	 * 
@@ -179,7 +179,7 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	 * 
 	 * @throws IllegalArgumentException 
 	 */
-	protected List<DBParam> getPOPrimaryKeyValue(AbsTscpBasePo po,PoProperty poProperty)throws TscpBaseException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
+	protected List<DBParam> getPOPrimaryKeyValue(AbsScorpionBasePo po,PoProperty poProperty)throws ScorpionBaseException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
 		
 	    List<DBParam> dbparams = new ArrayList<DBParam>();
 		for(String key:poProperty.getPrimaryKey()){
@@ -195,9 +195,9 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	 * @param po
 	 * @param poProperty
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	protected DBParam getParameterByUserSettingPO(AbsTscpBasePo po,PoProperty poProperty,boolean isDeleteHandler)throws TscpBaseException{
+	protected DBParam getParameterByUserSettingPO(AbsScorpionBasePo po,PoProperty poProperty,boolean isDeleteHandler)throws ScorpionBaseException{
 		
 		DBParam param = new DBParam();
 		
@@ -209,7 +209,7 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 				for(String fieldName:po.getConditionField())
 					param.addParam(poProperty.getGetAttributeByName(fieldName).invoke(po));
 		} catch (Throwable e) {
-			throw new TscpBaseException("TSCP-9965:Delete data by POJO exception ，check whether PO["+po.getClass().getName()+"] is valid or not !");
+			throw new ScorpionBaseException("scorpion-9965:Delete data by POJO exception ，check whether PO["+po.getClass().getName()+"] is valid or not !");
 		}
 		
 		return param;
@@ -220,11 +220,11 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	/**
 	 * @param sqls
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @throws SQLException 
 	 */
-	protected void doExecuteBatchBySQL(List<String> sqls)throws TscpBaseException, SQLException{
+	protected void doExecuteBatchBySQL(List<String> sqls)throws ScorpionBaseException, SQLException{
 		
 		PlatformLogger.info("批量执行SQL数量["+(sqls==null?0:sqls.size())+"]");
 		
@@ -232,7 +232,7 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 			return;
 		
 		if(sqls != null&&sqls.size()>1000)
-			throw new TscpBaseException("TSCP-8906:提交的数据大于1000,请将数据切分多次提交!");
+			throw new ScorpionBaseException("scorpion-8906:提交的数据大于1000,请将数据切分多次提交!");
 		
 		try {
 			Statement statement = this.getStatement();
@@ -252,16 +252,16 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	 * 
 	 * @param params
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @throws SQLException 
 	 */
-	protected int[] doExecuteBatchByParams(String sql,Collection<DBParam>params)throws TscpBaseException, SQLException{
+	protected int[] doExecuteBatchByParams(String sql,Collection<DBParam>params)throws ScorpionBaseException, SQLException{
 		
 		PlatformLogger.info("执行SQL数量["+(params==null?0:params.size())+"]"+sql);
 		
 		if(params!=null&&params.size()>1000)
-			throw new TscpBaseException("TSCP-8906:提交的数据大于1000,请将数据切分多次提交!");
+			throw new ScorpionBaseException("scorpion-8906:提交的数据大于1000,请将数据切分多次提交!");
 		
 		try{
 			PreparedStatement statement = this.getPreparedStatement(sql);
@@ -283,9 +283,9 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	 * @param sql
 	 * @param param
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	protected List<Map<String,Object>> doProcedureHandler(String sql,DBParam param,DBParam.ProcedureType type)throws TscpBaseException{
+	protected List<Map<String,Object>> doProcedureHandler(String sql,DBParam param,DBParam.ProcedureType type)throws ScorpionBaseException{
 		
 		CallableStatement procedureStatement = this.getProcedureStatement(sql, param,type);
 		
@@ -304,12 +304,12 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 			}
 			return resultmap;
 		} catch (SQLException e) {
-			throw new TscpBaseException("TSCP-9086:结构处理失败",e);
+			throw new ScorpionBaseException("scorpion-9086:结构处理失败",e);
 		}finally{
 			try {
 				procedureStatement.close();
 			} catch (SQLException e) {
-				throw new TscpBaseException("TSCP-8976:Close STATEMENT exception !",e);
+				throw new ScorpionBaseException("scorpion-8976:Close STATEMENT exception !",e);
 			}
 		}
 	
@@ -317,7 +317,7 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	
 	
 	
-	public int doDeleteByKey(String key,DBParam param)throws TscpBaseException{
+	public int doDeleteByKey(String key,DBParam param)throws ScorpionBaseException{
 		return 0;
 	}
    
@@ -327,11 +327,11 @@ public abstract class AbsPersistenceExecuteDao extends AbsTscpPersistenceDao{
 	 * @param sql
 	 * @param params
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 * 
 	 * @throws SQLException 
 	 */
-	public boolean doExecuteByParams(String sql,DBParam param)throws TscpBaseException, SQLException{
+	public boolean doExecuteByParams(String sql,DBParam param)throws ScorpionBaseException, SQLException{
 		
 		try{
 			PreparedStatement statement = this.getPreparedStatement(sql);

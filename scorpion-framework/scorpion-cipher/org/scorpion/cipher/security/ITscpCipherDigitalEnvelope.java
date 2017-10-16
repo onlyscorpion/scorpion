@@ -1,11 +1,11 @@
 package org.scorpion.cipher.security;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
-public interface ITscpCipherDigitalEnvelope {
+public interface IScorpionCipherDigitalEnvelope {
 
-	public byte[] encrypt(byte[] data) throws TscpBaseException;
+	public byte[] encrypt(byte[] data) throws ScorpionBaseException;
 	
-	public byte[] decrypt(byte[] data) throws TscpBaseException;
+	public byte[] decrypt(byte[] data) throws ScorpionBaseException;
 	
 }

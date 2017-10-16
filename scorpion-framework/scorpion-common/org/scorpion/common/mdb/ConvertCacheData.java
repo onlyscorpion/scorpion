@@ -3,13 +3,13 @@ package org.scorpion.common.mdb;
 import java.util.List;
 import java.util.Map;
 
-import org.scorpion.api.common.ITscpKVCache;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.common.IScorpionKVCache;
+import org.scorpion.api.exception.ScorpionBaseException;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -44,10 +44,10 @@ public class ConvertCacheData {
 	 * @param sorceCode
 	 * @param targetCode
 	 * @param caption
-	 * @throws TscpBaseException 
+	 * @throws ScorpionBaseException 
 	 */
-	public static void convertCodeToCaption(ITscpKVCache kv,String[] keys,List<Map<String,Object>> map,List<Map<String,Object>>lis,
-			String sorceCode,String targetCode,String caption) throws TscpBaseException{
+	public static void convertCodeToCaption(IScorpionKVCache kv,String[] keys,List<Map<String,Object>> map,List<Map<String,Object>>lis,
+			String sorceCode,String targetCode,String caption) throws ScorpionBaseException{
 		
 		for(Map<String,Object> somap:map){
 			if(kv != null&&keys != null&&keys.length>0){

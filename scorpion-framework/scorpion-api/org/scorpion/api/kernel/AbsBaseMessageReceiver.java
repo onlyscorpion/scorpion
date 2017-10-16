@@ -4,13 +4,13 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Arrays;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.log.PlatformLogger;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -35,7 +35,7 @@ public abstract class AbsBaseMessageReceiver extends UnicastRemoteObject{
 		super();
 	}
 
-	public String recevieXml(String argument) throws TscpBaseException {
+	public String recevieXml(String argument) throws ScorpionBaseException {
 		
 		try{
 			receiveXmlMessage("");
@@ -50,32 +50,32 @@ public abstract class AbsBaseMessageReceiver extends UnicastRemoteObject{
 	 * 
 	 * @param req
 	 * @return
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public ITscpRespMedia internalInvoke(ITscpReqMedia req)throws TscpBaseException{
+	public IScorpionRespMedia internalInvoke(IScorpionReqMedia req)throws ScorpionBaseException{
 	
 		try{
 			return internalCall(req);
 		}catch(Throwable throwable){
-			throw (TscpBaseException)PlatformLogger.detailStack(throwable,context,req.getSessionId());
+			throw (ScorpionBaseException)PlatformLogger.detailStack(throwable,context,req.getSessionId());
 		}
 		
 	}
 	
 	/*
-	public DefaultTscpRespMedia getExceptionResp(Throwable throwable){
+	public DefaultScorpionRespMedia getExceptionResp(Throwable throwable){
 	
-		DefaultTscpRespMedia resp = new DefaultTscpRespMedia();
+		DefaultScorpionRespMedia resp = new DefaultScorpionRespMedia();
 	
-		DefaultTscpRespMedia.StackInfo.InternalStack internal = resp.getStackInfo().new InternalStack();
+		DefaultScorpionRespMedia.StackInfo.InternalStack internal = resp.getStackInfo().new InternalStack();
 
 		try {
 			resp.getStackInfo().addServerNode(context.getServerName());
 			internal.setNodeName(context.getServerName());
-		} catch (TscpBaseException e) {
+		} catch (ScorpionBaseException e) {
 			resp.getStackInfo().addServerNode("Unknown Node Name");
 			internal.setNodeName("Unknown Node Name");
-			PlatformLogger.error("TSCP-8049:Generate exception instance failure !",e);
+			PlatformLogger.error("scorpion-8049:Generate exception instance failure !",e);
 		}
 		internal.setThrowable(throwable);
 		resp.getStackInfo().getInternalStack().push(internal);
@@ -91,9 +91,9 @@ public abstract class AbsBaseMessageReceiver extends UnicastRemoteObject{
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public abstract ITscpRespMedia internalCall(ITscpReqMedia req)throws TscpBaseException;
+	public abstract IScorpionRespMedia internalCall(IScorpionReqMedia req)throws ScorpionBaseException;
 	
 	
 	/**
@@ -103,9 +103,9 @@ public abstract class AbsBaseMessageReceiver extends UnicastRemoteObject{
 	 * 
 	 * @return
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public abstract String receiveXmlMessage (String arguemnt) throws TscpBaseException;
+	public abstract String receiveXmlMessage (String arguemnt) throws ScorpionBaseException;
 	
 	protected void internalStackPackage(Throwable throwable){
 		

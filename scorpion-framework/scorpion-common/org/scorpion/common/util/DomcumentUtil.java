@@ -12,13 +12,13 @@ import java.util.List;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.scorpion.api.util.TscpSequenceUtil;
-import org.scorpion.common.datahandler.TscpDataHandler;
+import org.scorpion.api.util.ScorpionSequenceUtil;
+import org.scorpion.common.datahandler.ScorpionDataHandler;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -40,7 +40,7 @@ public class DomcumentUtil {
 	 */
 	public static String generateScanZipFile(List<ResourceInfo> resources,String tempDir) throws IOException{
 		
-		String zipName = TscpSequenceUtil.generateSequeueString();
+		String zipName = ScorpionSequenceUtil.generateSequeueString();
 		
 		File tempFile = new File(tempDir+File.separator+zipName);
 		if(!tempFile.exists())
@@ -70,8 +70,8 @@ public class DomcumentUtil {
 		}
 		String desZip = tempDir+File.separator+zipName+".zip";
 		createDescribetFile(resources,tempFile.getPath()+File.separator+"Main.xml");
-		TscpDataHandler.zipFile(tempFile.getPath(), desZip);
-		TscpDataHandler.deleteFileDirectory(tempFile.getPath());
+		ScorpionDataHandler.zipFile(tempFile.getPath(), desZip);
+		ScorpionDataHandler.deleteFileDirectory(tempFile.getPath());
 		return desZip;
 	}
 	

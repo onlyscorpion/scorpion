@@ -1,11 +1,11 @@
 package org.scorpion.api.common;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java createtime:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java createtime:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: this fatory class is the parent of all the other factory</p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -25,17 +25,17 @@ public interface IConcurrentProcessor {
 	 * 
 	 * @Time 2015-06-01
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public void processor(AbsTscpConcurrentTask task)throws TscpBaseException;
+	public void processor(AbsScorpionConcurrentTask task)throws ScorpionBaseException;
 	
 	
 	/**
 	 * @description 处理因子
 	 * 
-	 * @throws TscpBaseException
+	 * @throws ScorpionBaseException
 	 */
-	public void processor()throws TscpBaseException;
+	public void processor()throws ScorpionBaseException;
 	
 
 }

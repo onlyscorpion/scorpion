@@ -16,15 +16,15 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import org.scorpion.api.common.ICustomHandler;
-import org.scorpion.api.exception.TscpBaseException;
-import org.scorpion.api.util.TscpSequenceUtil;
+import org.scorpion.api.exception.ScorpionBaseException;
+import org.scorpion.api.util.ScorpionSequenceUtil;
 
 import com.sun.mail.util.MailSSLSocketFactory;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -38,13 +38,13 @@ public class TMailMessageHandler implements ICustomHandler{
 	
 
 	@Override
-	public void handler(Object obj) throws TscpBaseException {
+	public void handler(Object obj) throws ScorpionBaseException {
 		try {
 			Session session = initConf((TMailMessage)obj);
 			sendMailMessage(generateMessage((TMailMessage)obj,session),(TMailMessage)obj,session);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new TscpBaseException(e);
+			throw new ScorpionBaseException(e);
 		}
 	}
 	
@@ -98,7 +98,7 @@ public class TMailMessageHandler implements ICustomHandler{
         		MimeBodyPart image = new MimeBodyPart();
         		DataHandler dh = new DataHandler(new FileDataSource(pd));
         		image.setDataHandler(dh);
-        		String cid = TscpSequenceUtil.generateSequeueString()+"."+pd.split("\\.")[1];
+        		String cid = ScorpionSequenceUtil.generateSequeueString()+"."+pd.split("\\.")[1];
         		image.setContentID(cid);
         		sb.append("<img src='cid:"+cid+"'>");
         		mp.addBodyPart(image);

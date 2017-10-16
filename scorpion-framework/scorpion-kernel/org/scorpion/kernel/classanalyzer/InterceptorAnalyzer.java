@@ -1,18 +1,18 @@
 package org.scorpion.kernel.classanalyzer;
 
 import org.scorpion.api.configuration.AopPointcutInfo;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 import org.scorpion.api.kernel.IAnnotationAnalyzerListener;
 import org.scorpion.api.log.PlatformLogger;
 import org.scorpion.common.annotation.Interceptor;
 import org.scorpion.common.context.SystemContext;
 
 /**
- * 自主可控工程中心平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(TAIJI Security Controllable Platform)
  * <p>
- * com.taiji.tscp.common
+ * com.taiji.Scorpion.common
  * <p>
- * File: AbsTscpFactory.java create time:2015-5-8下午07:57:37
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
  * <p>
  * Title: abstract factory class
@@ -22,7 +22,7 @@ import org.scorpion.common.context.SystemContext;
  * extends the abstract
  * </p>
  * <p>
- * class ATscpComponet. the ATscpComponent exist life cycle. developer can
+ * class AScorpionComponet. the AScorpionComponent exist life cycle. developer can
  * override
  * </p>
  * <p>
@@ -50,7 +50,7 @@ public class InterceptorAnalyzer implements IAnnotationAnalyzerListener {
 
 	@Override
 	public void analyse(Class<?> clazz, String jarName)
-			throws TscpBaseException {
+			throws ScorpionBaseException {
 
 		Interceptor interceptor = clazz.getAnnotation(Interceptor.class);
 

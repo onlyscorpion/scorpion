@@ -8,12 +8,12 @@ import javax.sql.DataSource;
 import org.scorpion.api.configuration.DataSourceLis;
 import org.scorpion.api.configuration.SystemEnumType;
 import org.scorpion.api.configuration.SystemResourcePool;
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -32,12 +32,12 @@ public class ConnectionFactory {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static TscpConnection getDefaultConn() throws TscpBaseException{
+	public static ScorpionConnection getDefaultConn() throws ScorpionBaseException{
 	
 		try {
-			return new TscpConnection(datasourceMap.get(DataSourceLis.DEFAULT_DATASOURCE).getConnection(),((TscpDataSource)(datasourceMap.get(DataSourceLis.DEFAULT_DATASOURCE))).getDbType(),false,false);
+			return new ScorpionConnection(datasourceMap.get(DataSourceLis.DEFAULT_DATASOURCE).getConnection(),((ScorpionDataSource)(datasourceMap.get(DataSourceLis.DEFAULT_DATASOURCE))).getDbType(),false,false);
 		} catch (SQLException e) {
-			throw new TscpBaseException("TSCP-9075:获取默认数据库连接异常",e);
+			throw new ScorpionBaseException("scorpion-9075:获取默认数据库连接异常",e);
 		}
 	
 	}
@@ -47,12 +47,12 @@ public class ConnectionFactory {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static TscpConnection getConnByDataSourceName(String dataSourceName) throws TscpBaseException{
+	public static ScorpionConnection getConnByDataSourceName(String dataSourceName) throws ScorpionBaseException{
 	
 		try {
-			return new TscpConnection(datasourceMap.get(dataSourceName).getConnection(),((TscpDataSource)(datasourceMap.get(DataSourceLis.DEFAULT_DATASOURCE))).getDbType(),false,false);
+			return new ScorpionConnection(datasourceMap.get(dataSourceName).getConnection(),((ScorpionDataSource)(datasourceMap.get(DataSourceLis.DEFAULT_DATASOURCE))).getDbType(),false,false);
 		} catch (SQLException e) {
-			throw new TscpBaseException("TSCP-9065:获取数据库连接异常",e);
+			throw new ScorpionBaseException("scorpion-9065:获取数据库连接异常",e);
 		}
 	}
 

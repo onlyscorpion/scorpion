@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.scorpion.api.kernel.AbsTscpComponent;
+import org.scorpion.api.kernel.AbsScorpionComponent;
 
 /**
- *  自主可控工程中心平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.tscp.common
- * <p>File: AbsTscpFactory.java create time:2015-5-8下午07:57:37</p> 
+ *  天蝎平台架构(TAIJI Security Controllable Platform)
+ * <p>com.taiji.Scorpion.common
+ * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: all the class have life cycle characteristic will implement the interface. it concludes three methods</p>
  * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
@@ -29,7 +29,7 @@ public class ComponentInformation implements Serializable{
 	
 	private String jarName;
 	
-	private AbsTscpComponent component;
+	private AbsScorpionComponent component;
 	
 	private Map<String,String>arguments;
 	
@@ -70,11 +70,11 @@ public class ComponentInformation implements Serializable{
 		this.jarName = jarName;
 	}
 
-	public AbsTscpComponent getComponent() {
+	public AbsScorpionComponent getComponent() {
 		return component;
 	}
 
-	public void setComponent(AbsTscpComponent component) {
+	public void setComponent(AbsScorpionComponent component) {
 		this.component = component;
 	}
 

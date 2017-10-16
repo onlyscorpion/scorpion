@@ -1,19 +1,19 @@
 package org.scorpion.cipher.security.configuration;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
-public abstract class AbsTscpCipherConfiguration {
+public abstract class AbsScorpionCipherConfiguration {
 	
-	private final static TscpCipherConfigurationImpl tci = new TscpCipherConfigurationImpl();
+	private final static ScorpionCipherConfigurationImpl tci = new ScorpionCipherConfigurationImpl();
 	
-	public static AbsTscpCipherConfiguration getInstance(){
+	public static AbsScorpionCipherConfiguration getInstance(){
 		return tci;
 	}
 	
-	public abstract void loadCipherConfiguration()  throws TscpBaseException;
+	public abstract void loadCipherConfiguration()  throws ScorpionBaseException;
 	
-	public abstract void reloadCipherConfiguration()  throws TscpBaseException;
+	public abstract void reloadCipherConfiguration()  throws ScorpionBaseException;
 	
-	public abstract TscpCipherInfo getType(String name);
+	public abstract ScorpionCipherInfo getType(String name);
 
 }

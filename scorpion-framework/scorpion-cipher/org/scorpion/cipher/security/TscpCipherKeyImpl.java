@@ -4,31 +4,31 @@ import java.security.Key;
 
 import javax.crypto.Cipher;
 
-import org.scorpion.api.exception.TscpBaseException;
+import org.scorpion.api.exception.ScorpionBaseException;
 
-public class TscpCipherKeyImpl implements ITscpCipherKey{
+public class ScorpionCipherKeyImpl implements IScorpionCipherKey{
 
 	@Override
-	public byte[] encrypt(Key key, byte[] data) throws TscpBaseException {
+	public byte[] encrypt(Key key, byte[] data) throws ScorpionBaseException {
 		try{
 			Cipher cipher = Cipher.getInstance(key.getAlgorithm());
 			cipher.init(Cipher.ENCRYPT_MODE, key);
 			return cipher.doFinal(data);
 //			return data;
 		}catch(Exception e){
-			throw new TscpBaseException("TSCP-6020:encrypt exception!", e);
+			throw new ScorpionBaseException("scorpion-6020:encrypt exception!", e);
 		}
 	}
 
 	@Override
-	public byte[] decrypt(Key key, byte[] data) throws TscpBaseException {
+	public byte[] decrypt(Key key, byte[] data) throws ScorpionBaseException {
 		try{
 			Cipher cipher = Cipher.getInstance(key.getAlgorithm());
 			cipher.init(Cipher.DECRYPT_MODE, key);
 			return cipher.doFinal(data);
 //			return data;
 		}catch(Exception e){
-			throw new TscpBaseException("TSCP-6021:decrypt exception!", e);
+			throw new ScorpionBaseException("scorpion-6021:decrypt exception!", e);
 		}
 	}
 }

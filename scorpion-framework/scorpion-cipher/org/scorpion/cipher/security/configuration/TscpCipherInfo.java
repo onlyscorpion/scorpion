@@ -1,6 +1,6 @@
 package org.scorpion.cipher.security.configuration;
 
-public class TscpCipherInfo {
+public class ScorpionCipherInfo {
 	
 	private String name;
 	private String type;
