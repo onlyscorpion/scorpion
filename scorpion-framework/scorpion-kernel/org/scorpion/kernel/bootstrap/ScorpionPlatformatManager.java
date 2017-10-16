@@ -29,9 +29,9 @@ import org.scorpion.common.lifecycle.ScorpionLifecycleManager;
 import org.scorpion.kernel.tscpclassloader.ScorpionClassLoaderFactory;
 
 /**
- * 天蝎平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.Scorpion.common
+ * com.SCORPION.Scorpion.common
  * <p>
  * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
@@ -42,10 +42,10 @@ import org.scorpion.kernel.tscpclassloader.ScorpionClassLoaderFactory;
  * Description: the annotation is used to signal the method of component
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -316,7 +316,7 @@ public class ScorpionPlatformatManager implements Lifecycle {
 			throw new ScorpionBaseException("TSC-9005:The core configuration file can't be found , please check environment configuration！");
 
 		ApplicationContext context = SystemContext.getApplicationContext();
-		StringBuffer serverInfo = new StringBuffer("启动太极安全自主可控平台[TAIJI Security Controllable Platform](").append(new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").format(new Date())).append(")，服务器信息:\r\n\r\n");
+		StringBuffer serverInfo = new StringBuffer("启动太极安全自主可控平台[SCORPION Security Controllable Platform](").append(new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").format(new Date())).append(")，服务器信息:\r\n\r\n");
 		serverInfo.append("\t服务器-主配置文件: ").append(context.getSystemConfigFile().getCoreConfigFile().getPath()).append("\r\n");
 		serverInfo.append("\t服务器-服务实例名: ").append(context.getSystemCoreConfig().getServer()).append("\r\n");
 		serverInfo.append("\t服务器-服务结点名: ").append(context.getSystemCoreConfig().getNodeName()).append("\r\n");

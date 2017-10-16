@@ -9,9 +9,9 @@ import org.scorpion.common.session.ApplicationSession;
 import org.scorpion.common.util.ScorpionSystemSessionUtils;
 
 /**
- * 天蝎平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.Scorpion.common
+ * com.SCORPION.Scorpion.common
  * <p>
  * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
@@ -34,10 +34,10 @@ import org.scorpion.common.util.ScorpionSystemSessionUtils;
  * but we don't suggest the developer do that
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -48,7 +48,7 @@ import org.scorpion.common.util.ScorpionSystemSessionUtils;
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
 // @Interceptor( name =
-// "TransactionAfterInterceptor",serviceName=".+",classRegex="com.taiji.Scorpion.api.persistence",methodRegex=".+",aopMode=AopMode.DO_AFTER)
+// "TransactionAfterInterceptor",serviceName=".+",classRegex="com.SCORPION.Scorpion.api.persistence",methodRegex=".+",aopMode=AopMode.DO_AFTER)
 public class TransactionAfterInterceptor implements IScorpionAopAfterAdvice {
 
 	@Override

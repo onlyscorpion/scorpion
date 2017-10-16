@@ -176,7 +176,7 @@ public class ASMifier extends Printer {
             simpleName = name.substring(n + 1);
         }
         text.add("import java.util.*;\n");
-        text.add("import com.taiji.Scorpion.common.bytecode.*;\n");
+        text.add("import com.SCORPION.Scorpion.common.bytecode.*;\n");
         text.add("public class " + simpleName + "Dump implements Opcodes {\n\n");
         text.add("public static byte[] dump () throws Exception {\n\n");
         text.add("ClassWriter cw = new ClassWriter(0);\n");

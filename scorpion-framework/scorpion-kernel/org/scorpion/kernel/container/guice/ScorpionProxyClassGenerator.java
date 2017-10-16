@@ -6,22 +6,22 @@ import org.scorpion.kernel.container.tool.BytecodeUtils;
 
 public class ScorpionProxyClassGenerator extends BytecodeUtils{}
 /*
-import com.css.sword.kernel.platform.component.utils.com.taiji.Scorpion.common.bytecode.Type;
+import com.css.sword.kernel.platform.component.utils.com.SCORPION.Scorpion.common.bytecode.Type;
 import com.css.sword.kernel.utils.SwordLogUtils;
-import com.taiji.Scorpion.api.configuration.ScorpionSystemScanInfo.ServiceInfo;
-import com.taiji.Scorpion.api.log.PlatformLogger;
-import com.taiji.Scorpion.kernel.container.tool.BytecodeUtils;
-import com.taiji.Scorpion.kernel.container.tool.BytecodeUtils.ClassWriterUtil;
-import com.taiji.Scorpion.kernel.container.tool.Label;
-import com.taiji.Scorpion.kernel.container.tool.Opcodes;
-import com.taiji.Scorpion.kernel.container.tool.commons.LocalVariablesSorter;
+import com.SCORPION.Scorpion.api.configuration.ScorpionSystemScanInfo.ServiceInfo;
+import com.SCORPION.Scorpion.api.log.PlatformLogger;
+import com.SCORPION.Scorpion.kernel.container.tool.BytecodeUtils;
+import com.SCORPION.Scorpion.kernel.container.tool.BytecodeUtils.ClassWriterUtil;
+import com.SCORPION.Scorpion.kernel.container.tool.Label;
+import com.SCORPION.Scorpion.kernel.container.tool.Opcodes;
+import com.SCORPION.Scorpion.kernel.container.tool.commons.LocalVariablesSorter;
 
 
 public class ScorpionProxyClassGenerator extends BytecodeUtils{
 	
 	
 	
-	    private static String SERVICE_PROXY_SUPER_CLASS = "com.taiji.Scorpion.api.kernel.AbsScorpionProxyService";
+	    private static String SERVICE_PROXY_SUPER_CLASS = "com.SCORPION.Scorpion.api.kernel.AbsScorpionProxyService";
 		private static final int THIS = 0;
 		private static final int PARAM_SERVICE_NAME = THIS + 1;
 		private static final int PARAM_METHOD_INDEX = PARAM_SERVICE_NAME + 1;
@@ -62,7 +62,7 @@ public class ScorpionProxyClassGenerator extends BytecodeUtils{
 			// public Object callService(String serviceName, int methodIndex, Object[] args,
 			// SwordServiceContainer container,Class<?> serviceClass) throws Exception {
 
-			final LocalVariablesSorter lvsivks = methodBegin(cwu, "invokeService", "()Ljava/lang/Object;", new String[] {"com/taiji/Scorpion/api/"
+			final LocalVariablesSorter lvsivks = methodBegin(cwu, "invokeService", "()Ljava/lang/Object;", new String[] {"com/SCORPION/Scorpion/api/"
 					+ "exception/ScorpionBaseException" });
 			lvsivks.visitVarInsn(Opcodes.ALOAD,Opcodes.ACONST_NULL);
 			lvsivks.visitInsn(Opcodes.ARETURN);

@@ -60,10 +60,10 @@ public class SignatureReader {
      * constructor (see {@link #SignatureReader(String) SignatureReader}). This
      * method is intended to be called on a {@link SignatureReader} that was
      * created using a <i>ClassSignature</i> (such as the <code>signature</code>
-     * parameter of the {@link com.taiji.Scorpion.common.bytecode.ClassVisitor#visit
+     * parameter of the {@link com.SCORPION.Scorpion.common.bytecode.ClassVisitor#visit
      * ClassVisitor.visit} method) or a <i>MethodTypeSignature</i> (such as the
      * <code>signature</code> parameter of the
-     * {@link com.taiji.Scorpion.common.bytecode.ClassVisitor#visitMethod
+     * {@link com.SCORPION.Scorpion.common.bytecode.ClassVisitor#visitMethod
      * ClassVisitor.visitMethod} method).
      * 
      * @param v
@@ -119,8 +119,8 @@ public class SignatureReader {
      * method is intended to be called on a {@link SignatureReader} that was
      * created using a <i>FieldTypeSignature</i>, such as the
      * <code>signature</code> parameter of the
-     * {@link com.taiji.Scorpion.common.bytecode.ClassVisitor#visitField ClassVisitor.visitField}
-     * or {@link com.taiji.Scorpion.common.bytecode.MethodVisitor#visitLocalVariable
+     * {@link com.SCORPION.Scorpion.common.bytecode.ClassVisitor#visitField ClassVisitor.visitField}
+     * or {@link com.SCORPION.Scorpion.common.bytecode.MethodVisitor#visitLocalVariable
      * MethodVisitor.visitLocalVariable} methods.
      * 
      * @param v

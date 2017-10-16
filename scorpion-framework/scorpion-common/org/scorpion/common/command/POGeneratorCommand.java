@@ -9,13 +9,13 @@ import org.scorpion.api.util.Constant;
 import org.scorpion.common.context.SystemContext;
 
 /**
- *  天蝎平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.Scorpion.common
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
  * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -41,9 +41,9 @@ public class POGeneratorCommand extends AbsCommandExecutor{
 		PlatformLogger.info("starting po generator ......");
 		try {
 			System.setProperty("user.web.env", this.getClass().getResource("/").getPath());
-			Object obj = ((SystemContext)SystemContext.getApplicationContext()).getSystemClassLoader().loadClass("com.taiji.Scorpion.persistence.meta.PoGenerator").newInstance();
+			Object obj = ((SystemContext)SystemContext.getApplicationContext()).getSystemClassLoader().loadClass("com.SCORPION.Scorpion.persistence.meta.PoGenerator").newInstance();
 			try {
-				((SystemContext)SystemContext.getApplicationContext()).getSystemClassLoader().loadClass("com.taiji.Scorpion.persistence.meta.PoGenerator").getMethod("generatorPo").invoke(obj);
+				((SystemContext)SystemContext.getApplicationContext()).getSystemClassLoader().loadClass("com.SCORPION.Scorpion.persistence.meta.PoGenerator").getMethod("generatorPo").invoke(obj);
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (SecurityException e) {

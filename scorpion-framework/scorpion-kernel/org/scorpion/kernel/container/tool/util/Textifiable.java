@@ -34,7 +34,7 @@ import java.util.Map;
 import org.scorpion.kernel.container.tool.Label;
 
 /**
- * An {@link com.taiji.Scorpion.common.bytecode.Attribute Attribute} that can print a readable
+ * An {@link com.SCORPION.Scorpion.common.bytecode.Attribute Attribute} that can print a readable
  * representation of itself.
  * 
  * Implementations should construct readable output from an attribute data

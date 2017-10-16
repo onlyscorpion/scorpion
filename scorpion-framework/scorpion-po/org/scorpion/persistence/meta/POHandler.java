@@ -21,13 +21,13 @@ import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 
 /**
- *  天蝎平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.Scorpion.common
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
  * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description: the annotation is used to signal the method of component </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
@@ -69,8 +69,8 @@ public class POHandler {
  			
  	 		classInfo.setClassname(newClassName);
  	 		//classInfo.setImports(new String[]{"java.lang.*"});
- 	 		///xtgl.com.taiji.Scorpion.po
- 	 		//com.taiji.Scorpion.esb.manager.po
+ 	 		///xtgl.com.SCORPION.Scorpion.po
+ 	 		//com.SCORPION.Scorpion.esb.manager.po
  	 		classInfo.setPackagename(packagePath);
  	 		PhysicalModel model = new PhysicalModel();
  	 		model.setTableName(entry.getKey());
@@ -126,7 +126,7 @@ public class POHandler {
  		
  		//Connection conn = DriverManager.getConnection("jdbc:kingbase://192.168.1.100:54321/TEST11111", "zhuchao123", "123");
  		hfm.process("jdbc:mysql://localhost:3306/Scorpion?user=root&password=admin",
- 				"root","admin",ScorpionDataBaseType.mysql_db_type,"com.taiji.Scorpion.lxjjw.po","E:/pos");
+ 				"root","admin",ScorpionDataBaseType.mysql_db_type,"com.SCORPION.Scorpion.lxjjw.po","E:/pos");
 
  		/*for(Entry<Object,Object>entry:map.entrySet()){
  			hfm.process(((String)entry.getValue()).split("#")[0],((String)entry.getValue()).split("#")[1],((String)entry.getValue()).split("#")[2]);

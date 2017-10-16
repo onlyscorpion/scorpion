@@ -1,13 +1,13 @@
 package org.scorpion.cipher.security.configuration;
 
 /**
- *  天蝎平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.Scorpion.common
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
  * <p>File: Constant.java create time:2015-8-25下午03:00:00</p> 
  * <p>Title: Constant class </p>
  * <p>Description: system constant information </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: Constant</p>
  * @author  于洪斌
  * @version 1.0

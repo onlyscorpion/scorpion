@@ -17,9 +17,9 @@ import org.scorpion.api.kernel.IScorpionRespMedia;
 import org.scorpion.api.log.PlatformLogger;
 
 /**
- * 天蝎平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.Scorpion.common
+ * com.SCORPION.Scorpion.common
  * <p>
  * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
@@ -30,10 +30,10 @@ import org.scorpion.api.log.PlatformLogger;
  * Description: the annotation is used to signal the method of component
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -43,7 +43,7 @@ import org.scorpion.api.log.PlatformLogger;
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-@MessageDriven(mappedName = "com.taiji.Scorpion.kernel.media.server.JMSProtocolAdapter", activationConfig = {
+@MessageDriven(mappedName = "com.SCORPION.Scorpion.kernel.media.server.JMSProtocolAdapter", activationConfig = {
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue") })
 @TransactionManagement(TransactionManagementType.CONTAINER)

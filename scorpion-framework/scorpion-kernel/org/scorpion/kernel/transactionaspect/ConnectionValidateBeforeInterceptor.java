@@ -9,9 +9,9 @@ import org.scorpion.common.annotation.Interceptor;
 import org.scorpion.common.session.ApplicationSession;
 
 /**
- * 天蝎平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.Scorpion.common
+ * com.SCORPION.Scorpion.common
  * <p>
  * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
@@ -22,10 +22,10 @@ import org.scorpion.common.session.ApplicationSession;
  * Description: the annotation is used to signal the method of component
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class
@@ -35,7 +35,7 @@ import org.scorpion.common.session.ApplicationSession;
  * @version 1.0
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-@Interceptor(name = "ConnectionValidateBeforeInterceptor", classRegex = "com.taiji.Scorpion.persistence.handler.ScorpionPersistenceDAO", methodRegex = "(^(query)(.*))")
+@Interceptor(name = "ConnectionValidateBeforeInterceptor", classRegex = "com.SCORPION.Scorpion.persistence.handler.ScorpionPersistenceDAO", methodRegex = "(^(query)(.*))")
 public class ConnectionValidateBeforeInterceptor implements IScorpionAopBeforeAdvice {
 
 	@Override

@@ -12,9 +12,9 @@ import org.scorpion.kernel.route.ProtocolConf.TMIConf;
 import org.scorpion.kernel.route.ProtocolConf.WSProtocolConf;
 
 /**
- * 天蝎平台架构(TAIJI Security Controllable Platform)
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
  * <p>
- * com.taiji.Scorpion.common
+ * com.SCORPION.Scorpion.common
  * <p>
  * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
  * </p>
@@ -25,10 +25,10 @@ import org.scorpion.kernel.route.ProtocolConf.WSProtocolConf;
  * Description: the annotation is used to signal the method of component
  * </p>
  * <p>
- * Copyright: Copyright (c) 2015 taiji.com.cn
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
  * </p>
  * <p>
- * Company: taiji.com.cn
+ * Company: SCORPION.COM.CN
  * </p>
  * <p>
  * module: common abstract class

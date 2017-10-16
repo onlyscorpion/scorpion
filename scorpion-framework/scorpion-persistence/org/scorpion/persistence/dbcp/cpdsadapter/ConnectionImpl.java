@@ -26,8 +26,8 @@ import org.scorpion.persistence.dbcp.DelegatingPreparedStatement;
 
 
 /**
- *  天蝎平台架构(TAIJI Security Controllable Platform)
- * <p>com.taiji.Scorpion.common
+ *  天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>com.SCORPION.Scorpion.common
  * <p>File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37</p> 
  * <p>Title: abstract factory class </p>
  * <p>Description:  * This class is the <code>Connection</code> that will be returned
@@ -38,8 +38,8 @@ import org.scorpion.persistence.dbcp.DelegatingPreparedStatement;
  *   be used after closed() is called.  Any further usage will result in an
  *   SQLException. * <p>the initialization method or service method or destroy method to handle themselves business</p>
  * <p>but we don't suggest the developer do that </p>
- * <p>Copyright: Copyright (c) 2015 taiji.com.cn</p>
- * <p>Company: taiji.com.cn</p>
+ * <p>Copyright: Copyright (c) 2015 SCORPION.COM.CN</p>
+ * <p>Company: SCORPION.COM.CN</p>
  * <p>module: common abstract class</p>
  * @author  郑承磊
  * @version 1.0
