@@ -1,0 +1,70 @@
+package com.scorpion.huakerongtong.kernel.transactionaspect;
+
+import java.util.Map.Entry;
+
+import com.scorpion.huakerongtong.api.exception.ScorpionBaseException;
+import com.scorpion.huakerongtong.api.kernel.IScorpionAopAfterAdvice;
+import com.scorpion.huakerongtong.api.persistence.IScorpionPersistenceSession;
+import com.scorpion.huakerongtong.common.session.ApplicationSession;
+import com.scorpion.huakerongtong.common.util.ScorpionSystemSessionUtils;
+
+/**
+ * 天蝎平台架构(SCORPION Security Controllable Platform)
+ * <p>
+ * com.SCORPION.Scorpion.common
+ * <p>
+ * File: AbsScorpionFactory.java create time:2015-5-8下午07:57:37
+ * </p>
+ * <p>
+ * Title: abstract factory class
+ * </p>
+ * <p>
+ * Description: if developer want to create a component. the developer must
+ * extends the abstract
+ * </p>
+ * <p>
+ * class AScorpionComponet. the AScorpionComponent exist life cycle. developer can
+ * override
+ * </p>
+ * <p>
+ * the initialization method or service method or destroy method to handle
+ * themselves business
+ * </p>
+ * <p>
+ * but we don't suggest the developer do that
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2015 SCORPION.COM.CN
+ * </p>
+ * <p>
+ * Company: SCORPION.COM.CN
+ * </p>
+ * <p>
+ * module: common abstract class
+ * </p>
+ * 
+ * @author 郑承磊
+ * @version 1.0
+ * @history 修订历史（历次修订内容、修订人、修订时间等）
+ */
+// @Interceptor( name =
+// "TransactionAfterInterceptor",serviceName=".+",classRegex="com.SCORPION.Scorpion.api.persistence",methodRegex=".+",aopMode=AopMode.DO_AFTER)
+public class TransactionAfterInterceptor implements IScorpionAopAfterAdvice {
+
+	@Override
+	public void doAfterAdvice() throws ScorpionBaseException {
+
+		if (((ApplicationSession) ScorpionSystemSessionUtils.getSession()).getServiceCalledLevel().decrementAndGet() == 0) {
+			IScorpionPersistenceSession defualtPersistence = ((ApplicationSession) ScorpionSystemSessionUtils.getSession()).getDefaultPersistenceSession();
+
+			if (!defualtPersistence.isCommitTransaction()|| defualtPersistence.getConnection() != null)
+				defualtPersistence.getPersistenceServcie().commit();
+
+			for (Entry<String, IScorpionPersistenceSession> entry : ((ApplicationSession) ScorpionSystemSessionUtils.getSession()).getOtherPersistenceSession().entrySet()) {
+				if (!entry.getValue().isCommitTransaction()|| entry.getValue().getConnection() != null)
+					entry.getValue().commit();
+			}
+		}
+	}
+
+}
